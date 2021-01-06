@@ -300,7 +300,7 @@ color: #72bfd7;
 
 .user-post-info .detail {
 font-size: 14px;
-margin-bottom:5px;
+margin-bottom:2px;
 
 }
 .detail a{
@@ -324,6 +324,7 @@ line-height: 18px;
   }
 .entry-user-name a,.favourites a {
 color: #73c0d7;
+font-weight: bold;
 }
 .right-border{
   margin: 0 5px;
