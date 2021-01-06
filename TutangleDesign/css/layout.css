@@ -44,7 +44,7 @@
   color: #fff;
   padding: 5px 9px;
   margin: 5px 0;
-  font-size: 8px;
+  font-size: 12px;
   line-height: 20px;
 
 }
@@ -57,7 +57,7 @@
   width: 248px;
   height: 20px;
   color: #9ba8ae;
-  font-size: 8px;
+  font-size: 12px;
   line-height: 20px;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .user-name{
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
 }
 .user-navigation-options ul {
@@ -100,7 +100,7 @@
 
 }
 .user-navigation-options ul li a {
-  font-size: 8px;
+  font-size: 14px;
   color: #000;
   font-weight: bold;
 }
@@ -114,7 +114,7 @@
 
 .bottom-header-navbar ul li,
 .bottom-header-notifications ul li {
-  font-size: 10px;
+  font-size: 14px;
   float: left;
   line-height: 40px;
 }
@@ -136,7 +136,7 @@
 }
 .bottom-header-notifications ul li {
   margin: 0 10px;
-  font-size: 14px;
+  font-size: 15px;
 }
 .bottom-header-notifications ul li:first-child.active {
   background: url("../images/icons/invite-icon.png") no-repeat 0;
@@ -147,10 +147,11 @@
 .bottom-header-notifications ul li a {
   color: #adadad;
   display: block;
-  padding-left: 25px;
-  font-size: 8px;
+  padding-left: 22px;
+  font-size: 14px;
 }
 .bottom-header-notifications ul li.active a {
+  margin-left: -8px;
   font-weight: bold;
   color: #000;
 }
@@ -190,16 +191,16 @@ width: 765px;
   color: #fff;
   line-height: 42px;
   padding: 0 13px;
-  font-size: 12px;
+  font-size: 18px;
 }
 .sidebar-content ul li {
   position: relative;
 }
 .sidebar-content ul li a:first-child {
-padding: 15px 13px;
+padding: 15px 0 15px 13px;
 width: 130px;
 display: block;
-font-size: 8px;
+font-size: 10px;
 color: #000;
 font-weight: bold;
 }
@@ -222,7 +223,7 @@ border-bottom: 2px solid #72bfd7;
 
 .entries-title {
   font-weight: bold;
-font-size: 22px;
+font-size: 32px;
 padding: 0;
 margin-bottom: 8px;
 }
@@ -232,7 +233,7 @@ margin-bottom: 8px;
   font-weight: bold;
 padding: 8px 0;
 text-align: center;
-font-size: 10px;
+font-size: 14px;
 }
 .tab-wrapper {
 width: 100%;
@@ -246,8 +247,9 @@ background:url(../images/inactive-tab.png) no-repeat;
 padding: 0px 5px;
 width: 110px;
 margin: 0 2px;
-font-size: 8px;
+font-size: 12px;
 line-height: 28px;
+font-weight: bold;
 }
 
 .tab-wrapper ul li:hover {
@@ -284,7 +286,7 @@ position: absolute;
 width: 428px;
 padding-left: 10px;
 font-weight: bold;
-font-size: 8px;
+font-size: 12px;
 }
 
 .user-post-info .entry-status {
@@ -297,8 +299,8 @@ color: #72bfd7;
   color: #e06c53;
 }
 
-.user-post-info p {
-font-size: 10px;
+.user-post-info .detail {
+font-size: 14px;
 
 }
 .user-post-info p a {
@@ -344,7 +346,7 @@ color: #7c9531;
 .footer {
   margin-top: 30px;
   background: #717171;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .footer-left {
