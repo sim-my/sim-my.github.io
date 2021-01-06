@@ -164,11 +164,11 @@
   padding: 0 26px;
 }
 
-.main-container .container > .right {
+.main-container .container  .right-container {
 width: 175px;
 }
 
-.main-container .container >.left {
+.main-container .container .left-container {
 width: 765px;
 }
 
@@ -299,11 +299,11 @@ font-size: 12px;
 color: #616161;
 line-height: 18px;
 }
-.user-entry-name a,.favourties a {
+.entry-user-name a,.favourties a {
 color: #73c0d7;
 }
 
-.sub-status a {
+.entry-subscribe a {
 color: #7c9531;
 }
 
