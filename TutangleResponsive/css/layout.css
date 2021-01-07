@@ -84,6 +84,7 @@
   position: absolute;
   right: 22px;
   top: 0;
+  height: 100%;
 }
 .search-bar-right {
   background: url("../images/right-search-input.jpg") no-repeat top right;
@@ -112,17 +113,24 @@
     height: 50%;
   }
   .search-bar-wrapper{
-    margin-top: 20px;
     width: 100%;
+    height: 40px;
+    margin-top: 40px;
+    
   }
   .search-bar-left{
     width: 100%;
+    height: 40px;
+    background-size: contain;
   }
   .search-bar-right{
-    width: 100%;
+    width: 100%;   
+    background-size: contain; 
   }
   .search-bar-input{
-    width:97%;
+    width:94%;
+    height: 40px;
+    font-size: 24px;
   }
   .top-header-right{
     display: none;
@@ -130,6 +138,9 @@
 
   .nav-menu img{
     display: block;
+  }
+  .search-bar-left > img{
+    right: 44px;
   }
 
 }
