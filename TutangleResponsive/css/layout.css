@@ -324,9 +324,7 @@
 .user-photo img {
   width: 100%;
 }
-.user-photo-wrapper .frame {
-  position: absolute;
-}
+
 .user-post-info {
   width: 428px;
   padding-left: 10px;
