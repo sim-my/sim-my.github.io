@@ -1,6 +1,7 @@
 /*Header Starts*/
 .main-wrapper{
   min-width:1002px;
+  overflow-x: hidden;
 }
 .header {
   margin-bottom: 30px;
@@ -15,6 +16,20 @@
 .container {
   width: 940px;
   margin: 0 auto;
+}
+.top-header .container{
+  position:relative
+}
+.top-header .container .nav-menu{
+  position: absolute;
+  right: 0;
+  top: 0;
+
+}
+.nav-menu img{
+  height: 50px;
+  width: 50px;
+  display: none;
 }
 .left {
   float: left;
@@ -82,6 +97,42 @@
   background: url("../images/search-button-right.jpg") no-repeat top right;
 }
 
+@media screen and (max-width:767px){
+  .top-header-left{
+    width: 100%;
+  }
+  .search-button-wrapper{
+    visibility: hidden;
+  }
+  .logo-wrapper{
+    width: 25%;
+  }
+  .logo-wrapper img{
+    width: 50%;
+    height: 50%;
+  }
+  .search-bar-wrapper{
+    margin-top: 20px;
+    width: 100%;
+  }
+  .search-bar-left{
+    width: 100%;
+  }
+  .search-bar-right{
+    width: 100%;
+  }
+  .search-bar-input{
+    width:97%;
+  }
+  .top-header-right{
+    display: none;
+  }
+
+  .nav-menu img{
+    display: block;
+  }
+
+}
 .user-navigation {
   text-align: right;
   margin-bottom:10px ;
