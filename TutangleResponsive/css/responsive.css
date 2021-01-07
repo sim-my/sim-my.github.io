@@ -1,5 +1,23 @@
 @media only screen and (min-width: 768px){
+  .container{
+    width:100%
+  }
+  
+  .top-header-left{
+    float: left;
+  }
+  .top-header-right{
+    float: right;
+  }
+  .bottom-header{
+    display: none;
+  }
+  .logo-wrapper{
+    float: left;
+  }
+  
     .user-navigation{
+      
         display: block;
       }
       .user-navigation-options{
@@ -10,8 +28,75 @@
       }
       .search-button-wrapper{
         display: block;
+        float: left;
       }
       .mobile-menu{
           display: none;
       }
+      .search-bar-wrapper{
+        float: left;
+      }
+      .search-bar-left{
+        width: auto;
+      }
+      .search-bar-input{
+        width: 248px;
+      }
+      .left-sidebar-wrapper{
+        float: left;
+      }
+      .right-container{
+        float: right;
+      }
+      .main-container .container .main-container-left .left-sidebar-wrapper {
+        width: 25.4901960784%;;
+      }
+      
+
+      .main-container .container  .right-container {
+      width: 18.6170212766%;;
+      }
+      
+      .main-container .container .left-container {
+        float: left;
+        width: 81.3829787234%;
+      }
+      .entries-wrapper {
+        float: right;
+        width: 67.7124183007%;;
+        padding: 0 26px;
+      }
+      
+      .sidebar-content ul li a:first-child{
+        width: 75%;
+      }
+      .footer {
+        font-size: 12px;
+        /* margin-left: 30px;   */
+      }
+      .footer-left{
+        float: left;
+      }
+      
+      .footer-left ul li {
+        background: url("../images/dot.jpg") no-repeat;
+        width: auto;
+        float: left;  
+        padding: 0px 7px 0px 10px;
+      }
+      .footer-left ul li:first-child {
+        background: none;
+      }
+      
+      .copyright {
+        color: #fff;
+        padding: 19px 3px;
+        float: right;
+      }
+}
+
+@media only screen and (min-width: 1002px){
+.container{
+  width:940px;
+  }
 }
