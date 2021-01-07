@@ -1,4 +1,10 @@
-@media only screen and (min-width: 768px){
+@media only screen and (min-width:730px){
+  .search-bar-input{
+    width: 96%;
+  }
+
+}
+@media only screen and (min-width: 950px){
   .container{
     width:100%
   }
@@ -10,7 +16,7 @@
     float: right;
   }
   .bottom-header{
-    display: none;
+    display: block;
   }
   .logo-wrapper{
     float: left;
@@ -94,7 +100,6 @@
         float: right;
       }
 }
-
 @media only screen and (min-width: 1002px){
 .container{
   width:940px;
