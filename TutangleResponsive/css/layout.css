@@ -1,7 +1,6 @@
 /*Header Starts*/
 .main-wrapper{
   min-width:1002px;
-  overflow-x: hidden;
 }
 .header {
   margin-bottom: 30px;
@@ -14,22 +13,9 @@
   background-color: #f5f5f5;
 }
 .container {
+  position: relative;
   width: 940px;
   margin: 0 auto;
-}
-.top-header .container{
-  position:relative
-}
-.top-header .container .nav-menu{
-  position: absolute;
-  right: 0;
-  top: 0;
-
-}
-.nav-menu img{
-  height: 50px;
-  width: 50px;
-  display: none;
 }
 .left {
   float: left;
@@ -47,7 +33,11 @@
 .logo-wrapper {
   margin-right: 24px;
 }
-
+.container .mobile-menu{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 .search-bar-wrapper {
   margin: 10px 0 0 0;
 }
@@ -84,7 +74,6 @@
   position: absolute;
   right: 22px;
   top: 0;
-  height: 100%;
 }
 .search-bar-right {
   background: url("../images/right-search-input.jpg") no-repeat top right;
@@ -98,52 +87,6 @@
   background: url("../images/search-button-right.jpg") no-repeat top right;
 }
 
-@media screen and (max-width:767px){
-  .top-header-left{
-    width: 100%;
-  }
-  .search-button-wrapper{
-    visibility: hidden;
-  }
-  .logo-wrapper{
-    width: 25%;
-  }
-  .logo-wrapper img{
-    width: 50%;
-    height: 50%;
-  }
-  .search-bar-wrapper{
-    width: 100%;
-    height: 40px;
-    margin-top: 40px;
-    
-  }
-  .search-bar-left{
-    width: 100%;
-    height: 40px;
-    background-size: contain;
-  }
-  .search-bar-right{
-    width: 100%;   
-    background-size: contain; 
-  }
-  .search-bar-input{
-    width:94%;
-    height: 40px;
-    font-size: 24px;
-  }
-  .top-header-right{
-    display: none;
-  }
-
-  .nav-menu img{
-    display: block;
-  }
-  .search-bar-left > img{
-    right: 44px;
-  }
-
-}
 .user-navigation {
   text-align: right;
   margin-bottom:10px ;
@@ -173,7 +116,24 @@
 .user-navigation-options ul li:hover a {
   color: #fff;
 }
-
+.user-navigation{
+  display: none;
+}
+.user-navigation-options{
+  display: none;
+}
+.search-bar-wrapper{
+  display: none;
+}
+.search-button-wrapper{
+  display: none;
+}
+.mobile-menu{
+    display: block;
+}
+.mobile-menu > div{
+  margin: 0 10px;
+}
 .bottom-header-navbar ul li,
 .bottom-header-notifications ul li {
   font-size: 14px;

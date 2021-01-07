@@ -1,0 +1,17 @@
+@media only screen and (min-width: 768px){
+    .user-navigation{
+        display: block;
+      }
+      .user-navigation-options{
+        display: block;
+      }
+      .search-bar-wrapper{
+        display: block;
+      }
+      .search-button-wrapper{
+        display: block;
+      }
+      .mobile-menu{
+          display: none;
+      }
+}
