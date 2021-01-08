@@ -1,0 +1,122 @@
+.main-wrapper{
+    width: 100%;
+}
+.top-horizontal-line{
+    width: 100%;
+}
+.top-container{
+    position: relative;
+}
+.top-container .mobile-navigation-menu{
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 43px;
+
+}
+.mobile-navigation-menu img{
+    height: 30px;
+    width: 30px;
+
+}
+.top-container{
+    padding:43px 20px 33px 26px;
+
+}
+.top-header-right{
+    width:100%;
+    margin-top:10px;
+}
+.search-bar-input{
+    width: 75%;
+    float: left;
+}
+.search-bar-button{
+    width: 25%;
+    float: left;
+}
+.search-bar-input input{
+    padding: 11px 9px 10px 9px;
+    width: 96.43%;
+    
+}
+.search-bar-button button{
+    padding:12px 9px 12px 9px;
+    width: 100%;
+    background-color: #d54346;
+    color: #fff;
+}
+.bottom-container{    
+    padding: 17px 20px 16px 20px;
+}
+.bottom-header-left{
+    float: left;
+}
+.bottom-header-left ul{
+    list-style: none;
+}
+.bottom-header-left ul li{  
+    float: left;
+    border-right: 1px solid #c9c9c9;
+    padding: 4px 20px;
+}
+.bottom-header-left ul li a{
+    text-decoration: none;
+}
+.upper-text{
+   color: #333333
+}
+.nav-element:hover > .upper-text{
+    color: #d54346
+ }
+.lower-text{
+    color: #999999;
+}
+
+.site-logo-text-wrapper{
+    padding:10px;
+    margin-left:33px;
+
+}
+
+.bottom-header-right{
+    float: right;
+}
+.bottom-header-right ul{
+    list-style: none;
+}
+.bottom-header-right ul li {
+    float: left;
+    margin-right:10px;
+}
+.bottom-header-right ul li:last-of-type{
+    margin-right: 0px;
+}
+.bottom-header-right ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+.bottom-header-right ul li a .icon-container{
+    border-radius: 50%;
+    background-color: #333333;
+    height: 22px;
+    width: 22px;
+    text-align: center;
+    padding:5px
+}
+.bottom-header-right ul li .linkedin:hover >.icon-container{
+    background-color: #0e76a8;
+}
+.bottom-header-right ul li .twitter:hover >.icon-container{
+    background-color: #00acee;
+}
+.bottom-header-right ul li .pinterest:hover >.icon-container{
+    background-color: #c8232c;
+}
+.bottom-header-right ul li .google-plus:hover >.icon-container{
+    background-color: #db4a39 ;
+}
+.bottom-header-right ul li .rss:hover >.icon-container{
+    background-color: #ee802f;
+}
+
