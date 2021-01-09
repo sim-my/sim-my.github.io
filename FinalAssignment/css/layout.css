@@ -266,3 +266,10 @@
 .profile-list ul li .profile-link a:hover{
     font-size: 14px;
 }
+.hoizontal-line{
+    margin: 0 auto;
+    width: 100%; 
+}
+.hoizontal-line img{
+    width: auto;
+}
