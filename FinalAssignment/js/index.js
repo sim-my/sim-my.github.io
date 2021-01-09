@@ -1,13 +1,16 @@
 document.querySelector('.mobile-navigation-menu').addEventListener("click", openMobileNavigation);
 
 function openMobileNavigation(){
-    document.querySelector('.mobile-menu').style.display = 'block'
+    document.querySelector('.mobile-menu').style.display = 'block';
+    disableScroll();
+
 }
 
 document.querySelector('.mobile-menu-header').addEventListener("click", closeMobileNavigation);
 
 function closeMobileNavigation(){
-    document.querySelector('.mobile-menu').style.display = 'none'
+    document.querySelector('.mobile-menu').style.display = 'none';
+    enableScroll()
 }
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -31,4 +34,21 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
+}
+function disableScroll() { 
+  // Get the current page scroll position 
+  scrollTop =  
+    window.pageYOffset || document.documentElement.scrollTop; 
+  scrollLeft =  
+    window.pageXOffset || document.documentElement.scrollLeft, 
+
+      // if any scroll is attempted, 
+      // set this to the previous value 
+      window.onscroll = function() { 
+          window.scrollTo(scrollLeft, scrollTop); 
+      }; 
+} 
+
+function enableScroll() { 
+  window.onscroll = function() {}; 
 }
