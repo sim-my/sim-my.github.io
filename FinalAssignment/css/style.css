@@ -39,8 +39,13 @@
 @media screen and (min-width: 768px) {
     .site-logo-text-wrapper {
       display: block;
+    }    
+    .project-work-list ul li{
+      float: left;
     }
-    
+    .project-work-list ul li:first-child{
+      margin-right: 20px;
+    }
   }
   @media screen and (min-width: 1025px) {
     .top-header-left {
@@ -71,5 +76,14 @@
       .profile-list ul li .profile-link a {
         margin-bottom:0px;
       }
-      
+      .project-work-title{
+        display: block;
+      }
+      .project-work-list{
+        float:left;    
+        display: block;
+      }
+      .mobile-project-title{
+        display: none;
+      }
   }

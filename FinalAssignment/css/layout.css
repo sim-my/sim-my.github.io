@@ -125,6 +125,7 @@
 }
 .main-wrapper {
   position: relative;
+  margin-bottom: 50px;
 }
 
 .main-wrapper .mobile-menu {
@@ -174,6 +175,7 @@
 .main-content {
   max-width: 1950px;
   margin: 0 auto;
+  border-bottom: 5px solid #871f21;
 }
 .slider-container {
   width: 100%;
@@ -269,7 +271,76 @@
 .horizontal-line{
     text-align: center;
     width: 100%; 
+    margin-bottom: 50px;
 }
 .horizontal-line img{
     max-width: 100%;
 }
+.project-work-title{
+  display: none;
+    float: left;
+    width: 42.1%;
+    text-align: right;
+}
+.project-work-title a{
+    text-decoration: none;
+}
+.project-work-title .title-1{
+    color: #4a4a4a;
+    font-size: 26px;
+    margin-right: 42px;
+}
+.project-work-title .title-2,.project-work-title .title-3{
+    color:#d44346;
+    font-size:54px;
+    margin-right: 46px;
+}
+.project-work-title .title-3{
+    margin-right: 51px;
+}
+.project-work-list{
+    display: table;
+    margin: 0 auto;    
+  }
+  .project-work-list ul{
+    list-style:  none;
+  }
+  .project-work-list ul li{
+    max-width: 274px;
+    text-align: center;
+    margin:0 auto;
+  }
+  
+  .project-work-list ul li div{
+    width: 100%;
+  }
+  .project-work-list ul li .project-title{
+    color: #4a4a4a;
+    margin: 19px 0;
+  }
+  
+  .project-work-list ul li .project-description{
+    color: #999999;
+    margin-bottom: 20px;
+  }
+
+  .project-work-list ul li .project-read-more button{
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #d54346;
+    color: #ffffff;
+    margin-bottom:30px;
+  }
+  .mobile-project-title{
+    display: block;
+    color: #d44346;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .mobile-project-title .title-1{
+    color: #4a4a4a;
+    font-size: 18px;
+  }
+  
