@@ -85,18 +85,18 @@
 .bottom-header-right ul{
     list-style: none;
 }
-.bottom-header-right ul li {
+.bottom-header-right ul li, .social-media-icons li {
     float: left;
     margin-right:10px;
 }
 .bottom-header-right ul li:last-of-type{
     margin-right: 0px;
 }
-.bottom-header-right ul li a{
+.bottom-header-right ul li a, .social-media-icons li a{
     text-decoration: none;
     color: #fff;
 }
-.bottom-header-right ul li a .icon-container{
+.bottom-header-right ul li a .icon-container, .social-media-icons li a .icon-container{
     border-radius: 50%;
     background-color: #333333;
     height: 22px;
@@ -104,7 +104,7 @@
     text-align: center;
     padding:5px
 }
-.bottom-header-right ul li .linkedin:hover >.icon-container{
+.bottom-header-right ul li .linkedin:hover >.icon-container,.social-media-icons li .linkedin:hover >.icon-container{
     background-color: #0e76a8;
 }
 .bottom-header-right ul li .twitter:hover >.icon-container{
@@ -119,4 +119,53 @@
 .bottom-header-right ul li .rss:hover >.icon-container{
     background-color: #ee802f;
 }
+.main-wrapper{
+    position: relative;
+}
 
+.main-wrapper .mobile-menu{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: #d54346;
+}
+.mobile-menu{
+    position: relative;
+   
+}
+.mobile-menu .mobile-menu-header{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+}
+.mobile-menu-header img{
+    height: 30px;
+    width: 30px;
+}
+.mobile-menu-body{
+    padding:  50px;
+    margin-top: 20px;
+}
+.mobile-menu-body ul{
+    list-style: none;
+}
+.mobile-menu .main-menu li{
+    padding: 20px 0px;
+    font-size: 24px;
+    color: #fff;
+    border-bottom:1px solid #c8232c;
+}
+.mobile-menu-body .social-media-icons{
+    margin-top: 20px;
+}
+.mobile-menu-body .social-media-icons li  a .icon-container{
+    margin-right:20px;
+    height: 20px;
+    width: 20px;
+    padding:10px;
+}

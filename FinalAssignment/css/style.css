@@ -64,4 +64,7 @@
       .bottom-header{
           display: block;
       }
+      .mobile-menu{
+        display: none;
+      }
   }
