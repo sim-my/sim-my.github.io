@@ -86,4 +86,12 @@
       .mobile-project-title{
         display: none;
       }
+      .bottom-footer-left{
+        float: left;
+        text-align: left;
+      }
+      .bottom-footer-right{
+        float: right;
+        text-align: right;
+      }
   }

@@ -125,7 +125,6 @@
 }
 .main-wrapper {
   position: relative;
-  margin-bottom: 50px;
 }
 
 .main-wrapper .mobile-menu {
@@ -167,7 +166,7 @@
   margin-top: 20px;
 }
 .mobile-menu-body .social-media-icons li a .icon-container {
-  margin-right: 10px;
+  margin-right: 5px;
   height: 20px;
   width: 20px;
   padding: 10px;
@@ -229,7 +228,6 @@
   text-align: center;
   color: #999999;
   font-size: 26px;
-
   margin-bottom: 55px;
 }
 .profile-list{
@@ -343,4 +341,80 @@
     color: #4a4a4a;
     font-size: 18px;
   }
-  
+  footer{
+    background-color: #d54346;
+  }
+  .top-footer-container, .bottom-footer-container{
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 14px 20px;
+
+  }
+.top-footer{  
+  border-bottom: 1px solid #b7282c;
+}
+.bottom-footer{
+  color: #ffffff;
+  border-top: 1px solid #db6063;
+}
+.top-footer-left{
+  float: left;
+}
+.top-footer-right{
+  float: right;
+}
+.top-footer-left-most{
+  float: left;
+  max-width: 310px;
+  margin-right:44px;
+}
+.top-footer-right{
+  max-width: 300px;
+}
+.top-footer-center{
+  float: left;
+}
+.about-us-title{
+  color: #fff;
+  margin-bottom:25px;
+}
+.about-us-description{   
+  text-align: left;
+  color: #fff;
+  margin-bottom: 15px;
+
+}
+.about-us-link a, .post-link a{
+  text-decoration: none;
+  color: #631618;
+}
+.about-us{
+  margin-bottom:30px;
+}
+.from-blog-title{
+  color: #fff;
+  margin-bottom: 23px;
+}
+.post-title{
+  color:#fff;
+}
+.post-date{
+  color: #fff;
+  margin-bottom: 9px;
+}
+.post-description{
+  color: #fff;
+  margin-bottom: 12px;
+}
+.link-block-title{
+  margin-bottom:26px;
+  color: #fff;
+}
+.bottom-footer-left{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.bottom-footer-right{
+  text-align: center;
+  margin-bottom:10px;
+}
