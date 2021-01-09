@@ -267,7 +267,7 @@
     font-size: 14px;
 }
 .horizontal-line{
-    margin: 0 auto;
+    text-align: center;
     width: 100%; 
 }
 .horizontal-line img{
