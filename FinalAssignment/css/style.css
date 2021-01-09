@@ -68,4 +68,8 @@
       .mobile-menu{
         display: none;
       }
+      .profile-list ul li .profile-link a {
+        margin-bottom:0px;
+      }
+      
   }
