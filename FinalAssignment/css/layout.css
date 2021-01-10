@@ -347,10 +347,11 @@
   .top-footer-container, .bottom-footer-container{
     max-width: 960px;
     margin: 0 auto;
-    padding: 14px 20px;
+    padding: 14px 20px 14px 20px;
 
   }
 .top-footer{  
+  padding-top: 30px;
   border-bottom: 1px solid #b7282c;
 }
 .bottom-footer{
@@ -359,17 +360,20 @@
 }
 .top-footer-left{
   float: left;
+  
 }
 .top-footer-right{
   float: right;
+  margin: 0px 20px;
 }
 .top-footer-left-most{
   float: left;
-  max-width: 310px;
-  margin-right:44px;
+  max-width: 285px;
+  margin-right:34px;
 }
 .top-footer-right{
   max-width: 300px;
+  color: #fff;
 }
 .top-footer-center{
   float: left;
@@ -407,8 +411,49 @@
   margin-bottom: 12px;
 }
 .link-block-title{
-  margin-bottom:26px;
+  margin-bottom:18px;
   color: #fff;
+}
+.link-block-list{
+  list-style-image: url('../images/list-chevron.jpg');
+}
+.link-block-list li{
+  padding: 8px 0px;
+  width: 300px;
+  text-indent: 10px;
+  border-bottom: 1px solid #d85255;
+}
+.newsletter-title{
+  margin-bottom: 26px;
+}
+.newsletter-description{
+  margin-bottom: 13px;
+}
+.newsletter-input{
+  margin: 10px 0px;
+}
+.newsletter-form{
+  margin-bottom: 30px;
+}.newsletter-input input{
+  border: none;
+  outline: none;
+  height: 20px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+.newsletter-button{
+  padding:10px 12px;
+  border-radius: 5px;
+  background-color: #871f21;
+  color: #fff;
+  border: none;
+}
+.contact-us-title{
+  margin-bottom: 26px;
+}
+.contact-tel{
+  margin-bottom: 9px;
 }
 .bottom-footer-left{
   text-align: center;
@@ -418,3 +463,4 @@
   text-align: center;
   margin-bottom:10px;
 }
+
