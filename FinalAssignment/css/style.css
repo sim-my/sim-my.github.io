@@ -9,7 +9,7 @@ a{
 }
 a:hover{
   text-decoration: underline;
-  text-decoration-color: #631618; 
+
 }
 .main-wrapper {
   width: 100%;
@@ -105,8 +105,12 @@ a:hover{
 .bottom-header-right ul li:last-of-type {
   margin-right: 0px;
 }
-.bottom-header-right ul li a,
 .social-media-icons li a {
+  text-decoration: none;
+  color: #fff;
+}
+.bottom-header-right ul li a
+{
   text-decoration: none;
   color: #fff;
 }
@@ -242,7 +246,6 @@ a:hover{
 .profile-list ul li .profile-link a {
   text-align: center;
   color: #d54346;
-  text-decoration: none;
   font-size: 13px;
 }
 .horizontal-line{
@@ -351,7 +354,6 @@ footer{
 
 }
 .about-us-link a, .post-link a{
-  text-decoration: none;
   color: #631618;
 }
 .about-us{
