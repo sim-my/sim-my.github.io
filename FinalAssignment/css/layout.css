@@ -359,24 +359,19 @@
   border-top: 1px solid #db6063;
 }
 .top-footer-left{
-  float: left;
+  /* float: left; */
   
 }
-.top-footer-right{
-  float: right;
-  margin: 0px 20px;
-}
+
 .top-footer-left-most{
-  float: left;
-  max-width: 285px;
-  margin-right:34px;
+  margin-bottom: 30px;
 }
 .top-footer-right{
-  max-width: 300px;
   color: #fff;
+  margin-right: 30px;
 }
 .top-footer-center{
-  float: left;
+  margin-bottom: 30px;
 }
 .about-us-title{
   color: #fff;
