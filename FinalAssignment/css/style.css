@@ -8,7 +8,8 @@ a{
   text-decoration: none;
 }
 a:hover{
-  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #631618; 
 }
 .main-wrapper {
   width: 100%;
