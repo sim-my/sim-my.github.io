@@ -4,6 +4,7 @@
 }
 body{
     background-color: #f8f8f8;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .clearfix::after {
     content: "";

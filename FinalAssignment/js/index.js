@@ -2,7 +2,7 @@ document.querySelector('.mobile-navigation-menu').addEventListener("click", open
 
 function openMobileNavigation(){
     document.querySelector('.mobile-menu').style.display = 'block';
-    disableScroll();
+    document.querySelector('body').style.overflow = 'hidden';
 
 }
 
@@ -10,7 +10,8 @@ document.querySelector('.mobile-menu-header').addEventListener("click", closeMob
 
 function closeMobileNavigation(){
     document.querySelector('.mobile-menu').style.display = 'none';
-    enableScroll()
+    document.querySelector('body').style.overflow = 'auto';
+   
 }
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -34,21 +35,4 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
-}
-function disableScroll() { 
-  // Get the current page scroll position 
-  scrollTop =  
-    window.pageYOffset || document.documentElement.scrollTop; 
-  scrollLeft =  
-    window.pageXOffset || document.documentElement.scrollLeft, 
-
-      // if any scroll is attempted, 
-      // set this to the previous value 
-      window.onscroll = function() { 
-          window.scrollTo(scrollLeft, scrollTop); 
-      }; 
-} 
-
-function enableScroll() { 
-  window.onscroll = function() {}; 
 }
