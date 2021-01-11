@@ -11,6 +11,7 @@ a:hover{
   text-decoration: underline;
  
 }
+
 .main-wrapper {
   width: 100%;
   margin: 0 auto;
@@ -38,8 +39,8 @@ a:hover{
   color: #b2b2b2;
   font-size: 12px;
   border-left: 1px solid #b2b2b2;
-  padding: 10px;
-  margin-left: 33px;
+  padding:12px 10px;
+  margin-top: 5px;  margin-left: 33px;
 }
 
 .top-header-left, .top-header-right{
@@ -61,6 +62,9 @@ a:hover{
     background-color: #d54346;
     color: #fff;
     padding: 12px 9px 12px 9px;
+}
+.search-bar-input input[type='text']:focus{
+  border: 1px solid #d54346;
 }
 .bottom-header{
     display: none;    
@@ -424,6 +428,10 @@ footer{
   outline: none;
   padding: 10px;
   border-radius: 5px;
+}
+.newsletter-input input:focus{
+  border:  2px solid #871f21 ;
+  padding: 8px;
 }
 .newsletter-button{
   padding:10px 12px;
