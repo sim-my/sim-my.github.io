@@ -403,8 +403,7 @@ footer{
 }
 .link-block-list li{
   padding: 8px 0px;
-  text-indent: 10px;
-  
+  text-indent: 10px;  
   font-size: 12px;
   border-bottom: 1px solid #d85255;
 }
@@ -461,6 +460,17 @@ footer{
     .project-work-list ul li:first-child{
       margin-right: 20px;
     }
+      .top-footer-right{
+        margin: 0px 20px;
+      }
+      .top-footer-left-most{
+        margin-right:34px;
+        margin-bottom: 0px;
+      }
+      .top-footer-center{
+        margin-bottom: 0px;
+      }
+    
   }
   @media screen and (min-width: 1025px) {
       .top-container .mobile-navigation-menu{
@@ -489,15 +499,5 @@ footer{
       }
       .bottom-footer-right{
          text-align: right;
-      }
-      .top-footer-right{
-        margin: 0px 20px;
-      }
-      .top-footer-left-most{
-        margin-right:34px;
-        margin-bottom: 0px;
-      }
-      .top-footer-center{
-        margin-bottom: 0px;
       }
   }
