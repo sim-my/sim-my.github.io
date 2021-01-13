@@ -4,6 +4,8 @@ var fruits = [
 ]
 
 var searchByName =  (obj_array, val) => {
+    var index;
+
     for(var i=0; i<obj_array.length; i++){
         if(val.toLowerCase() === obj_array[i].name.toLowerCase()){
             index = i;
@@ -14,6 +16,7 @@ var searchByName =  (obj_array, val) => {
 }
 
 searchByName(fruits, 'apple');
+var index;
 
 var searchByKey =  (obj_array,key, val) => {
     for(var i=0; i<obj_array.length; i++){

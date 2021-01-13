@@ -1,8 +1,9 @@
 function asteriskPrint(num){
+
     for(var i=num; i>0;i--){
-        str = '';
+        var str = '';
         for(var j=i; j>0; j--){
-            var str = str + '*'
+            str = str + '*'
         }
         console.log(str)
     }

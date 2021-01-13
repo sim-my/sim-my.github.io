@@ -7,6 +7,10 @@ var arr = [{
 }, {
     id: 3,
     name: 'Andrew',
+},
+{
+    id: 4,
+    name: 'Andrew',
 }];
 
 function sortBy(array, key) {

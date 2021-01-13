@@ -31,8 +31,12 @@ a:hover{
 .top-container .mobile-navigation-menu {
   display: block;
 }
+
 .top-header-right {
   margin-top: 10px;
+}
+.top-header-right{
+  position: relative;
 }
 .site-logo-text-wrapper {
   display: none;
