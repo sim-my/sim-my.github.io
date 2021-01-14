@@ -24,12 +24,12 @@
   position: absolute;
   left:0px;
   top: 120px;
-  width: 95%;
+  width: 100%;
   display: none;
   z-index: 7;
   background-color: #f8f8f8;
   margin: 0 auto;
-  padding: 0 20px 10px 20px;
+ padding-bottom:10px;
 }
 
 .mobile-navigation-menu img, .search-bar-icon img {
@@ -56,11 +56,12 @@
   font-size: 12px;
 }
 .search-bar-input input {
+  margin-left: 10px;
   width: 96.43%;
   height: 22px;
 }
 .search-field .search-bar-input{
-  width: 72%;
+  width: 80%;
 }
 .search-field .search-bar-input input{
   width: 96%;
