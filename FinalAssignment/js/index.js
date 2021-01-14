@@ -24,11 +24,17 @@ function handleSearchBar() {
 
   if(document.querySelector(".search-field").style.display == "none"){
     document.querySelector(".search-field").style.display = "block";
-    document  .querySelector(".search-bar-icon img").setAttribute('src', 'images/cancel.png');
+    document.querySelector(".search-bar-icon img").setAttribute('src', 'images/cancel.png');
+    document.querySelector(".search-bar-icon img").style.height = '50px';
+    document.querySelector(".search-bar-icon img").style.width = '50px';
+    document.querySelector(".search-bar-icon").style.top = '35px';
   }
   else{
     document.querySelector(".search-field").style.display = "none";
     document.querySelector(".search-bar-icon img").setAttribute('src', 'images/search-icon.png');
+    document.querySelector(".search-bar-icon img").style.height = '30px';
+    document.querySelector(".search-bar-icon img").style.width = '30px';
+    document.querySelector(".search-bar-icon").style.top = '43px';
   }
   
 }
