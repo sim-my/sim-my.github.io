@@ -4,9 +4,9 @@ app.appendChild(graphContainer);
 app.style.height = "800px";
 app.style.position = "relative";
 graphContainer.style.position = "absolute";
-graphContainer.style.top = "50%";
-graphContainer.style.left = "50%";
-graphContainer.style.transform = "translate(-50%,-50%)";
+graphContainer.style.top = "20%";
+graphContainer.style.left = "20%";
+
 graphContainer.style.width = "400px";
 graphContainer.style.height = "400px";
 graphContainer.style.border = "1px solid #000";
