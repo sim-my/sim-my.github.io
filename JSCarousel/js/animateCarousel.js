@@ -36,7 +36,7 @@ const animateNext = () => {
   });
 };
 
-const animatePrev = () => {  
+const animatePrev = () => {
   currentIndex--;
   setActiveDot();
   imageArray.forEach((image, index) => {
@@ -52,3 +52,16 @@ buttonNext.addEventListener("click", animateNext);
 const buttonPrev = document.querySelector(".button-prev");
 
 buttonPrev.addEventListener("click", animatePrev);
+
+const containerDot = document.querySelector(".dot-container");
+for (let i = 0, len = containerDot.children.length; i < len; i++) {
+  ((index) => {
+    containerDot.children[i].onclick = () => {
+      currentIndex = index;
+      setActiveDot();
+      imageArray.forEach((image, j) => {
+        image.style.left = ((j + index) % imageArray.length) * width + "px";
+      });
+    };
+  })(i);
+}
