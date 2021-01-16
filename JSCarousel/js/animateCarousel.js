@@ -48,18 +48,21 @@ const animatePrev = () => {
   }
 
   setActiveDot();  
-  let count = 100;
-  var setImgPos = setInterval(() => {
-
-    count = count + 50;
-    imageArray.forEach((image, index) => {      
-      image.style.left = (index - currentIndex) * (count) + "px";
-      if (count == width) {
+  let count = 200;
+    // count = count + 50;
+    imageArray.forEach((image, index) => { 
+      let imgLeft = parseInt(image.style.left);
+      var setImgPos = setInterval(() => {
+      image.style.left = imgLeft + "px";
+      imgLeft = imgLeft +  count;
+      
+      // image.style.left = (index - currentIndex) * width + "px";
+      if (imgLeft > (index - currentIndex) * width) {
         clearInterval(setImgPos);
       }
-      // image.style.left = (index - currentIndex) * width + "px";
+    }, 1000);
     });
-  }, 100);
+  
 };
 
 const buttonNext = document.querySelector(".button-next");
