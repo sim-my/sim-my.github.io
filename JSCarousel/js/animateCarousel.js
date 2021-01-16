@@ -73,6 +73,7 @@ const animatePrev = () => {
   imageArray.forEach((image, index) => {
     let imgLeft = parseInt(image.style.left);
     let current = imgLeft;
+
     if (currentIndex == imageArray.length - 1) {      
       var setImgBoundary = setInterval(() => {
         imgLeft = imgLeft - count;
@@ -94,17 +95,6 @@ const animatePrev = () => {
   }
   });
 
-  // let count = 200;
-  // imageArray.forEach((image, index) => {
-  //   let imgLeft = parseInt(image.style.left);
-  //   var setImgPos = setInterval(() => {
-  //     image.style.left = imgLeft + "px";
-  //     imgLeft = imgLeft + count;
-  //     if (imgLeft > (index - currentIndex) * width) {
-  //       clearInterval(setImgPos);
-  //     }
-  //   }, 1000);
-  // });
 };
 
 const buttonNext = document.querySelector(".button-next");
@@ -118,14 +108,38 @@ buttonPrev.addEventListener("click", animatePrev);
 const containerDot = document.querySelector(".dot-container");
 
 for (let i = 0, len = containerDot.children.length; i < len; i++) {
+
   ((index) => {
     containerDot.children[i].onclick = () => {
+      let prevIndex = currentIndex;
       currentIndex = index;
+
+      let diff = currentIndex - prevIndex;
+      console.log(diff);
       setActiveDot();
-      imageArray.forEach((image, j) => {
-        console.log(image.style.left);
-        image.style.left = (j - index) * width + "px";
+      let count =  200;
+      imageArray.forEach((image, j) => {        
+        let imgLeft = parseInt(image.style.left);
+        let current = imgLeft; 
+        var setImgPos = setInterval(() => {
+          image.style.left = imgLeft + "px";          
+          if(diff>=0) {
+            imgLeft = imgLeft - count;  
+            if (imgLeft < (current - (width*diff))) {
+              clearInterval(setImgPos);
+            }
+          }   
+          else{
+            imgLeft = imgLeft + count;  
+            console.log(current);
+            if (imgLeft > (current - (width * diff))) {
+              clearInterval(setImgPos);
+            }
+          }    
+
+        }, 1000);
       });
+      
     };
   })(i);
 }
