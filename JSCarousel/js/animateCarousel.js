@@ -42,17 +42,14 @@ const animateNext = () => {
   imageArray.forEach((image, index) => {
     let imgLeft = parseInt(image.style.left);
     let current = imgLeft;
-    if (currentIndex == 0) {
-      
+    if (currentIndex == 0) {      
       var setImgBoundary = setInterval(() => {
-        // console.log(currentIndex)
         imgLeft = imgLeft + count;
-        console.log(imgLeft)
         image.style.left = imgLeft + "px";
         if (current + (imageArray.length - 1) * width <= imgLeft) {
           clearInterval(setImgBoundary);
         }
-      }, 100);
+      }, 1000/imageArray.length);
      
     }
     else{
@@ -62,7 +59,7 @@ const animateNext = () => {
       if ((index - currentIndex) * width > imgLeft) {
         clearInterval(setImgPos);
       }
-    }, 100);
+    }, 1000);
   }
   });
 };
@@ -80,11 +77,10 @@ const animatePrev = () => {
     var setImgPos = setInterval(() => {
       image.style.left = imgLeft + "px";
       imgLeft = imgLeft + count;
-
       if (imgLeft > (index - currentIndex) * width) {
         clearInterval(setImgPos);
       }
-    }, 100);
+    }, 1000);
   });
 };
 
@@ -111,6 +107,3 @@ for (let i = 0, len = containerDot.children.length; i < len; i++) {
   })(i);
 }
 
-// setInterval(() => {
-//   animateNext()
-// }, 2000)
