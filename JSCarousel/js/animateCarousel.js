@@ -1,6 +1,6 @@
 const imageCount = 4;
-const images = document.querySelectorAll(".carousel-container img");
-const dots = document.querySelectorAll(".dot");
+const images = document.querySelectorAll("#carousel-container-1 img");
+const dots = document.querySelectorAll("#carousel-container-1 .dot-container .dot");
 const width = 800;
 const leftMoveCount = 20;
 
@@ -97,15 +97,15 @@ const animatePrev = () => {
 
 };
 
-const buttonNext = document.querySelector(".button-next");
+const buttonNext = document.querySelector("#carousel-container-1 .button-next");
 
 buttonNext.addEventListener("click", animateNext);
 
-const buttonPrev = document.querySelector(".button-prev");
+const buttonPrev = document.querySelector("#carousel-container-1 .button-prev");
 
 buttonPrev.addEventListener("click", animatePrev);
 
-const containerDot = document.querySelector(".dot-container");
+const containerDot = document.querySelector("#carousel-container-1 .dot-container");
 
 for (let i = 0, len = containerDot.children.length; i < len; i++) {
 
@@ -144,3 +144,6 @@ for (let i = 0, len = containerDot.children.length; i < len; i++) {
   })(i);
 }
 
+// setInterval(()=>{
+//   animateNext()
+// },2000)
