@@ -40,15 +40,17 @@ const animateNext = () => {
     imageArray.forEach((image, index) => { 
       let imgLeft = parseInt(image.style.left);
       if(currentIndex == 0){
-        imgLeft = imgLeft + imageArray.length * width;
-      }      
-      var setImgPos = setInterval(() => {
-      image.style.left = imgLeft + "px";
-      imgLeft = imgLeft - count;
-      if ((index - currentIndex) * width > imgLeft) {
-        clearInterval(setImgPos);
-      }
-    }, 100);
+        imgLeft = imgLeft + ((imageArray.length-1) * width)
+      }    
+        var setImgPos = setInterval(() => {
+          image.style.left = imgLeft + "px";
+          imgLeft = imgLeft - count;
+          if ((index - currentIndex) * width > imgLeft) {
+            clearInterval(setImgPos);
+          }
+        }, 100);
+       
+
     });
 };
 
@@ -62,6 +64,11 @@ const animatePrev = () => {
   let count = 200;
     imageArray.forEach((image, index) => { 
       let imgLeft = parseInt(image.style.left);
+
+      if(currentIndex == imageArray.length - 1){
+        imgLeft = imgLeft - (imageArray.length-1) * width;
+      }  
+
       var setImgPos = setInterval(() => {
       image.style.left = imgLeft + "px";
       imgLeft = imgLeft +  count;
@@ -70,8 +77,7 @@ const animatePrev = () => {
         clearInterval(setImgPos);
       }
     }, 100);
-    });
-  
+    });  
 };
 
 const buttonNext = document.querySelector(".button-next");

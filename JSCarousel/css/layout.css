@@ -4,7 +4,7 @@
     margin: 0 auto;
     position: relative;
     height: 450px;  
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .carousel-container img{
     width: 100%;
