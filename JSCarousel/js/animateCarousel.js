@@ -32,11 +32,9 @@ setActiveDot();
 
 const animateNext = () => {
   currentIndex++;
-  console.log(currentIndex)
   if (currentIndex > imageArray.length -1 ) {
     currentIndex = 0;
   }
-
   setActiveDot();
   let count = 200;
   imageArray.forEach((image, index) => {
@@ -69,11 +67,23 @@ const animatePrev = () => {
   if (currentIndex < 0) {
     currentIndex = imageArray.length - 1;
   }
-
   setActiveDot();
+
   let count = 200;
   imageArray.forEach((image, index) => {
     let imgLeft = parseInt(image.style.left);
+    let current = imgLeft;
+    if (currentIndex == imageArray.length - 1) {      
+      var setImgBoundary = setInterval(() => {
+        imgLeft = imgLeft - count;
+        image.style.left = imgLeft + "px";
+        if (imgLeft <= current - (imageArray.length - 1) * width) {
+          clearInterval(setImgBoundary);
+        }
+      }, 1000/imageArray.length);
+     
+    }
+    else{
     var setImgPos = setInterval(() => {
       image.style.left = imgLeft + "px";
       imgLeft = imgLeft + count;
@@ -81,7 +91,20 @@ const animatePrev = () => {
         clearInterval(setImgPos);
       }
     }, 1000);
+  }
   });
+
+  // let count = 200;
+  // imageArray.forEach((image, index) => {
+  //   let imgLeft = parseInt(image.style.left);
+  //   var setImgPos = setInterval(() => {
+  //     image.style.left = imgLeft + "px";
+  //     imgLeft = imgLeft + count;
+  //     if (imgLeft > (index - currentIndex) * width) {
+  //       clearInterval(setImgPos);
+  //     }
+  //   }, 1000);
+  // });
 };
 
 const buttonNext = document.querySelector(".button-next");
