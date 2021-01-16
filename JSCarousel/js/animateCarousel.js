@@ -1,8 +1,7 @@
 const imageCount = 4;
 const images = document.querySelectorAll("#carousel-container-1 img");
-const dots = document.querySelectorAll("#carousel-container-1 .dot-container .dot");
+const dots = document.querySelectorAll("#carousel-container-1 .dot-container-1 .dot");
 const width = 800;
-const leftMoveCount = 20;
 
 let currentIndex = 0;
 
@@ -16,7 +15,6 @@ const setImagePosition = (imageCount) => {
     imageArray.push(image);
     dotsArray.push(dot);
   }
-
   return [imageArray, dotsArray];
 };
 const [imageArray, dotsArray] = setImagePosition(4);
@@ -105,7 +103,7 @@ const buttonPrev = document.querySelector("#carousel-container-1 .button-prev");
 
 buttonPrev.addEventListener("click", animatePrev);
 
-const containerDot = document.querySelector("#carousel-container-1 .dot-container");
+const containerDot = document.querySelector("#carousel-container-1 .dot-container-1");
 
 for (let i = 0, len = containerDot.children.length; i < len; i++) {
 

@@ -60,74 +60,6 @@ const dotContainer = new Element(
 dotContainer.addRelativePosition();
 dotContainer.insertElement();
 
-//creating dots inside dot container
-// const dotsCount = 4;
-// for (let i = 0; i < dotsCount; i++) {
-//   window[`dot-${i}`] = new Element(
-//     'div',
-//     [
-//       {height:'15px'},
-//       {width:'15px'},
-//       {borderRadius:'50%'},
-//       {border:'1px solid #fff'},
-//       {zIndex:'99999'},
-//       {float:'left'},
-//       {marginRight:'10px'},
-//       {cursor:'pointer'}
-//     ],
-//     '.dot-container',
-//     'dot'
-//   );
-//   window[`dot-${i}`].insertElement();
-// }
-
-//create next button
-// const nextButton = new Element(
-//     'button',
-//     [
-//         {outline:'none'},
-//         {border:'none'},
-//         {borderRadius:'50%'},
-//         {backgroundColor:'#000'},
-//         {color:'#fff'},
-//         {position:'absolute'},
-//         {right:'20px'},
-//         {top:'50%'},
-//         {height:'42px'},
-//         {width:'42px'},
-//         {fontSize:'24px'},
-//         {cursor:'pointer'}
-//     ],
-//     '#carousel-container-1',
-//     'button-next',
-//     '&raquo;'
-// );
-// nextButton.addRelativePosition();
-// nextButton.insertElement();
-
-//create left button
-// const prevButton = new Element(
-//     'button',
-//     [
-//         {outline:'none'},
-//         {border:'none'},
-//         {borderRadius:'50%'},
-//         {backgroundColor:'#000'},
-//         {color:'#fff'},
-//         {position:'absolute'},
-//         {left:'20px'},
-//         {top:'50%'},
-//         {height:'42px'},
-//         {width:'42px'},
-//         {fontSize:'24px'},
-//         {cursor:'pointer'}
-//     ],
-//     '#carousel-container-1',
-//     'button-prev',
-//     '&laquo;',
-// );
-// prevButton.addRelativePosition();
-// prevButton.insertElement();
 
 // Carousel
 class Carousel {
@@ -198,7 +130,7 @@ class Carousel {
         { transform: "translate(-50%, -50%)" },
       ],
       this.carouselId,
-      `dot-container${this.instance}`
+      `dot-container-${this.instance}`
     );
     window[`dot-container-${this.instance}`].addRelativePosition();
     window[`dot-container-${this.instance}`].insertElement();
@@ -219,7 +151,7 @@ class Carousel {
           { marginRight: "10px" },
           { cursor: "pointer" },
         ],
-        ".dot-container",
+        `.dot-container-${this.instance}`,
         "dot"
       );
       window[`dot-${this.instance}-${i}`].insertElement();
