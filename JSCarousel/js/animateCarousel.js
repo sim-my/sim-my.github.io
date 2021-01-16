@@ -32,26 +32,39 @@ setActiveDot();
 
 const animateNext = () => {
   currentIndex++;
-  if (currentIndex >= imageArray.length) {
+  console.log(currentIndex)
+  if (currentIndex > imageArray.length -1 ) {
     currentIndex = 0;
   }
+
   setActiveDot();
   let count = 200;
-    imageArray.forEach((image, index) => { 
-      let imgLeft = parseInt(image.style.left);
-      if(currentIndex == 0){
-        imgLeft = imgLeft + ((imageArray.length-1) * width)
-      }    
-        var setImgPos = setInterval(() => {
-          image.style.left = imgLeft + "px";
-          imgLeft = imgLeft - count;
-          if ((index - currentIndex) * width > imgLeft) {
-            clearInterval(setImgPos);
-          }
-        }, 100);
-       
-
-    });
+  imageArray.forEach((image, index) => {
+    let imgLeft = parseInt(image.style.left);
+    let current = imgLeft;
+    if (currentIndex == 0) {
+      
+      var setImgBoundary = setInterval(() => {
+        // console.log(currentIndex)
+        imgLeft = imgLeft + count;
+        console.log(imgLeft)
+        image.style.left = imgLeft + "px";
+        if (current + (imageArray.length - 1) * width <= imgLeft) {
+          clearInterval(setImgBoundary);
+        }
+      }, 100);
+     
+    }
+    else{
+    var setImgPos = setInterval(() => {
+      image.style.left = imgLeft + "px";
+      imgLeft = imgLeft - count;
+      if ((index - currentIndex) * width > imgLeft) {
+        clearInterval(setImgPos);
+      }
+    }, 100);
+  }
+  });
 };
 
 const animatePrev = () => {
@@ -60,24 +73,19 @@ const animatePrev = () => {
     currentIndex = imageArray.length - 1;
   }
 
-  setActiveDot();  
+  setActiveDot();
   let count = 200;
-    imageArray.forEach((image, index) => { 
-      let imgLeft = parseInt(image.style.left);
-
-      if(currentIndex == imageArray.length - 1){
-        imgLeft = imgLeft - (imageArray.length-1) * width;
-      }  
-
-      var setImgPos = setInterval(() => {
+  imageArray.forEach((image, index) => {
+    let imgLeft = parseInt(image.style.left);
+    var setImgPos = setInterval(() => {
       image.style.left = imgLeft + "px";
-      imgLeft = imgLeft +  count;
+      imgLeft = imgLeft + count;
 
       if (imgLeft > (index - currentIndex) * width) {
         clearInterval(setImgPos);
       }
     }, 100);
-    });  
+  });
 };
 
 const buttonNext = document.querySelector(".button-next");
