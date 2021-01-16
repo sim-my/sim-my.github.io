@@ -36,9 +36,20 @@ const animateNext = () => {
     currentIndex = 0;
   }
   setActiveDot();
-  imageArray.forEach((image, index) => {
-    image.style.left = (index - currentIndex) * width + "px";
-  });
+  let count = 200;
+    imageArray.forEach((image, index) => { 
+      let imgLeft = parseInt(image.style.left);
+      if(currentIndex == 0){
+        imgLeft = imgLeft + imageArray.length * width;
+      }      
+      var setImgPos = setInterval(() => {
+      image.style.left = imgLeft + "px";
+      imgLeft = imgLeft - count;
+      if ((index - currentIndex) * width > imgLeft) {
+        clearInterval(setImgPos);
+      }
+    }, 100);
+    });
 };
 
 const animatePrev = () => {
@@ -49,18 +60,16 @@ const animatePrev = () => {
 
   setActiveDot();  
   let count = 200;
-    // count = count + 50;
     imageArray.forEach((image, index) => { 
       let imgLeft = parseInt(image.style.left);
       var setImgPos = setInterval(() => {
       image.style.left = imgLeft + "px";
       imgLeft = imgLeft +  count;
-      
-      // image.style.left = (index - currentIndex) * width + "px";
+
       if (imgLeft > (index - currentIndex) * width) {
         clearInterval(setImgPos);
       }
-    }, 1000);
+    }, 100);
     });
   
 };
