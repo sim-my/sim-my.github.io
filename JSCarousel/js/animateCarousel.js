@@ -47,7 +47,7 @@ const animateNext = () => {
         if (current + (imageArray.length - 1) * width <= imgLeft) {
           clearInterval(setImgBoundary);
         }
-      }, 1000/imageArray.length);
+      }, 100/imageArray.length);
      
     }
     else{
@@ -57,7 +57,7 @@ const animateNext = () => {
       if ((index - currentIndex) * width > imgLeft) {
         clearInterval(setImgPos);
       }
-    }, 1000);
+    }, 100);
   }
   });
 };
@@ -81,7 +81,7 @@ const animatePrev = () => {
         if (imgLeft <= current - (imageArray.length - 1) * width) {
           clearInterval(setImgBoundary);
         }
-      }, 1000/imageArray.length);
+      }, 100/imageArray.length);
      
     }
     else{
@@ -91,7 +91,7 @@ const animatePrev = () => {
       if (imgLeft > (index - currentIndex) * width) {
         clearInterval(setImgPos);
       }
-    }, 1000);
+    }, 100);
   }
   });
 
@@ -137,7 +137,7 @@ for (let i = 0, len = containerDot.children.length; i < len; i++) {
             }
           }    
 
-        }, 1000);
+        }, 100);
       });
       
     };
