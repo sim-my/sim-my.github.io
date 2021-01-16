@@ -2,8 +2,9 @@ const imageCount = 4;
 const images = document.querySelectorAll(".carousel-container img");
 const dots = document.querySelectorAll(".dot");
 const width = 800;
+const leftMoveCount = 20;
 
-let currentIndex = 4;
+let currentIndex = 0;
 
 const setImagePosition = (imageCount) => {
   const imageArray = [];
@@ -24,25 +25,41 @@ const setActiveDot = () => {
   dotsArray.forEach((dot, index) => {
     dot.classList.remove("active");
   });
-  dotsArray[currentIndex % dotsArray.length].classList.add("active");
+  dotsArray[currentIndex].classList.add("active");
 };
+
 setActiveDot();
+
 const animateNext = () => {
   currentIndex++;
+  if (currentIndex >= imageArray.length) {
+    currentIndex = 0;
+  }
   setActiveDot();
   imageArray.forEach((image, index) => {
-    image.style.left =
-      ((index - currentIndex) % imageArray.length) * width + "px";
+    image.style.left = (index - currentIndex) * width + "px";
   });
 };
 
 const animatePrev = () => {
   currentIndex--;
-  setActiveDot();
-  imageArray.forEach((image, index) => {
-    image.style.left =
-      ((index + currentIndex) % imageArray.length) * width + "px";
-  });
+  if (currentIndex < 0) {
+    currentIndex = imageArray.length - 1;
+  }
+
+  setActiveDot();  
+  let count = 100;
+  var setImgPos = setInterval(() => {
+
+    count = count + 50;
+    imageArray.forEach((image, index) => {      
+      image.style.left = (index - currentIndex) * (count) + "px";
+      if (count == width) {
+        clearInterval(setImgPos);
+      }
+      // image.style.left = (index - currentIndex) * width + "px";
+    });
+  }, 100);
 };
 
 const buttonNext = document.querySelector(".button-next");
@@ -54,14 +71,20 @@ const buttonPrev = document.querySelector(".button-prev");
 buttonPrev.addEventListener("click", animatePrev);
 
 const containerDot = document.querySelector(".dot-container");
+
 for (let i = 0, len = containerDot.children.length; i < len; i++) {
   ((index) => {
     containerDot.children[i].onclick = () => {
       currentIndex = index;
       setActiveDot();
       imageArray.forEach((image, j) => {
-        image.style.left = ((j + index) % imageArray.length) * width + "px";
+        console.log(image.style.left);
+        image.style.left = (j - index) * width + "px";
       });
     };
   })(i);
 }
+
+// setInterval(() => {
+//   animateNext()
+// }, 2000)
