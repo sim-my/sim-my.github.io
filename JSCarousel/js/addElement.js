@@ -45,12 +45,14 @@ class Element {
 
 // Carousel
 class Carousel {
-  constructor(carouselId, instance, imageCount, width = 800) {
+  constructor(carouselId, instance, imageCount, width = 800, holdTime, transitionTime) {
     this.carouselId = carouselId;
     this.instance = instance;
     this.imageCount = imageCount;
     this.width = width;
     this.currentIndex = 0;
+    this.holdTime = holdTime;
+    this.transitionTime = transitionTime;
   }
 
   createNextButton() {
@@ -180,10 +182,11 @@ class Carousel {
       this.currentIndex = 0;
     }
     this.setActiveDot();
-    let count = 200;
     images.forEach((image, index) => {
       let imgLeft = parseInt(image.style.left);
       let current = imgLeft;
+      let count = 20;
+      let c = 0;
       if (this.currentIndex == 0) {
         var setImgBoundary = setInterval(() => {
           imgLeft = imgLeft + count;
@@ -191,7 +194,9 @@ class Carousel {
           if (current + (images.length - 1) * this.width <= imgLeft) {
             clearInterval(setImgBoundary);
           }
-        }, 100 / images.length);
+          c++;
+          console.log(c)
+        }, this.transitionTime/((this.width * images.length)/count));
       } else {
         var setImgPos = setInterval(() => {
           image.style.left = imgLeft + "px";
@@ -199,7 +204,7 @@ class Carousel {
           if ((index - this.currentIndex) * this.width > imgLeft) {
             clearInterval(setImgPos);
           }
-        }, 100);
+        }, this.transitionTime/((this.width)/count));
       }
     });
   }
@@ -212,7 +217,7 @@ class Carousel {
     }
     this.setActiveDot();
 
-    let count = 200;
+    let count = 20;
     images.forEach((image, index) => {
       let imgLeft = parseInt(image.style.left);
       let current = imgLeft;
@@ -224,7 +229,7 @@ class Carousel {
           if (imgLeft <= current - (images.length - 1) * this.width) {
             clearInterval(setImgBoundary);
           }
-        }, 100 / images.length);
+        }, this.transitionTime/((this.width * images.length)/count));
       } else {
         var setImgPos = setInterval(() => {
           image.style.left = imgLeft + "px";
@@ -232,7 +237,7 @@ class Carousel {
           if (imgLeft > (index - this.currentIndex) * this.width) {
             clearInterval(setImgPos);
           }
-        }, 100);
+        },  this.transitionTime/((this.width)/count));
       }
     });
   }
@@ -289,10 +294,25 @@ class Carousel {
     window[`buttonPrev-${this.instance}`] = document.querySelector(`${this.carouselId}  .button-prev`);
     window[`buttonPrev-${this.instance}`].addEventListener("click", () => this.animatePrev());
   }
+
+  // checkUserInputValidity(){
+  //   this.holdTime < this.transitionTime ? false : true;
+  // }
+  getTransitionCount(){
+    let ratio = this.holdTime / this.transitionTime;
+    return this.width / ratio;
+  }
+
+  autoAnimate(){
+    setInterval(()=>{
+      this.animateNext();
+    }, this.holdTime + this.transitionTime)
+  }  
 }
 
-const carousel = new Carousel("#carousel-container-1", 1, 4);
+const carousel = new Carousel("#carousel-container-1", 1, 4, 800, 4000, 4000);
 carousel.createCarousel();
+carousel.autoAnimate();
 
-const carousel1 = new Carousel("#carousel-container-2", 2, 4);
-carousel1.createCarousel();
+// const carousel1 = new Carousel("#carousel-container-2", 2, 4);
+// carousel1.createCarousel();
