@@ -45,14 +45,26 @@ class Element {
 
 // Carousel
 class Carousel {
-  constructor(carouselId, instance, imageCount, width = 800, holdTime, transitionTime) {
-    this.carouselId = carouselId;
-    this.instance = instance;
-    this.imageCount = imageCount;
-    this.width = width;
+  constructor(obj) {
+    this.carouselId = obj.carouselId;
+    this.instance = obj.instance;
+    this.imageCount = obj.imageCount;
+    obj.width === undefined ? (this.width = 800) : (this.width = obj.width);
+    obj.holdTime === undefined
+      ? (this.holdTime = 1000)
+      : (this.holdTime = obj.holdTime);
+    obj.transitionTime === undefined
+      ? (this.transitionTime = 2000)
+      : (this.transitionTime = obj.transitionTime);
     this.currentIndex = 0;
-    this.holdTime = holdTime;
-    this.transitionTime = transitionTime;
+    this.dotClicked = false;
+  }
+
+  styleCarousel() {
+    window[`carousel-${this.instance}`] = document.querySelector(
+      this.carouselId
+    );
+    window[`carousel-${this.instance}`].style.width = this.width + "px";
   }
 
   createNextButton() {
@@ -65,12 +77,11 @@ class Carousel {
         { backgroundColor: "#000" },
         { color: "#fff" },
         { position: "absolute" },
-        { right: "20px" },
+        { right: "2.5%" },
         { top: "50%" },
         { height: "42px" },
         { width: "42px" },
-        { fontSize: "24px" },
-        { cursor: "pointer" },
+        { fontSize: "24px" }
       ],
       this.carouselId,
       "button-next",
@@ -92,12 +103,11 @@ class Carousel {
         { backgroundColor: "#000" },
         { color: "#fff" },
         { position: "absolute" },
-        { left: "20px" },
+        { left: "2.5%" },
         { top: "50%" },
         { height: "42px" },
         { width: "42px" },
-        { fontSize: "24px" },
-        { cursor: "pointer" },
+        { fontSize: "24px" }
       ],
       this.carouselId,
       "button-prev",
@@ -114,7 +124,7 @@ class Carousel {
         { height: "20px" },
         { width: "auto" },
         { position: "absolute" },
-        { bottom: "20px" },
+        { bottom: "2.5%" },
         { left: "50%" },
         { transform: "translate(-50%, -50%)" },
       ],
@@ -186,25 +196,22 @@ class Carousel {
       let imgLeft = parseInt(image.style.left);
       let current = imgLeft;
       let count = 20;
-      let c = 0;
       if (this.currentIndex == 0) {
-        var setImgBoundary = setInterval(() => {
+        let setImgBoundary = setInterval(() => {
           imgLeft = imgLeft + count;
           image.style.left = imgLeft + "px";
           if (current + (images.length - 1) * this.width <= imgLeft) {
             clearInterval(setImgBoundary);
           }
-          c++;
-          console.log(c)
-        }, this.transitionTime/((this.width * images.length)/count));
+        }, this.transitionTime / ((this.width * images.length) / count));
       } else {
-        var setImgPos = setInterval(() => {
+        let setImgPos = setInterval(() => {
           image.style.left = imgLeft + "px";
           imgLeft = imgLeft - count;
           if ((index - this.currentIndex) * this.width > imgLeft) {
             clearInterval(setImgPos);
           }
-        }, this.transitionTime/((this.width)/count));
+        }, this.transitionTime / (this.width / count));
       }
     });
   }
@@ -223,56 +230,71 @@ class Carousel {
       let current = imgLeft;
 
       if (this.currentIndex == images.length - 1) {
-        var setImgBoundary = setInterval(() => {
+        let setImgBoundary = setInterval(() => {
           imgLeft = imgLeft - count;
           image.style.left = imgLeft + "px";
           if (imgLeft <= current - (images.length - 1) * this.width) {
             clearInterval(setImgBoundary);
           }
-        }, this.transitionTime/((this.width * images.length)/count));
+        }, this.transitionTime / ((this.width * images.length) / count));
       } else {
-        var setImgPos = setInterval(() => {
+        let setImgPos = setInterval(() => {
           image.style.left = imgLeft + "px";
           imgLeft = imgLeft + count;
           if (imgLeft > (index - this.currentIndex) * this.width) {
             clearInterval(setImgPos);
           }
-        },  this.transitionTime/((this.width)/count));
+        }, this.transitionTime / (this.width / count));
       }
     });
   }
 
   animateDots() {
     let images = this.getImages();
-    const containerDot = document.querySelector(
+    window[`containerDot-${this.instance}`] = document.querySelector(
       `${this.carouselId} .dot-container-${this.instance}`
     );
 
-    for (let i = 0, len = containerDot.children.length; i < len; i++) {
+    for (let i = 0, len = window[`containerDot-${this.instance}`].children.length; i < len; i++) {
       ((index) => {
-        containerDot.children[i].onclick = () => {
+        window[`containerDot-${this.instance}`].children[i].onclick = () => {
+          window[`buttonPrev-${this.instance}`].disabled = true;
+          window[`buttonNext-${this.instance}`].disabled = true;
+          window[`containerDot-${this.instance}`].style.pointerEvents = "none";
+          this.dotClicked = true;
           let prevIndex = this.currentIndex;
           this.currentIndex = index;
+          let currentLeft = window[`containerDot-${this.instance}`].children[i].style.left;
           let diff = this.currentIndex - prevIndex;
           this.setActiveDot();
-          let count = 200;
+          let count = 20;
           images.forEach((image, j) => {
             let imgLeft = parseInt(image.style.left);
             let current = imgLeft;
-            var setImgPos = setInterval(() => {
+            let setImgPos = setInterval(() => {
               image.style.left = imgLeft + "px";
               if (diff >= 0) {
                 imgLeft = imgLeft - count;
                 if (imgLeft < current - this.width * diff) {
                   clearInterval(setImgPos);
+                  setTimeout(() => {
+                    window[`buttonPrev-${this.instance}`].disabled = false;
+                    window[`buttonNext-${this.instance}`].disabled = false;
+                    window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+                  },this.transitionTime);
                 }
               } else {
                 imgLeft = imgLeft + count;
                 if (imgLeft > current - this.width * diff) {
                   clearInterval(setImgPos);
+                  setTimeout(() => {
+                    window[`buttonPrev-${this.instance}`].disabled = false;
+                    window[`buttonNext-${this.instance}`].disabled = false;
+                    window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+                  }, this.transitionTime);
                 }
               }
-            }, 100);
+            }, this.transitionTime / (Math.abs(currentLeft - this.width * diff) / count));
           });
         };
       })(i);
@@ -280,6 +302,7 @@ class Carousel {
   }
 
   createCarousel() {
+    this.styleCarousel();
     this.createNextButton();
     this.createPrevButton();
     this.createDotsContainer();
@@ -288,31 +311,66 @@ class Carousel {
     this.setActiveDot();
     this.animateDots();
 
-    window[`buttonNext-${this.instance}`] = document.querySelector(`${this.carouselId} .button-next`);
-    window[`buttonNext-${this.instance}`].addEventListener("click", () => this.animateNext());
+    window[`buttonNext-${this.instance}`] = document.querySelector(
+      `${this.carouselId} .button-next`
+    );
 
-    window[`buttonPrev-${this.instance}`] = document.querySelector(`${this.carouselId}  .button-prev`);
-    window[`buttonPrev-${this.instance}`].addEventListener("click", () => this.animatePrev());
+    window[`buttonPrev-${this.instance}`] = document.querySelector(
+      `${this.carouselId}  .button-prev`
+    );
   }
-
-  // checkUserInputValidity(){
-  //   this.holdTime < this.transitionTime ? false : true;
-  // }
-  getTransitionCount(){
-    let ratio = this.holdTime / this.transitionTime;
-    return this.width / ratio;
-  }
-
-  autoAnimate(){
-    setInterval(()=>{
+  autoAnimate() {
+    let animateMe = setInterval(() => {
       this.animateNext();
-    }, this.holdTime + this.transitionTime)
-  }  
+    }, this.holdTime + this.transitionTime);
+    window[`buttonNext-${this.instance}`].addEventListener("click", () => {
+      window[`buttonNext-${this.instance}`].disabled = true;
+      window[`buttonPrev-${this.instance}`].disabled = true;
+      window[`containerDot-${this.instance}`].style.pointerEvents = "none";
+      clearInterval(animateMe);
+      this.animateNext();
+      setTimeout(() => {
+        animateMe = setInterval(() => {
+          this.animateNext();
+        }, this.holdTime + this.transitionTime);
+        window[`buttonPrev-${this.instance}`].disabled = false;
+        window[`buttonNext-${this.instance}`].disabled = false;
+        window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+      }, this.transitionTime);
+    });
+    window[`buttonPrev-${this.instance}`].addEventListener("click", () => {
+      window[`buttonPrev-${this.instance}`].disabled = true;
+      window[`buttonNext-${this.instance}`].disabled = true;
+      window[`containerDot-${this.instance}`].style.pointerEvents = "none";
+      clearInterval(animateMe);
+      this.animatePrev();
+      setTimeout(() => {
+        animateMe = setInterval(() => {
+          this.animateNext();
+        }, this.holdTime + this.transitionTime);
+        window[`buttonPrev-${this.instance}`].disabled = false;
+        window[`buttonNext-${this.instance}`].disabled = false;
+        window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+      }, this.transitionTime);
+    });
+  }
 }
 
-const carousel = new Carousel("#carousel-container-1", 1, 4, 800, 4000, 4000);
+const carousel = new Carousel({
+  carouselId: "#carousel-container-1",
+  instance: 1,
+  imageCount: 4,
+  width: 400,
+  holdTime: 4000,
+  transitionTime: 4000,
+});
 carousel.createCarousel();
 carousel.autoAnimate();
 
-// const carousel1 = new Carousel("#carousel-container-2", 2, 4);
-// carousel1.createCarousel();
+const carousel1 = new Carousel({
+  carouselId: "#carousel-container-2",
+  instance: 2,
+  imageCount: 4,
+});
+carousel1.createCarousel();
+carousel1.autoAnimate();
