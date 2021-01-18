@@ -249,59 +249,10 @@ class Carousel {
     });
   }
 
-  animateDots() {
-    // let images = this.getImages();
-    // window[`containerDot-${this.instance}`] = document.querySelector(
-    //   `${this.carouselId} .dot-container-${this.instance}`
-    // );
-
-    // for (let i = 0, len = window[`containerDot-${this.instance}`].children.length; i < len; i++) {
-    //   ((index) => {
-    //     window[`containerDot-${this.instance}`].children[i].onclick = () => {
-    //       window[`buttonPrev-${this.instance}`].disabled = true;
-    //       window[`buttonNext-${this.instance}`].disabled = true;
-    //       window[`containerDot-${this.instance}`].style.pointerEvents = "none";
-    //       this.dotClicked = true;
-    //       let prevIndex = this.currentIndex;
-    //       this.currentIndex = index;
-    //       let currentLeft = window[`containerDot-${this.instance}`].children[i].style.left;
-    //       let diff = this.currentIndex - prevIndex;
-    //       this.setActiveDot();
-    //       let count = 20;
-    //       images.forEach((image, j) => {
-    //         let imgLeft = parseInt(image.style.left);
-    //         let current = imgLeft;
-    //         let setImgPos = setInterval(() => {
-    //           image.style.left = imgLeft + "px";
-    //           if (diff >= 0) {
-    //             imgLeft = imgLeft - count;
-    //             if (imgLeft < current - this.width * diff) {
-    //               clearInterval(setImgPos);
-    //               setTimeout(() => {
-    //                 window[`buttonPrev-${this.instance}`].disabled = false;
-    //                 window[`buttonNext-${this.instance}`].disabled = false;
-    //                 window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
-    //               },this.transitionTime);
-    //             }
-    //           } else {
-    //             imgLeft = imgLeft + count;
-    //             if (imgLeft > current - this.width * diff) {
-    //               clearInterval(setImgPos);
-    //               setTimeout(() => {
-    //                 window[`buttonPrev-${this.instance}`].disabled = false;
-    //                 window[`buttonNext-${this.instance}`].disabled = false;
-    //                 window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
-    //               }, this.transitionTime);
-    //             }
-    //           }
-    //         }, this.transitionTime / (Math.abs(currentLeft - this.width * diff) / count));
-    //       });
-    //     };
-    //   })(i);
-    // }
-  }
 
   createCarousel() {
+
+    //calling methods for creating carousel
     this.styleCarousel();
     this.createNextButton();
     this.createPrevButton();
@@ -309,8 +260,9 @@ class Carousel {
     this.createDots();
     this.setImagePosition();
     this.setActiveDot();
-    this.animateDots();
 
+
+    //getting next and previous buttons
     window[`buttonNext-${this.instance}`] = document.querySelector(
       `${this.carouselId} .button-next`
     );
@@ -320,6 +272,13 @@ class Carousel {
     );
   }
   autoAnimate() {
+    // getting  images and dots container
+    let images = this.getImages();
+    window[`containerDot-${this.instance}`] = document.querySelector(
+      `${this.carouselId} .dot-container-${this.instance}`
+    );
+
+    //setting up animation for next button
     let animateMe = setInterval(() => {
       this.animateNext();
     }, this.holdTime + this.transitionTime);
@@ -338,6 +297,8 @@ class Carousel {
         window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
       }, this.transitionTime);
     });
+
+    //setting up animation for previous button
     window[`buttonPrev-${this.instance}`].addEventListener("click", () => {
       window[`buttonPrev-${this.instance}`].disabled = true;
       window[`buttonNext-${this.instance}`].disabled = true;
@@ -354,11 +315,7 @@ class Carousel {
       }, this.transitionTime);
     });
 
-    let images = this.getImages();
-    window[`containerDot-${this.instance}`] = document.querySelector(
-      `${this.carouselId} .dot-container-${this.instance}`
-    );
-
+    //setting up animation for dots
     for (let i = 0, len = window[`containerDot-${this.instance}`].children.length; i < len; i++) {
       ((index) => {
         window[`containerDot-${this.instance}`].children[i].onclick = () => {
