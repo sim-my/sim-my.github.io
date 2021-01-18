@@ -10,7 +10,7 @@ const count = 150;
 
 let score = 0;
 
-canvas.addEventListener('click', function (event) {
+canvas.addEventListener('click', (event) => {
   var x = event.clientX;
   var y = event.clientY;
 
