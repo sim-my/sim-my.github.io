@@ -250,55 +250,55 @@ class Carousel {
   }
 
   animateDots() {
-    let images = this.getImages();
-    window[`containerDot-${this.instance}`] = document.querySelector(
-      `${this.carouselId} .dot-container-${this.instance}`
-    );
+    // let images = this.getImages();
+    // window[`containerDot-${this.instance}`] = document.querySelector(
+    //   `${this.carouselId} .dot-container-${this.instance}`
+    // );
 
-    for (let i = 0, len = window[`containerDot-${this.instance}`].children.length; i < len; i++) {
-      ((index) => {
-        window[`containerDot-${this.instance}`].children[i].onclick = () => {
-          window[`buttonPrev-${this.instance}`].disabled = true;
-          window[`buttonNext-${this.instance}`].disabled = true;
-          window[`containerDot-${this.instance}`].style.pointerEvents = "none";
-          this.dotClicked = true;
-          let prevIndex = this.currentIndex;
-          this.currentIndex = index;
-          let currentLeft = window[`containerDot-${this.instance}`].children[i].style.left;
-          let diff = this.currentIndex - prevIndex;
-          this.setActiveDot();
-          let count = 20;
-          images.forEach((image, j) => {
-            let imgLeft = parseInt(image.style.left);
-            let current = imgLeft;
-            let setImgPos = setInterval(() => {
-              image.style.left = imgLeft + "px";
-              if (diff >= 0) {
-                imgLeft = imgLeft - count;
-                if (imgLeft < current - this.width * diff) {
-                  clearInterval(setImgPos);
-                  setTimeout(() => {
-                    window[`buttonPrev-${this.instance}`].disabled = false;
-                    window[`buttonNext-${this.instance}`].disabled = false;
-                    window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
-                  },this.transitionTime);
-                }
-              } else {
-                imgLeft = imgLeft + count;
-                if (imgLeft > current - this.width * diff) {
-                  clearInterval(setImgPos);
-                  setTimeout(() => {
-                    window[`buttonPrev-${this.instance}`].disabled = false;
-                    window[`buttonNext-${this.instance}`].disabled = false;
-                    window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
-                  }, this.transitionTime);
-                }
-              }
-            }, this.transitionTime / (Math.abs(currentLeft - this.width * diff) / count));
-          });
-        };
-      })(i);
-    }
+    // for (let i = 0, len = window[`containerDot-${this.instance}`].children.length; i < len; i++) {
+    //   ((index) => {
+    //     window[`containerDot-${this.instance}`].children[i].onclick = () => {
+    //       window[`buttonPrev-${this.instance}`].disabled = true;
+    //       window[`buttonNext-${this.instance}`].disabled = true;
+    //       window[`containerDot-${this.instance}`].style.pointerEvents = "none";
+    //       this.dotClicked = true;
+    //       let prevIndex = this.currentIndex;
+    //       this.currentIndex = index;
+    //       let currentLeft = window[`containerDot-${this.instance}`].children[i].style.left;
+    //       let diff = this.currentIndex - prevIndex;
+    //       this.setActiveDot();
+    //       let count = 20;
+    //       images.forEach((image, j) => {
+    //         let imgLeft = parseInt(image.style.left);
+    //         let current = imgLeft;
+    //         let setImgPos = setInterval(() => {
+    //           image.style.left = imgLeft + "px";
+    //           if (diff >= 0) {
+    //             imgLeft = imgLeft - count;
+    //             if (imgLeft < current - this.width * diff) {
+    //               clearInterval(setImgPos);
+    //               setTimeout(() => {
+    //                 window[`buttonPrev-${this.instance}`].disabled = false;
+    //                 window[`buttonNext-${this.instance}`].disabled = false;
+    //                 window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+    //               },this.transitionTime);
+    //             }
+    //           } else {
+    //             imgLeft = imgLeft + count;
+    //             if (imgLeft > current - this.width * diff) {
+    //               clearInterval(setImgPos);
+    //               setTimeout(() => {
+    //                 window[`buttonPrev-${this.instance}`].disabled = false;
+    //                 window[`buttonNext-${this.instance}`].disabled = false;
+    //                 window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+    //               }, this.transitionTime);
+    //             }
+    //           }
+    //         }, this.transitionTime / (Math.abs(currentLeft - this.width * diff) / count));
+    //       });
+    //     };
+    //   })(i);
+    // }
   }
 
   createCarousel() {
@@ -353,6 +353,54 @@ class Carousel {
         window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
       }, this.transitionTime);
     });
+
+    let images = this.getImages();
+    window[`containerDot-${this.instance}`] = document.querySelector(
+      `${this.carouselId} .dot-container-${this.instance}`
+    );
+
+    for (let i = 0, len = window[`containerDot-${this.instance}`].children.length; i < len; i++) {
+      ((index) => {
+        window[`containerDot-${this.instance}`].children[i].onclick = () => {
+          window[`buttonPrev-${this.instance}`].disabled = true;
+          window[`buttonNext-${this.instance}`].disabled = true;
+          window[`containerDot-${this.instance}`].style.pointerEvents = "none";
+          clearInterval(animateMe)
+          setTimeout(() => {
+            animateMe = setInterval(() => {
+              this.animateNext();
+            }, this.holdTime + this.transitionTime);
+            window[`buttonPrev-${this.instance}`].disabled = false;
+            window[`buttonNext-${this.instance}`].disabled = false;
+            window[`containerDot-${this.instance}`].style.pointerEvents = "auto";
+          }, this.holdTime);
+          let prevIndex = this.currentIndex;
+          this.currentIndex = index;
+          let currentLeft = window[`containerDot-${this.instance}`].children[i].style.left;
+          let diff = this.currentIndex - prevIndex;
+          this.setActiveDot();
+          let count = 20;
+          images.forEach((image, j) => {
+            let imgLeft = parseInt(image.style.left);
+            let current = imgLeft;
+            let setImgPos = setInterval(() => {
+              image.style.left = imgLeft + "px";
+              if (diff >= 0) {
+                imgLeft = imgLeft - count;
+                if (imgLeft < current - this.width * diff) {
+                  clearInterval(setImgPos);
+                }
+              } else {
+                imgLeft = imgLeft + count;
+                if (imgLeft > current - this.width * diff) {
+                  clearInterval(setImgPos);
+                }
+              }
+            }, this.transitionTime / (Math.abs(currentLeft - this.width * diff) / count));
+          });
+        };
+      })(i);
+    }
   }
 }
 
