@@ -1,10 +1,14 @@
 const canvas = document.querySelector("canvas");
+const scoreEl = document.querySelector("#scoreEl");
+
 const c = canvas.getContext("2d");
 
 canvas.width = innerWidth - 80;
 canvas.height = innerHeight - 80;
 
 const count = 150;
+
+let score = 0;
 
 canvas.addEventListener('click', function (event) {
   var x = event.clientX;
@@ -13,11 +17,13 @@ canvas.addEventListener('click', function (event) {
   for (let i = 0; i < ants.length; i++) {
     var ant = ants[i];
     if (x >= ant.x
-      && x <= ant.x + ant.radius
+      && x <= ant.x + (ant.radius *2)
       && y >= ant.y
-      && y <= ant.y + ant.radius
+      && y <= ant.y + (ant.radius *2)
     ) {
       ants.splice(i, 1);
+      score ++;
+      scoreEl.innerHTML = score;
     }
   }
 });
@@ -62,7 +68,7 @@ class Ant {
 
   draw() {
     var img = new Image();
-    img.src = './images/ant1.png';
+    img.src = './images/ant.png';
     c.drawImage(img, this.x, this.y, this.radius, this.radius);
 
   }
