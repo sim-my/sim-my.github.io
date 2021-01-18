@@ -56,7 +56,7 @@ class Ball {
     if(this.y - this.radius <= 0 || this.y + this.radius >= canvas.height){
         this.velocity.y = -this.velocity.y;        
     }
-    console.log(this.x)
+
 
     this.x += this.velocity.x;
     this.y += this.velocity.y;
