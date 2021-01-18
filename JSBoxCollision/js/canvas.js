@@ -4,7 +4,7 @@ const c = canvas.getContext('2d')
 canvas.width = innerWidth - 40;
 canvas.height = innerHeight - 40;
 
-const count = 200;
+const count = 100;
 
 const minRadius = 5;
 const maxRadius = 50;
