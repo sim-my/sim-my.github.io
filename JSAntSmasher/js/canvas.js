@@ -6,6 +6,23 @@ canvas.height = innerHeight - 80;
 
 const count = 150;
 
+canvas.addEventListener('click', function (event) {
+  var x = event.clientX;
+  var y = event.clientY;
+
+  for (let i = 0; i < ants.length; i++) {
+    var ant = ants[i];
+    if (x >= ant.x
+      && x <= ant.x + ant.radius
+      && y >= ant.y
+      && y <= ant.y + ant.radius
+    ) {
+      ants.splice(i, 1);
+    }
+  }
+});
+
+
 const minRadius = 5;
 const maxRadius = 50;
 
@@ -19,7 +36,15 @@ const colors = [
   "#CCCCFF",
   "#DE3163",
 ];
+getCursorPosition = (canvas, event) => {
+  const rect = canvas.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
 
+  return {mouseX:x, mouseY:y}
+}
+
+let antX, antY;
 
 // Ants
 class Ant {
@@ -45,7 +70,9 @@ class Ant {
   update() {
     this.draw();
 
+
     for (let i = 0; i < ants.length; i++) {
+
       if (this === ants[i]) continue;
       if (
         calculateDistance(this.x, this.y, ants[i].x, ants[i].y) -
@@ -64,8 +91,13 @@ class Ant {
       this.velocity.y = -this.velocity.y;
     }
 
+    
+
+
+
     this.x += this.velocity.x;
     this.y += this.velocity.y;
+
   }
 }
 
