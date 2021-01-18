@@ -68,7 +68,7 @@ class Ant {
 
   draw() {
     var img = new Image();
-    img.src = 'images/ant.png';
+    img.src = './images/ant.png';
     c.drawImage(img, this.x, this.y, this.radius, this.radius);
 
   }
