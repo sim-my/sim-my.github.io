@@ -1,3 +1,16 @@
+let highscore;
+
+if(!localStorage.getItem('highscore')){
+    highscore = 0;
+    localStorage.setItem('highscore', highscore);    
+}
+
+else{
+    highscore = localStorage.getItem('highscore');
+}
+
+document.querySelector('.high-score-span').innerHTML = highscore;
+
 const obstacleType = [
   "ambulance",
   "audi",
@@ -87,6 +100,11 @@ const checkCollision = () => {
     ) {
     mode = 1;
       carSpeed = 0;
+      if(localStorage.getItem('highscore') < score/5){
+          highscore = score / 5;
+          localStorage.setItem('highscore', highscore);
+          document.querySelector('.high-score-span').innerHTML = highscore;
+      }
       exitMenu.style.display = "block";
     } else if (myCarY < obstacle.y - vehicleHeight) {
       score = score + 1;
