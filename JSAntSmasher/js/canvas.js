@@ -68,9 +68,10 @@ class Ant {
   }
 
   draw() {
-    var img = new Image();
-    img.src = './images/ant.png';
+    var img = document.querySelector('.antImage');
     c.drawImage(img, this.x, this.y, this.radius, this.radius);
+    
+    
  }
 
   update() {
