@@ -42,19 +42,26 @@ const generateBullet = () => {
      }
 }
 
-
 const animateBullet = () => {
 generateBullet();
 bulletArray.forEach(bullet => {
       bullet.updateBullet();
       if(bullet.y < 0){
-          console.log(bulletY)
         bulletArray.splice(bulletArray.indexOf(bullet), 1);
       }
+
+    obstacleArray.forEach(obstacle => {
+        console.log(obstacle.x, obstacle.y, bullet.y)
+        if(bullet.y >= obstacle.y && bullet.y <= obstacle.y + vehicleHeight && possibleCarLanes[current] >=obstacle.x && possibleCarLanes[current] < obstacle.x + vehicleWidth){
+           
+            obstacleArray.splice(obstacleArray.indexOf(obstacle), 1);
+            bulletArray.splice(bulletArray.indexOf(bullet), 1);
+        }
+    })
  });
 
 
-  requestAnimationFrame(animateBullet);
+ requestAnimationFrame(animateBullet);
 };
 
 
