@@ -1,6 +1,8 @@
 let highscore;
 let bulletSpeed = 5;
 
+const bulletSign = document.querySelector('.ammo-sign')
+
 if(!localStorage.getItem('highscore')){
     highscore = 0;
     localStorage.setItem('highscore', highscore);    
@@ -103,6 +105,10 @@ const checkCollision = () => {
     ) {
     mode = 1;
       carSpeed = 0;
+      bulletArray = [];
+
+      bulletSign.style.display = 'none';
+
       if(localStorage.getItem('highscore') < score/5){
           highscore = score / 5;
           localStorage.setItem('highscore', highscore);
@@ -111,7 +117,7 @@ const checkCollision = () => {
       exitMenu.style.display = "block";
     } else if (myCarY < obstacle.y - vehicleHeight) {
       score = score + 1;
-      scoreEl.innerHTML = Math.trunc(score / 5);
+       scoreEl.innerHTML = Math.trunc(score / 5);
     }
   });
 };
