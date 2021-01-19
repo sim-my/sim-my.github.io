@@ -1,3 +1,5 @@
+//Note: Image of ants are square with height and width twice the radius
+
 const canvas = document.querySelector("canvas");
 const scoreEl = document.querySelector("#scoreEl");
 
