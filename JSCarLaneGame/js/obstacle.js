@@ -1,4 +1,5 @@
 let highscore;
+let bulletSpeed = 5;
 
 if(!localStorage.getItem('highscore')){
     highscore = 0;
@@ -8,6 +9,8 @@ if(!localStorage.getItem('highscore')){
 else{
     highscore = localStorage.getItem('highscore');
 }
+
+const bullet = document.querySelector('.bullet');
 
 document.querySelector('.high-score-span').innerHTML = highscore;
 
@@ -113,6 +116,7 @@ const checkCollision = () => {
   });
 };
 
+
 const animateObstacle = () => {
   generateObstacle();
   checkCollision();
@@ -124,4 +128,5 @@ const animateObstacle = () => {
   );
   requestAnimationFrame(animateObstacle);
 };
+
 animateObstacle();
