@@ -6,7 +6,7 @@ const c = canvas.getContext("2d");
 canvas.width = innerWidth - 80;
 canvas.height = innerHeight - 80;
 
-const count = 150;
+const count = 50;
 
 let score = 0;
 
@@ -54,15 +54,14 @@ let antX, antY;
 
 // Ants
 class Ant {
-  constructor(x, y, radius, color, mass) {
+  constructor(x, y, radius,mass) {
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.color = color;
     this.mass = mass;
     this.velocity = {
-      x: Math.random() - 0.5 * 2,
-      y: Math.random() - 0.5 * 2,
+      x: Math.random() - 2,
+      y: Math.random() - 2,
     };
   }
 
@@ -113,7 +112,6 @@ const init = () => {
     let radius = generateRandomFromRange(minRadius, maxRadius);
     let x = generateRandomFromRange(radius, canvas.width - radius);
     let y = generateRandomFromRange(radius, canvas.height - radius);
-    let color = generateRandomColor(colors);
 
     if (i !== 0) {
       for (let j = 0; j < ants.length; j++) {
@@ -129,7 +127,7 @@ const init = () => {
         }
       }
     }
-    ants.push(new Ant(x, y, radius, color, mass));
+    ants.push(new Ant(x, y, radius, mass));
   }
 };
 
