@@ -1,5 +1,7 @@
 const carImage = new Image();
 
+let mode = 0;
+
 let obstacleArray = [];
 
 let score = 0;
@@ -42,19 +44,24 @@ const keyPressHandler = (event) => {
     }
 
     if(event.keyCode === 13){
-        carSpeed = 10;
-        enterScreen.style.display = 'none';
+        if(mode === 0){
+            carSpeed = 10;
+            enterScreen.style.display = 'none';
+            mode = 2;
+        }
+        else if(mode === 1){
+            carSpeed = 10;
+            exitMenu.style.display = 'none';
+            c.clearRect(0, 0 , canvas.width, canvas.height);
+            obstacleArray = [];
+            myCarAnimate();
+            score = 0;
+            scoreEl.innerHTML = score;
+            mode = 2;
+        }
+
     }
 
-    if(event.keyCode === 32){
-        carSpeed = 10;
-        exitMenu.style.display = 'none';
-        c.clearRect(0, 0 , canvas.width, canvas.height);
-        obstacleArray = [];
-        myCarAnimate();
-        score = 0;
-        scoreEl.innerHTML = score;
-    }
 }
 
 

@@ -85,6 +85,7 @@ const checkCollision = () => {
         obstacle.y < myCarY + vehicleHeight &&
         obstacle.y + vehicleHeight > myCarY + vehicleHeight)
     ) {
+    mode = 1;
       carSpeed = 0;
       exitMenu.style.display = "block";
     } else if (myCarY < obstacle.y - vehicleHeight) {
