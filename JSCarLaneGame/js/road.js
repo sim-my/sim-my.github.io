@@ -1,4 +1,4 @@
-let carSpeed = 10;
+let carSpeed = 0;
 let roadTop = -canvas.height;
 
 const roadBg = new Image();

@@ -1,5 +1,12 @@
 const carImage = new Image();
 
+let obstacleArray = [];
+
+let score = 0;
+
+const enterScreen = document.querySelector('.start-menu');
+const exitMenu = document.querySelector('.exit-menu');
+
 const vehicleHeight = 215;
 const vehicleWidth = 92;
 
@@ -32,6 +39,21 @@ const keyPressHandler = (event) => {
         if(current > 2){
             current = 2;
         }
+    }
+
+    if(event.keyCode === 13){
+        carSpeed = 10;
+        enterScreen.style.display = 'none';
+    }
+
+    if(event.keyCode === 32){
+        carSpeed = 10;
+        exitMenu.style.display = 'none';
+        c.clearRect(0, 0 , canvas.width, canvas.height);
+        obstacleArray = [];
+        myCarAnimate();
+        score = 0;
+        scoreEl.innerHTML = score;
     }
 }
 

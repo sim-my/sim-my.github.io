@@ -4,8 +4,47 @@
 }
 body{
     text-align: center;
+    position: relative;
 }
 canvas{
-    background:green;
+    background:#008000;
     
+}
+
+body .scoreboard{
+    padding: 20px;
+    color: #008000;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #fff;
+    font-size: 48px;
+}
+
+body .high-score{
+    padding: 20px;
+    color:#ff0000;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    background-color: #fff;
+    font-size: 48px;
+}
+
+body .start-menu, body .exit-menu{
+    position: absolute;
+    top: 50%;
+    width: 500px;
+    background-color: #adff2f;
+    height: 100px;
+    left: 50%;
+    font-size: 48px;
+    padding: 20px;
+    line-height: 100px;
+    color: #7d27ce;
+    transform: translate(-50%, -50%);
+}
+
+body .exit-menu{
+    display: none;
 }
