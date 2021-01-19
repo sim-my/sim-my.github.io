@@ -1,7 +1,11 @@
 const carImage = new Image();
 
+const vehicleHeight = 215;
+const vehicleWidth = 92;
+
 carImage.src = './images/my_car.png';
 
+const myCarY = canvas.height * (2/3);
 
 const possibleCarLanes = [canvas.width * (11/50), canvas.width * (19/50), canvas.width * (11/20)]
 
@@ -9,11 +13,10 @@ let current = 0;
 
 const myCarAnimate = () => {
    let x = possibleCarLanes[current];
-   let y =  canvas.height * (2/3);
-   c.drawImage(carImage, x, y);
-
-
-    requestAnimationFrame(myCarAnimate);    
+   let y =  myCarY;
+   c.drawImage(carImage, x, myCarY);
+   
+   requestAnimationFrame(myCarAnimate);    
 }
 
 const keyPressHandler = (event) => {
