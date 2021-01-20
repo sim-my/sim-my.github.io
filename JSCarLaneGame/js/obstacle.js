@@ -1,5 +1,9 @@
+const scoreEl = document.querySelector(".scoreboard .score-span");
+
 let highscore = localStorage.getItem('highscore') || 0;
 let bulletSpeed = 5;
+
+document.querySelector('.high-score-span').innerHTML = highscore;
 
 const bulletSign = document.querySelector('.ammo-sign')
 
@@ -14,7 +18,7 @@ else{
 
 const bullet = document.querySelector('.bullet');
 
-document.querySelector('.high-score-span').innerHTML = highscore;
+
 
 const obstacleType = [
   "ambulance",
@@ -26,8 +30,6 @@ const obstacleType = [
   "taxi",
 ];
 const possibleObstacleY = [-200, -450, -700];
-
-const scoreEl = document.querySelector(".scoreboard .score-span");
 
 obstacles = [];
 
