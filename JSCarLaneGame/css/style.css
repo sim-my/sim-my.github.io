@@ -38,13 +38,15 @@ body .start-menu, body .exit-menu{
     position: absolute;
     top: 50%;
     width: 500px;
-    background-color: #adff2f;
+    background-color: #2f82ff;
     height: 300px;
     left: 50%;
     font-size: 24px;
     padding: 20px;
     line-height: 100px;
-    color: #7d27ce;
+    color: #fff;
+    border-radius: 10px;
+    border: 3px solid #ff0000;
     transform: translate(-50%, -50%);
 }
 body .exit-menu {
