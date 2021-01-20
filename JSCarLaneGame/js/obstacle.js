@@ -106,16 +106,15 @@ const checkCollision = () => {
     mode = 1;
       carSpeed = 0;
       bulletArray = [];
-      score = 0;
       timer = 0;
       bulletSign.style.display = 'none';
-
       if(localStorage.getItem('highscore') < score/5){
           highscore = Math.trunc(score / 5);
           console.log(highscore)
           localStorage.setItem('highscore', highscore);
           document.querySelector('.high-score-span').innerHTML = highscore;
       }
+      score = 0;
       exitMenu.style.display = "block";
     } else if (myCarY < obstacle.y - vehicleHeight) {
       score = score + 1;
