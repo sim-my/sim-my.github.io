@@ -22,9 +22,13 @@ body .scoreboard{
     left: 20px;
     background-color: #fff;
     font-size: 48px;
+    border: 2px solid #008000;
+    border-radius: 10px;
 }
 
 body .high-score{
+    border: 2px solid #ff0000;
+    border-radius: 10px;
     padding: 20px;
     color:#ff0000;
     position: absolute;
