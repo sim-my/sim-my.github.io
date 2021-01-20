@@ -81,7 +81,7 @@ const keyPressHandler = (event) => {
       obstacleArray = [];
       myCarAnimate();
       score = 0;
-      scoreEl.innerHTML = score;
+      scoreEl.innerHTML = Math.trunc(score / 5);
       mode = 2;
     }
   }
