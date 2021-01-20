@@ -109,7 +109,7 @@ const checkCollision = () => {
       timer = 0;
       bulletSign.style.display = 'none';
       if(localStorage.getItem('highscore') < score/5){
-          highscore = Math.trunc(score / 5);
+          highscore = parseInt(score / 5);
           console.log(highscore)
           localStorage.setItem('highscore', highscore);
           document.querySelector('.high-score-span').innerHTML = highscore;
