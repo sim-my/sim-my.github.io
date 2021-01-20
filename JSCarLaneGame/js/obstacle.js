@@ -109,7 +109,7 @@ const checkCollision = () => {
       timer = 0;
       bulletSign.style.display = 'none';
       if(localStorage.getItem('highscore') < score/5){
-          highscore = parseInt(score / 5);
+          highscore = Math.trunc(score / 5);
           console.log(highscore)
           localStorage.setItem('highscore', highscore);
           document.querySelector('.high-score-span').innerHTML = highscore;
@@ -118,7 +118,7 @@ const checkCollision = () => {
       exitMenu.style.display = "block";
     } else if (myCarY < obstacle.y - vehicleHeight) {
       score = score + 1;
-      scoreEl.innerHTML = parseInt(score / 5);
+      scoreEl.innerHTML = Math.trunc(score / 5);
     }
   });
 };
