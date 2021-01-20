@@ -63,7 +63,7 @@ const animateBullet = () => {
           bulletArray.splice(bulletArray.indexOf(bullet), 1);
 
           score = score + 1;
-          scoreEl.innerHTML = score;
+          scoreEl.innerHTML = Math.trunc(score);
         }
       });
     }

@@ -10,6 +10,9 @@ canvas{
     background:#008000;
     
 }
+p{
+    line-height: 24px;
+}
 
 body .scoreboard{
     padding: 20px;
@@ -36,13 +39,20 @@ body .start-menu, body .exit-menu{
     top: 50%;
     width: 500px;
     background-color: #adff2f;
-    height: 100px;
+    height: 300px;
     left: 50%;
-    font-size: 48px;
+    font-size: 24px;
     padding: 20px;
     line-height: 100px;
     color: #7d27ce;
     transform: translate(-50%, -50%);
+}
+body .exit-menu {
+    height: 100px;
+    font-size: 48px;
+}
+body .start-menu p, body .exit-menu p{
+    text-align: left;
 }
 
 #bullet{
