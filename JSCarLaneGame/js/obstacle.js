@@ -1,4 +1,4 @@
-let highscore = 0;
+let highscore = localStorage.getItem('highscore') || 0;
 let bulletSpeed = 5;
 
 const bulletSign = document.querySelector('.ammo-sign')
