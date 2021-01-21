@@ -41,7 +41,7 @@ class Obstacle {
 
   spawn() {
     let image = new Image();
-    image.src = `./images/${this.type}.png`;
+    image.src = `images/${this.type}.png`;
     c.drawImage(image, this.x, this.y);
   }
 

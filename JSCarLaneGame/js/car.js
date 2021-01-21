@@ -16,7 +16,7 @@ const exitMenu = document.querySelector(".exit-menu");
 const vehicleHeight = 215;
 const vehicleWidth = 92;
 
-carImage.src = "./images/my_car.png";
+carImage.src = "images/my_car.png";
 
 const myCarY = canvas.height * (2 / 3);
 

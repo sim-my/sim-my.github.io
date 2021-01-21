@@ -9,7 +9,7 @@ class Bullet {
   }
   createBullet = () => {
     let image = new Image();
-    image.src = "./images/bullet.png";
+    image.src = "images/bullet.png";
     c.drawImage(image, possibleCarLanes[current] + vehicleWidth + 10, this.y);
   };
 
