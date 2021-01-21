@@ -115,10 +115,11 @@ const checkCollision = () => {
       }
       score = 0;
       exitMenu.style.display = "block";
-    } else if (myCarY < obstacle.y - vehicleHeight) {
-      score = score + 1;
-      scoreEl.innerHTML = Math.trunc(score / 5);
     }
+    // else if (myCarY < obstacle.y - vehicleHeight) {
+    //   score = score + 1;
+    //   scoreEl.innerHTML = Math.trunc(score / 5);
+    // }
   });
 };
 
@@ -127,11 +128,16 @@ const animateObstacle = () => {
   generateObstacle();
   checkCollision();
   obstacleArray.forEach((obstacle) => {
+    if(obstacle.y > canvas.height){
+      onstacleArray.shift();
+      score = score + 1;
+      scoreEl.innerHTML = Math.trunc(score / 5);
+    }
     obstacle.update();
   });
-  obstacleArray = obstacleArray.filter(
-    (obstacle) => obstacle.y < canvas.height
-  );
+  // obstacleArray = obstacleArray.filter(
+  //   (obstacle) => obstacle.y < canvas.height
+  // );
   requestAnimationFrame(animateObstacle);
 };
 
