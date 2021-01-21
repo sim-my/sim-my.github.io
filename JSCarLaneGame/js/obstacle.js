@@ -115,7 +115,8 @@ const checkCollision = () => {
       }
       score = 0;
       exitMenu.style.display = "block";
-    } else if (myCarY < obstacle.y - vehicleHeight) {
+    } 
+    if (myCarY < obstacle.y - vehicleHeight) {
       score = score + 1;
       console.log(score)
       scoreEl.innerHTML = Math.trunc(score / 5);
