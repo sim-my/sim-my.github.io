@@ -1,9 +1,11 @@
 export default class Bullet {
-  constructor(context, x, y, color, rocketPosition) {
+  constructor(context, x, y, color, width, height, rocketPosition) {
     this.context = context;
     this.x = x;
     this.y = y;
     this.color = color;
+    this.width = width;
+    this.height = height;
     this.rocketPosition = rocketPosition
     
   }
@@ -13,21 +15,21 @@ export default class Bullet {
     this.context.arc(
       this.x,
       this.y,
-      5,
+      7,
       0,
       2 * Math.PI,
       false
     );
     this.context.fillStyle = this.color;
-    this.context.fill();   
+    this.context.fill();
+    
   }
 
   move() {
     this.draw()
     if(this.rocketPosition === 'top'){
-        this.y += 10;    
-      }
-
+        this.y += 10;
+    }
     else{
         this.y -= 10;
     }
