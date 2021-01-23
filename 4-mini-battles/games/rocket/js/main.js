@@ -4,16 +4,18 @@ import Bullet from "../js/classes/bullet.js";
 import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
 import  playAudio from '../../../core/js/helpers/audio.js';
 
-const obstacleArray = [];
-const redBulletArray = [];
-const blueBulletArray = [];
+let obstacleArray = [];
+let redBulletArray = [];
+let blueBulletArray = [];
 const obstaclesSrc = [
   "./games/rocket/assets/images/red-obstacle.png",
   "./games/rocket/assets/images/blue-obstacle.png",
 ];
 export default class Rocket extends Game {
-  constructor(canvas, gameData, red, blue) {
+  constructor(game,canvas, gameData, red, blue, gameOver, winnerTeamImg, winnerTagImg, replayButton) {
     super(canvas, gameData);
+    this.game = game;
+    this.gameRun = true;
     this.red = red;
     this.blue = blue;
     this.redRocket;
@@ -27,13 +29,18 @@ export default class Rocket extends Game {
     this.blueRocket;
     this.blastX;
     this.blastY;
-    this.obstacleCount = 3;
+    this.obstacleCount = 4;
     this.rocketX = 0;
-    this.rocketSpeed = 2;
+    this.rocketSpeed = 5;
     this.rocketHeight = 100;
     this.rocketWidth = 50;
     this.obstacleWidth = 50;
     this.obstacleHeight = 50;
+    this.gameOver = gameOver;
+    this.winnerTeamImg = winnerTeamImg;
+    this.winnerTagImg = winnerTagImg;
+    this.replayButton = replayButton;
+    this.finalPoint = 5;
     window.addEventListener("keypress", (event) => {
       if (event.code === "KeyL") {
         this.fireBlueBullet = true;
@@ -45,6 +52,8 @@ export default class Rocket extends Game {
         this.fireRedBullet = true;
       }
     });
+
+    this.replayButton.addEventListener('click', ()=>this.handleReplay());
   }
 
   start() {
@@ -52,6 +61,13 @@ export default class Rocket extends Game {
     this.setBackground();
     this.setRedRocket();
     this.setBlueRocket();
+    if(this.gameRun){
+      this.init();
+    }       
+  }
+
+  init(){       
+    this.moveRocket();
     this.manageObstacles();
     this.manageRedBullet();
     this.manageBlueBullet();
@@ -61,15 +77,6 @@ export default class Rocket extends Game {
     this.blastBlueObstacle();
     this.setRedScore();
     this.setBlueScore();
-  }
-
-
-  setRedScore(){
-    this.red.innerHTML = this.redScore;
-  }
-
-  setBlueScore(){
-    this.blue.innerHTML = this.blueScore;
   }
 
   createObstacles() {
@@ -116,6 +123,10 @@ export default class Rocket extends Game {
       this.rocketWidth,
       this.rocketHeight
     );
+
+  }
+
+  moveRocket(){
     this.rocketX += this.rocketSpeed;
     if (this.rocketX > this.canvas.width - this.rocketWidth) {
       this.rocketX = 0;
@@ -281,4 +292,44 @@ export default class Rocket extends Game {
       setTimeout(()=> this.blastBlue = false, 300);
     }
   }
+  
+  setRedScore(){
+    this.red.innerHTML = this.redScore;
+    if(this.redScore === this.finalPoint){
+      this.endGame('./core/assets/images/red-winner.png','./core/assets/images/red.png')
+    }
+  }
+
+  setBlueScore(){
+    this.blue.innerHTML = this.blueScore;
+    if(this.blueScore === this.finalPoint){
+      this.endGame('./core/assets/images/blue-winner.png','./core/assets/images/blue.png')
+    }
+  }
+
+    
+  endGame(winnertagImg, winnerTeamImg){
+      this.gameRun = false;
+      playAudio('./core/assets/sounds/game-over.mp3');
+      this.gameOver.style.display = 'block';
+      this.winnerTeamImg.setAttribute('src', winnerTeamImg);
+      this.winnerTagImg.setAttribute('src', winnertagImg);
+  }  
+  
+  handleReplay(){
+    if(this.game === 'rocket'){
+      this.gameRun = true;
+      this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
+      this.rocketX = 0;
+      this.redScore = 0;
+      this.blueScore = 0;
+      redBulletArray = [];
+      blueBulletArray = [];
+      obstacleArray = [];
+      this.fireRedBullet = false;
+      this.fireBlueBullet = false;
+      this.gameOver.style.display = 'none';      
+    }
+  }
 }
+
