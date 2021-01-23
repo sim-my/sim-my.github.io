@@ -2,22 +2,31 @@ import Game from "../../../core/js/classes/game.js";
 import Obstacle from "../js/classes/obstacle.js";
 import Bullet from "../js/classes/bullet.js";
 import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
+import  playAudio from '../../../core/js/helpers/audio.js';
 
 const obstacleArray = [];
 const redBulletArray = [];
 const blueBulletArray = [];
 const obstaclesSrc = [
-  "./games/rocket/assets/red-obstacle.png",
-  "./games/rocket/assets/blue-obstacle.png",
+  "./games/rocket/assets/images/red-obstacle.png",
+  "./games/rocket/assets/images/blue-obstacle.png",
 ];
 export default class Rocket extends Game {
-  constructor(canvas, gameData) {
+  constructor(canvas, gameData, red, blue) {
     super(canvas, gameData);
+    this.red = red;
+    this.blue = blue;
     this.redRocket;
     this.fireBlueBullet = false;
     this.fireRedBullet = false;
     this.obstacleX = this.canvas.width;
+    this.redHit = false;
+    this.blueHit = false;
+    this.redScore = 0;
+    this.blueScore = 0;
     this.blueRocket;
+    this.blastX;
+    this.blastY;
     this.obstacleCount = 3;
     this.rocketX = 0;
     this.rocketSpeed = 2;
@@ -48,6 +57,19 @@ export default class Rocket extends Game {
     this.manageBlueBullet();
     this.detectBlueBulletCollision();
     this.detectRedBulletCollision();
+    this.blastRedObstacle();
+    this.blastBlueObstacle();
+    this.setRedScore();
+    this.setBlueScore();
+  }
+
+
+  setRedScore(){
+    this.red.innerHTML = this.redScore;
+  }
+
+  setBlueScore(){
+    this.blue.innerHTML = this.blueScore;
   }
 
   createObstacles() {
@@ -86,7 +108,7 @@ export default class Rocket extends Game {
 
   setRedRocket() {
     this.redRocket = new Image();
-    this.redRocket.src = "./games/rocket/assets/red-rocket.png";
+    this.redRocket.src = "./games/rocket/assets/images/red-rocket.png";
     this.context.drawImage(
       this.redRocket,
       this.rocketX,
@@ -102,7 +124,7 @@ export default class Rocket extends Game {
 
   setBlueRocket() {
     this.blueRocket = new Image();
-    this.blueRocket.src = "./games/rocket/assets/blue-rocket.png";
+    this.blueRocket.src = "./games/rocket/assets/images/blue-rocket.png";
     this.context.drawImage(
       this.blueRocket,
       this.rocketX,
@@ -114,7 +136,7 @@ export default class Rocket extends Game {
 
   setBackground() {
     const bgImg = new Image();
-    bgImg.src = "./games/rocket/assets/bg.png";
+    bgImg.src = "./games/rocket/assets/images/bg.png";
 
     let ptrn = this.context.createPattern(bgImg, "repeat");
     this.context.fillStyle = ptrn;
@@ -147,14 +169,6 @@ export default class Rocket extends Game {
     blueBulletArray.push(blueBullet);
   }
 
-  drawRedBullet() {
-    redBulletArray.forEach((redBullet) => redBullet.draw());
-  }
-
-  drawBlueBullet() {
-    blueBulletArray.forEach((blueBullet) => blueBullet.draw());
-  }
-
   moveRedBullet() {
     redBulletArray.forEach((redBullet) => {
       redBullet.move();
@@ -178,6 +192,7 @@ export default class Rocket extends Game {
   manageRedBullet() {
     if (redBulletArray.length === 0 && this.fireRedBullet) {
       this.createRedBullet();
+      playAudio('./games/rocket/assets/audio/red-shoot.mp3');
     }
     if (this.fireRedBullet) {
       this.moveRedBullet();
@@ -187,8 +202,10 @@ export default class Rocket extends Game {
   manageBlueBullet() {
     if (blueBulletArray.length === 0 && this.fireBlueBullet) {
       this.createBlueBullet();
+      playAudio('./games/rocket/assets/audio/blue-shoot.mp3');
     }
     if (this.fireBlueBullet) {
+      
       this.moveBlueBullet();
     }
   }
@@ -199,33 +216,69 @@ export default class Rocket extends Game {
       obstacleArray.forEach((obstacle) => {
         if (detectRectangularCollision(blueBullet, obstacle)) {
           //Red obstacle Collision detection
+          playAudio('./games/rocket/assets/audio/poof.mp3');
           if (obstacle.key === 0) {
+            this.redScore ++;
             obstacleArray.splice(obstacleArray.indexOf(obstacle), 1);
+            this.blastRed = true;
+            this.blastX = obstacle.x;
+            this.blastY = obstacle.y;
           }
           //Blue obstacle Collision detection
           else if (obstacle.key === 1) {
+            this.blueScore ++;
             obstacleArray.splice(obstacleArray.indexOf(obstacle), 1);
+            this.blastBlue = true;
+            this.blastX = obstacle.x;
+            this.blastY = obstacle.y;
           }
         }
       });
     }
   }
-
   detectRedBulletCollision() {
     if (redBulletArray.length > 0) {
       let redBullet = redBulletArray[0];
       obstacleArray.forEach((obstacle) => {
         if (detectRectangularCollision(redBullet, obstacle)) {
           //Red obstacle Collision detection
+          playAudio('./games/rocket/assets/audio/poof.mp3');
           if (obstacle.key === 0) {
+            this.redScore ++;
             obstacleArray.splice(obstacleArray.indexOf(obstacle), 1);
+            this.blastRed = true;
+            this.blastX = obstacle.x;
+            this.blastY = obstacle.y;
           }
           //Blue obstacle Collision detection
           else if (obstacle.key === 1) {
+            this.blueScore ++;
             obstacleArray.splice(obstacleArray.indexOf(obstacle), 1);
+            this.blastBlue = true;
+            this.blastX = obstacle.x;
+            this.blastY = obstacle.y;
           }
         }
       });
+    }
+  }
+
+  blastRedObstacle(){
+    if(this.blastRed){
+      const blast = new Image();
+      blast.src = './games/rocket/assets/images/blast.png';
+      this.context.drawImage(blast, this.blastX - this.obstacleWidth, this.blastY, 200, 50);  
+      
+      setTimeout(()=> {this.blastRed = false}, 300);
+    }
+  }
+
+  blastBlueObstacle(){
+    if(this.blastBlue){
+      const blast = new Image();
+      blast.src = './games/rocket/assets/images/blast.png';
+      this.context.drawImage(blast, this.blastX - this.obstacleWidth, this.blastY, 200, 50);       
+      setTimeout(()=> this.blastBlue = false, 300);
     }
   }
 }

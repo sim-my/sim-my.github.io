@@ -15,7 +15,7 @@ export const gamesData = [
   {
     name: "rocket",
     cardImageSrc: "./core/assets/rockets.png",
-    assets: ["./games/rocket/assets/red-rocket.png", "./games/rocket/assets/blue-rocket.png", "./games/rocket/assets/bg.png"],
+    assets: ["./games/rocket/assets/images/red-rocket.png", "./games/rocket/assets/images/blue-rocket.png", "./games/rocket/assets/images/bg.png"],
   },
   {
     name: "timberman",

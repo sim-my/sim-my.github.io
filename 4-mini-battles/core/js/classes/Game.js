@@ -12,7 +12,6 @@ export default class Game {
   start() {
     preloadImages(this.gameData.assets, () => {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      console.log("Loaded and Start");
     });
   }
 }
