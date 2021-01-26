@@ -12,7 +12,7 @@ const obstaclesSrc = [
   "./games/rocket/assets/images/blue-obstacle.png",
 ];
 export default class Rocket extends Game {
-  constructor(game,canvas, gameData, red, blue, gameOver, winnerTeamImg, winnerTagImg, replayButton) {
+  constructor(game,canvas, gameData, red, blue, gameOver, winnerTeamImg, winnerTagImg, replayButton, homeButton, scoreBoard, homePage, rocketGameStart) {
     super(canvas, gameData);
     this.game = game;
     this.gameRun = true;
@@ -40,7 +40,11 @@ export default class Rocket extends Game {
     this.winnerTeamImg = winnerTeamImg;
     this.winnerTagImg = winnerTagImg;
     this.replayButton = replayButton;
+    this.homeButton = homeButton;
     this.finalPoint = 5;
+    this.scoreBoard = scoreBoard;
+    this.homePage = homePage;
+    this.rocketGameStart = rocketGameStart;
     window.addEventListener("keypress", (event) => {
       if (event.code === "KeyL") {
         this.fireBlueBullet = true;
@@ -54,6 +58,7 @@ export default class Rocket extends Game {
     });
 
     this.replayButton.addEventListener('click', ()=>this.handleReplay());
+    this.homeButton.addEventListener('click', ()=>this.handleHome());
   }
 
   start() {
@@ -147,11 +152,8 @@ export default class Rocket extends Game {
 
   setBackground() {
     const bgImg = new Image();
-    bgImg.src = "./games/rocket/assets/images/bg.png";
-
-    let ptrn = this.context.createPattern(bgImg, "repeat");
-    this.context.fillStyle = ptrn;
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    bgImg.src = "./games/rocket/assets/images/bg.jpg";
+    this.context.drawImage(bgImg,0, 0, this.canvas.width, this.canvas.height);
   }
 
   createRedBullet() {
@@ -319,17 +321,28 @@ export default class Rocket extends Game {
   handleReplay(){
     if(this.game === 'rocket'){
       this.gameRun = true;
-      this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
-      this.rocketX = 0;
-      this.redScore = 0;
-      this.blueScore = 0;
-      redBulletArray = [];
-      blueBulletArray = [];
-      obstacleArray = [];
-      this.fireRedBullet = false;
-      this.fireBlueBullet = false;
+      this.clearGame();
       this.gameOver.style.display = 'none';      
-    }
+    }    
+  }
+
+handleHome(){
+  this.clearGame();  
+  this.gameOver.style.display = 'none';  
+  this.scoreBoard.style.display = 'none';
+  this.homePage.style.display = 'block';
+}
+
+  clearGame(){
+    this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
+    this.rocketX = 0;
+    this.redScore = 0;
+    this.blueScore = 0;
+    redBulletArray = [];
+    blueBulletArray = [];
+    obstacleArray = [];
+    this.fireRedBullet = false;
+    this.fireBlueBullet = false;
   }
 }
 
