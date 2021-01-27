@@ -1,6 +1,6 @@
 //key is 0 for red, 1 for blue
 export default class Obstacle {
-    constructor(context,key, image, x, y, w, h){
+    constructor(context, key, image, x, y, w, h){
         this.context = context;
         this.key = key;
         this.image = image;

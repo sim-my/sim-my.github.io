@@ -2,7 +2,10 @@ import Game from "../../../core/js/classes/game.js";
 import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
 import playAudio from "../../../core/js/helpers/audio.js";
 import { preloadImages } from "../../../core/js/helpers/utils.js";
+import Player from "./classes/player.js";
+import Obstacle from "./classes/obstacle.js";
 
+let frequency = 200;
 let blueObstacleFrame = 0;
 let blueObstacleIndex = 0;
 let redObstacleFrame = 0;
@@ -74,6 +77,8 @@ export default class Timberman extends Game {
     this.replayButton = replayButton;
     this.homeButton = homeButton;
     this.redObstacleY = 200;
+    this.blueBlinking = false;
+    this.redBlinking = false;
     this.blueObstacleY = 200;
     this.redObstacleX = this.canvas.width / 2 + this.canvas.width / 32;
     this.finalPoint = 5;
@@ -88,12 +93,14 @@ export default class Timberman extends Game {
     window.addEventListener("keypress", (event) => {
       if (event.code === "KeyL") {
         this.jumpRed = true;
+        playAudio('./games/timberman/assets/audio/redJump.mp3');
       }
     });
 
     window.addEventListener("keypress", (event) => {
       if (event.code === "KeyA") {
         this.jumpBlue = true;
+        playAudio('./games/timberman/assets/audio/blueJump.mp3');
       }
     });
 
@@ -111,9 +118,10 @@ export default class Timberman extends Game {
     this.moveRedObstacle();
     this.generateBlueObstacle();
     this.moveBlueObstacle();
+    this.detectRedObstacleCollision();
+    this.detectBlueObstacleCollision();
   }
 
-  init() {}
 
   handleSpeed() {
     if (this.redPlayerY <= (this.canvas.height * 2) / 3 - 200) {
@@ -144,147 +152,132 @@ export default class Timberman extends Game {
   }
 
   setBluePlayer() {
-    this.bluePlayer = new Image();
+    let imgSrc;
     if (!this.jumpBlue) {
-      this.bluePlayer.src = bluePlayerJumpSrc[0];
+      imgSrc = bluePlayerJumpSrc[0];
     } else {
-      this.bluePlayer.src = bluePlayerJumpSrc[1];
+      imgSrc = bluePlayerJumpSrc[1];
     }
     if (this.jumpBlue) {
       this.bluePlayerY -= 10;
     }
-    this.context.drawImage(
-      this.bluePlayer,
-      this.canvas.width / 5,
-      this.bluePlayerY,
-      120,
-      200
-    );
+    this.bluePlayer = new Player(this.context, imgSrc, this.canvas.width / 5, this.bluePlayerY, 120, 200);
+    if (!this.blueBlinking || Math.floor(Date.now() / frequency) % 2) {
+      this.bluePlayer.draw();
+    }
   }
 
   setRedPlayer() {
-    this.redPlayer = new Image();
+    let imgSrc;
     if (!this.jumpRed) {
-      this.redPlayer.src = redPlayerJumpSrc[0];
+      imgSrc = redPlayerJumpSrc[0];
     } else {
-      this.redPlayer.src = redPlayerJumpSrc[1];
+      imgSrc = redPlayerJumpSrc[1];
     }
     if (this.jumpRed) {
       this.redPlayerY -= 10;
     }
-    this.context.drawImage(
-      this.redPlayer,
-      (this.canvas.width * 4) / 5 - 120,
-      this.redPlayerY,
-      120,
-      200
-    );
+
+    this.redPlayer = new Player(this.context, imgSrc, (this.canvas.width * 4) / 5 - 120, this.redPlayerY, 120, 200);
+    if (!this.redBlinking || Math.floor(Date.now() / frequency) % 2) {
+      this.redPlayer.draw();
+    }
   }
 
   generateRedObstacle() {
     if (redObstacles.length === 0) {
-      let redObstacle = new Image();
+      let imgSrc = `./games/timberman/assets/images/${redObstacleSrc[redObstacleIndex]}`;
+      let redObstacle = new Obstacle(this.context, imgSrc, this.redObstacleX, this.redObstacleY, 70, 70);
       redObstacles.push(redObstacle);
     }
   }
 
-  moveRedObstacle() {
+  moveRedObstacle() {   
+    let imageSrc = `./games/timberman/assets/images/${redObstacleSrc[redObstacleIndex]}`; 
     let redObstacle = redObstacles[0];
     if (!this.redObstacleCollide) {
-      this.redObstacleY += 10;
+      redObstacle.move(0, 10);
     }
     if (
-      this.redObstacleY >= (this.canvas.height * 3) / 4 &&
-      this.redObstacleY < this.canvas.height - 100
+      redObstacle.y >= (this.canvas.height * 3) / 4 &&
+      redObstacle.y < this.canvas.height - 100
     ) {
       this.redObstacleCollide = true;
       this.redObstacleSlide = true;
-      this.slideRedObstacle();
+      this.redBlinking = false;
+      this.slideRedObstacle(redObstacle);
     }
-    if (this.redObstacleY >= this.canvas.height - 100) {
+    if (redObstacle.y >= this.canvas.height - 100) {
       this.redObstacleSlide = false;
       if (redObstacleFrame % 5 === 0) {
         redObstacleIndex = (redObstacleFrame / 5) % redObstacleSrc.length;
       }
-      this.redObstacleX += 5;
+      redObstacle.move(8, 0, imageSrc);
       redObstacleFrame++;
     }
-    redObstacle.src = `./games/timberman/assets/images/${redObstacleSrc[redObstacleIndex]}`;
-    this.context.drawImage(
-      redObstacle,
-      this.redObstacleX,
-      this.redObstacleY,
-      70,
-      70
-    );
+    
 
-    if (this.redObstacleX > this.canvas.width) {
-      this.redObstacleX = this.canvas.width / 2 + this.canvas.width / 32;
-      this.redObstacleY = 200;
+    if (redObstacle.x > this.canvas.width) {
+      redObstacle.x = this.canvas.width / 2 + this.canvas.width / 32;
+      redObstacle.y = 200;
       redObstacles.pop();
       this.redObstacleCollide = false;
     }
   }
 
   generateBlueObstacle() {
-    if (blueObstacles.length === 0) {
-      const blueObstacle = new Image();
+    if (blueObstacles.length === 0) {      
+      let imgSrc = `./games/timberman/assets/images/${blueObstacleSrc[blueObstacleIndex]}`;
+      let blueObstacle = new Obstacle(this.context, imgSrc, this.blueObstacleX, this.blueObstacleY, 70, 70);
       blueObstacles.push(blueObstacle);
     }
     
   }
 
   moveBlueObstacle(){
+    let imageSrc = `./games/timberman/assets/images/${redObstacleSrc[redObstacleIndex]}`; 
     let blueObstacle = blueObstacles[0];
     if (!this.blueObstacleCollide) {
-      blueObstacle.src = `./games/timberman/assets/images/obstacle-1.png`;
-      this.blueObstacleY += 15;
+      blueObstacle.move(0, 15);
     }
     if (
-      this.blueObstacleY >= (this.canvas.height * 3) / 4 &&
-      this.blueObstacleY <= this.canvas.height - 100
+      blueObstacle.y >= (this.canvas.height * 3) / 4 &&
+      blueObstacle.y <= this.canvas.height - 100
     ) {
       blueObstacle.src = `./games/timberman/assets/images/obstacle-1.png`;
       this.blueObstacleCollide = true;
       this.blueObstacleSlide = true;
-      this.slideBlueObstacle();
+      this.blueBlinking = false;
+      this.slideBlueObstacle(blueObstacle);
     }
-    if (this.blueObstacleY > this.canvas.height - 100) {
+    if (blueObstacle.y > this.canvas.height - 100) {
       blueObstacleFrame++;
       this.blueObstacleSlide = false;
       if (blueObstacleFrame % 5 === 0) {
         blueObstacleIndex = (blueObstacleFrame / 5) % blueObstacleSrc.length;
       }
-      blueObstacle.src = `./games/timberman/assets/images/${blueObstacleSrc[blueObstacleIndex]}`;
-      this.blueObstacleX -= 5;
+      imageSrc = `./games/timberman/assets/images/${blueObstacleSrc[blueObstacleIndex]}`;
+      blueObstacle.move(-8, 0, imageSrc);
     }
-    this.context.drawImage(
-      blueObstacle,
-      this.blueObstacleX,
-      this.blueObstacleY,
-      70,
-      70
-    );
 
-    if (this.blueObstacleX < -70) {
-      this.blueObstacleX = this.canvas.width / 2 - this.canvas.width / 14;
-      this.blueObstacleY = 200;
+
+    if (blueObstacle.x < -70) {
+      blueObstacle.x = this.canvas.width / 2 - this.canvas.width / 14;
+      blueObstacle.y = 200;
       blueObstacles.pop();
       this.blueObstacleCollide = false;
     }
   }
 
-  slideBlueObstacle() {
+  slideBlueObstacle(blueObstacle) {
     if (this.blueObstacleSlide) {
-      this.blueObstacleX -= 5;
-      this.blueObstacleY += 5;
+      blueObstacle.move(-5, 5);
     }
   }
 
-  slideRedObstacle() {
+  slideRedObstacle(redObstacle) {
     if (this.redObstacleSlide) {
-      this.redObstacleX += 5;
-      this.redObstacleY += 5;
+      redObstacle.move(5, 5);
     }
   }
 
@@ -305,4 +298,34 @@ export default class Timberman extends Game {
     bgImg.src = "./games/timberman/assets/images/bg.jpg";
     this.context.drawImage(bgImg, 0, 0, this.canvas.width, this.canvas.height);
   }
+
+  detectRedObstacleCollision(){
+    if (redObstacles.length > 0) {
+      let redObstacle = redObstacles[0];
+        if (detectRectangularCollision(redObstacle, this.redPlayer,-50, 0, 0, 0)) {  
+          this.redBlinking = true;        
+          redObstacle.x = this.canvas.width / 2 + this.canvas.width / 32;
+          redObstacle.y = 200;
+          redObstacles.pop();
+          this.redObstacleCollide = false;
+          playAudio('./games/timberman/assets/audio/redHit.mp3');          
+        }
+    }
+  }
+
+  detectBlueObstacleCollision(){
+    if (blueObstacles.length > 0) {
+      let blueObstacle = blueObstacles[0];
+        if (detectRectangularCollision(blueObstacle, this.bluePlayer, 0, 0, -50, 0)) {
+          this.blueBlinking = true;
+          blueObstacle.x = this.canvas.width / 2 - this.canvas.width / 14;
+          blueObstacle.y = 200;
+          blueObstacles.pop();
+          this.blueObstacleCollide = false;
+          playAudio('./games/timberman/assets/audio/blueHit.mp3');
+      } 
+    }
+  }
 }
+
+
