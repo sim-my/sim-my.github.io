@@ -93,6 +93,7 @@ const createGame = (gameName) =>{
   
 }
 const animate = () => {
+ctx.clearRect(0,0, canvas.width, canvas.height)
   if(rocketGameStart && gameCreated){
     homePage.style.display = 'none';
     scoreboard.style.display = 'flex';
