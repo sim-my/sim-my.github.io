@@ -88,6 +88,8 @@ export default class Timberman extends Game {
     this.jumpBlue = false;
     this.blueOnTop = false;
     this.redOnTop = false;
+    this.redScore = 0;
+    this.blueScore = 0;
     this.homePage = homePage;
     this.timbermanGameStart = timbermanGameStart;
     window.addEventListener("keypress", (event) => {
@@ -113,6 +115,12 @@ export default class Timberman extends Game {
     this.setLogPile();
     this.setBluePlayer();
     this.setRedPlayer();
+    if(this.gameRun){
+      this.init();
+    }   
+  }
+
+  init(){
     this.handleSpeed();
     this.generateRedObstacle();
     this.moveRedObstacle();
@@ -120,6 +128,8 @@ export default class Timberman extends Game {
     this.moveBlueObstacle();
     this.detectRedObstacleCollision();
     this.detectBlueObstacleCollision();
+    this.setRedScore();
+    this.setBlueScore();
   }
 
 
@@ -303,6 +313,7 @@ export default class Timberman extends Game {
     if (redObstacles.length > 0) {
       let redObstacle = redObstacles[0];
         if (detectRectangularCollision(redObstacle, this.redPlayer,-50, 0, 0, 0)) {  
+          this.redScore ++;
           this.redBlinking = true;        
           redObstacle.x = this.canvas.width / 2 + this.canvas.width / 32;
           redObstacle.y = 200;
@@ -317,6 +328,7 @@ export default class Timberman extends Game {
     if (blueObstacles.length > 0) {
       let blueObstacle = blueObstacles[0];
         if (detectRectangularCollision(blueObstacle, this.bluePlayer, 0, 0, -50, 0)) {
+          this.blueScore++;
           this.blueBlinking = true;
           blueObstacle.x = this.canvas.width / 2 - this.canvas.width / 14;
           blueObstacle.y = 200;
@@ -325,6 +337,50 @@ export default class Timberman extends Game {
           playAudio('./games/timberman/assets/audio/blueHit.mp3');
       } 
     }
+  }
+
+  setRedScore(){
+    this.red.innerHTML = this.redScore;
+    if(this.redScore === this.finalPoint){
+      this.endGame('./core/assets/images/red-winner.png','./core/assets/images/red.png')
+    }
+  }
+
+  setBlueScore(){
+    this.blue.innerHTML = this.blueScore;
+    if(this.blueScore === this.finalPoint){
+      this.endGame('./core/assets/images/blue-winner.png','./core/assets/images/blue.png')
+    }
+  }
+
+    
+  endGame(winnertagImg, winnerTeamImg){
+      this.gameRun = false;
+      playAudio('./core/assets/sounds/game-over.mp3');
+      this.gameOver.style.display = 'block';
+      this.winnerTeamImg.setAttribute('src', winnerTeamImg);
+      this.winnerTagImg.setAttribute('src', winnertagImg);
+  }  
+  
+  handleReplay(){
+    if(this.game === 'timberman'){
+      this.gameRun = true;
+      this.clearGame();
+      this.gameOver.style.display = 'none';      
+    }    
+  }
+
+  handleHome(){
+    this.clearGame();  
+    this.gameOver.style.display = 'none';  
+    this.scoreBoard.style.display = 'none';
+    this.homePage.style.display = 'block';
+  }
+
+  clearGame(){
+    this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
+    this.redScore = 0;
+    this.blueScore = 0;
   }
 }
 

@@ -326,12 +326,12 @@ export default class Rocket extends Game {
     }    
   }
 
-handleHome(){
-  this.clearGame();  
-  this.gameOver.style.display = 'none';  
-  this.scoreBoard.style.display = 'none';
-  this.homePage.style.display = 'block';
-}
+  handleHome(){
+    this.clearGame();  
+    this.gameOver.style.display = 'none';  
+    this.scoreBoard.style.display = 'none';
+    this.homePage.style.display = 'block';
+  }
 
   clearGame(){
     this.context.clearRect(0,0,this.canvas.width, this.canvas.height);
