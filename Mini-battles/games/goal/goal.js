@@ -1,4 +1,4 @@
-import Game from "../../core/js/classes/Game.js";
+import Game from "../../core/js/classes/game.js";
 import Football from "./js/football.js";
 import GoalPost from "./js/goalpost.js";
 import Player from "./js/player.js";

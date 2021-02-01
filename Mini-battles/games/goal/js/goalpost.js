@@ -1,4 +1,4 @@
-import Element from "../../../core/js/classes/Element.js";
+import Element from "../../../core/js/classes/element.js";
 
 export default class GoalPost extends Element {
   constructor(canvas, context, image, x, y, width, height) {
