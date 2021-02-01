@@ -4,7 +4,7 @@ export default class Player {
     this.context = context;
     this.canvas = canvas;
     this.x = x;
-    this.y = this.canvas.height / 3;
+    this.y = (this.canvas.height * 2) / 3;
     this.width = 120;
     this.height = 200;
     this.image = imageIdle;
