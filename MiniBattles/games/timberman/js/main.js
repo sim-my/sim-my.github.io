@@ -68,7 +68,7 @@ export default class Timberman extends Game {
   setRedPlayer() {
     let imgIdle, imgJump;
     imgIdle = this.assets.images.red_idle;
-    imgJump = this.assetsred_jump;
+    imgJump = this.assets.images.red_jump;
     const redPlayer = new Player(
       this.context,
       this.canvas,
