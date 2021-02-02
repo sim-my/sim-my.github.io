@@ -38,7 +38,6 @@ export default class GameEnd {
   }
 
   redWinsGameEnd() {
-    console.log("Red wins gamer");
     this.increaseRedGameScore();
     this.increaseRedTotalGameScore();
     this.showGameEnd(

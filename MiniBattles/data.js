@@ -78,19 +78,19 @@ export const gamesData = [
       sounds: [
         {
           name: "blue_hit",
-          src: "./games/timberman/audio/blue-hit.mp3"
+          src: "./games/timberman/assets/audio/blue-hit.mp3"
         },
         {
           name: "blue_jump",
-          src: "./games/timberman/audio/blue-jump.mp3"
+          src: "./games/timberman/assets/audio/blue-jump.mp3"
         },
         {
           name: "red_hit",
-          src: "./games/timberman/audio/red-hit.mp3"
+          src: "./games/timberman/assets/audio/red-hit.mp3"
         },
         {
           name: "red_jump",
-          src: "./games/timberman/audio/red-jump.mp3"
+          src: "./games/timberman/assets/audio/red-jump.mp3"
         },
       ],
     },

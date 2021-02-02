@@ -1,10 +1,7 @@
-import Game from "../../../core/js/classes/game.js";
-import Obstacle from "../js/classes/obstacle.js";
-import Obstacles from "../js/classes/obstacles.js";
-import Bullet from "../js/classes/bullet.js";
-import Player from "../js/classes/player.js";
-import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
-import { playAudio } from "../../../core/js/helpers/audio.js";
+import Game from "../../core/js/classes/game.js";
+import Obstacles from "./js/classes/obstacles.js";
+import Bullet from "./js/classes/bullet.js";
+import Player from "./js/classes/player.js";
 
 export default class Rocket extends Game {
   constructor(

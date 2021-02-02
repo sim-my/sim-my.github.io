@@ -1,10 +1,10 @@
-import Game from "../../../core/js/classes/game.js";
-import Player from "./classes/player.js";
-import Obstacle from "./classes/obstacle.js";
+import Game from "../../core/js/classes/game.js";
+import Player from "./js/classes/player.js";
+import Obstacle from "./js/classes/obstacle.js";
 
-import { playAudio } from "../../../core/js/helpers/audio.js";
+import { playAudio } from "../../core/js/helpers/audio.js";
 
-import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
+import { detectRectangularCollision } from "../../core/js/helpers/utils.js";
 
 export default class Timberman extends Game {
   constructor(

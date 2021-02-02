@@ -1,6 +1,6 @@
 import { gamesData, GAME_STATE } from "./data.js";
-import Rocket from "./games/rocket/js/main.js";
-import Timberman from "./games/timberman/js/main.js";
+import Rocket from "./games/rocket/rocket.js";
+import Timberman from "./games/timberman/timberman.js";
 import Goal from "./games/goal/goal.js";
 import GameScoreBoard from "./core/js/components/game-scoreboard.js";
 import GameEnd from "./core/js/components/game-end.js";

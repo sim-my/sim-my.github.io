@@ -61,12 +61,10 @@ export const oneTimeRectangularCollision = (rect1, rect2) => {
     rect1.y + rect1.height > rect2.y &&
     !cooldown
   ) {
-    console.log("Collision");
     cooldown = true;
     timeout = setTimeout(function () {
       cooldown = false;
-      console.log("Time out ran");
-    }, 500);
+     }, 500);
     return true;
   }
 };
@@ -114,7 +112,6 @@ export const getRandomNumber = (min, max) => {
  * @return Array | finalImages | Loaded Images
  */
 export const preloadImages = (assets) => {
-  console.log(assets);
   let imageLoaded = false;
   let finalImages = {};
   let imagesOK = 0;
