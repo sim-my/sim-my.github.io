@@ -12,7 +12,7 @@ export default class Obstacle extends Element {
     this.obstacleIndex = 0;
     this.initialX = this.x;
     this.topBoundary = (this.canvas.height * 3) / 4;
-    this.bottomBoundary = this.canvas.height - 100;
+    this.bottomBoundary = this.canvas.height - this.height * 4/ 3;
   }
   
   draw() {

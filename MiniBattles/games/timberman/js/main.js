@@ -91,7 +91,7 @@ export default class Timberman extends Game {
 
   generateRedObstacle() {
     const X = this.canvas.width / 2 - this.canvas.width / 14;
-    const Y = this.canvas.height * 29 / 60;
+    const Y = 200;
 
     const redObstacle = new Obstacle(
       this.canvas,
@@ -117,7 +117,7 @@ export default class Timberman extends Game {
 
   generateBlueObstacle() {
     const X = this.canvas.width / 2 + this.canvas.width / 32;
-    const Y = this.canvas.height * 29 / 60;
+    const Y = 200;
     const BLUEOBSTACLE = new Obstacle(      
       this.canvas,
       this.context,
