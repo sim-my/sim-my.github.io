@@ -3,10 +3,10 @@ export default class Player {
   constructor(context, canvas, imageIdle, imageJump, x, keyCode) {
     this.context = context;
     this.canvas = canvas;
-    this.x = x;
-    this.y = this.canvas.height * 2/ 3;
-    this.width = 100;
-    this.height = 180;
+    this.x = x;    
+    this.width = this.canvas.width / 12;
+    this.height = this.canvas.height / 3;
+    this.y = this.canvas.height - this.height * 5 /4;
     this.image = imageIdle;
     this.imageIdle = imageIdle;
     this.imageJump = imageJump;
@@ -15,8 +15,8 @@ export default class Player {
     this.jump = false;
     this.blinking = false;
     this.frequency = 200;
-    this.topBoundary = this.canvas.height * 2 / 3 - this.height;
-    this.bottomBoundary = this.canvas.height * 2 / 3;
+    this.topBoundary = this.canvas.height - this.height * 5 /4  - this.height;
+    this.bottomBoundary = this.canvas.height - this.height * 5 /4;
 
     window.addEventListener("keypress", (event) => {
       this.keyPressHandler(event);
