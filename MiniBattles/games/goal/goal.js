@@ -1,4 +1,4 @@
-import Game from "../../core/js/classes/Game.js";
+import Game from "../../core/js/classes/game.js";
 import { FACE_DIRECTION } from "../../data.js";
 import Football from "./js/football.js";
 import GoalPost from "./js/goalpost.js";
