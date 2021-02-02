@@ -83,110 +83,113 @@ let goalGameAssets = getCombinedAssets(goalGameAssetsArray);
  * @param {String} gameName Name of the game
  */
 const createGame = (gameName) => {
-  currentGame = gameName;
-  switch (gameName) {
-    case ROCKET_GAME:
-      let rocketGameScoreBoard = new GameScoreBoard();
-      let rocketGameEndScreen = new GameEnd(canvas, ctx, rocketGameScoreBoard);
-      let rocketGameInstructions = new GameInstructions("This is rocket game");
-
-      rocketGame = new Rocket(
-        "rocket",
-        canvas,
-        ctx,
-        rocketGameAssets,
-        rocketGameScoreBoard,
-        rocketGameEndScreen,
-        rocketGameInstructions,
-        homePage
-      );
-      rocketGame.init();
-
-      // End Screen Buttons
-      // Home Button
-      rocketGameEndScreen.onHomeButton(() => {
-        onHomeButtonPress();
-      });
-
-      // Next Button
-      rocketGameEndScreen.onNextButton(() => {
-        onNextButtonpress(ROCKET_GAME, gameOrder);
-      });
-
-      currentGameInstance = rocketGame;
-
-      break;
-
-    case TIMBER_MAN_GAME:
-      let timbermanGameScoreBoard = new GameScoreBoard();
-      let timbermanGameEndScreen = new GameEnd(
-        canvas,
-        ctx,
-        timbermanGameScoreBoard
-      );
-      let timbermanGameInstuctions = new GameInstructions(
-        "This is timberman game"
-      );
-
-      timbermanGame = new Timberman(
-        "timberman",
-        canvas,
-        ctx,
-        timbermanGameAssets,
-        timbermanGameScoreBoard,
-        timbermanGameEndScreen,
-        timbermanGameInstuctions,
-        homePage
-      );
-      timbermanGame.init();
-
-      // End Screen Buttons
-      // Home Button
-      timbermanGameEndScreen.onHomeButton(() => {
-        onHomeButtonPress();
-      });
-
-      // Next Button
-      timbermanGameEndScreen.onNextButton(() => {
-        onNextButtonpress(TIMBER_MAN_GAME, gameOrder);
-      });
-
-      currentGameInstance = timbermanGame;
-      break;
-
-    case GOAL_GAME:
-      let goalGameScoreCard = new GameScoreBoard();
-      let goalGameEndScreen = new GameEnd(canvas, ctx, goalGameScoreCard);
-      let goalGameInstructions = new GameInstructions("This is goal game");
-
-      goalGame = new Goal(
-        "goal",
-        canvas,
-        ctx,
-        goalGameAssets,
-        goalGameScoreCard,
-        goalGameEndScreen,
-        goalGameInstructions
-      );
-      goalGame.init();
-
-      // End Screen Buttons
-      // Home Button
-      goalGameEndScreen.onHomeButton(() => {
-        onHomeButtonPress();
-      });
-
-      // Next Button
-      goalGameEndScreen.onNextButton(() => {
-        onNextButtonpress(GOAL_GAME, gameOrder);
-      });
-
-      currentGameInstance = goalGame;
-
-      break;
-
-    default:
+  if(rocketGameAssets && timbermanGameAssets && goalGameAssets){
+    currentGame = gameName;
+    switch (gameName) {
+      case ROCKET_GAME:
+        let rocketGameScoreBoard = new GameScoreBoard();
+        let rocketGameEndScreen = new GameEnd(canvas, ctx, rocketGameScoreBoard);
+        let rocketGameInstructions = new GameInstructions("This is rocket game");
+  
+        rocketGame = new Rocket(
+          "rocket",
+          canvas,
+          ctx,
+          rocketGameAssets,
+          rocketGameScoreBoard,
+          rocketGameEndScreen,
+          rocketGameInstructions,
+          homePage
+        );
+        rocketGame.init();
+  
+        // End Screen Buttons
+        // Home Button
+        rocketGameEndScreen.onHomeButton(() => {
+          onHomeButtonPress();
+        });
+  
+        // Next Button
+        rocketGameEndScreen.onNextButton(() => {
+          onNextButtonpress(ROCKET_GAME, gameOrder);
+        });
+  
+        currentGameInstance = rocketGame;
+  
+        break;
+  
+      case TIMBER_MAN_GAME:
+        let timbermanGameScoreBoard = new GameScoreBoard();
+        let timbermanGameEndScreen = new GameEnd(
+          canvas,
+          ctx,
+          timbermanGameScoreBoard
+        );
+        let timbermanGameInstuctions = new GameInstructions(
+          "This is timberman game"
+        );
+  
+        timbermanGame = new Timberman(
+          "timberman",
+          canvas,
+          ctx,
+          timbermanGameAssets,
+          timbermanGameScoreBoard,
+          timbermanGameEndScreen,
+          timbermanGameInstuctions,
+          homePage
+        );
+        timbermanGame.init();
+  
+        // End Screen Buttons
+        // Home Button
+        timbermanGameEndScreen.onHomeButton(() => {
+          onHomeButtonPress();
+        });
+  
+        // Next Button
+        timbermanGameEndScreen.onNextButton(() => {
+          onNextButtonpress(TIMBER_MAN_GAME, gameOrder);
+        });
+  
+        currentGameInstance = timbermanGame;
+        break;
+  
+      case GOAL_GAME:
+        let goalGameScoreCard = new GameScoreBoard();
+        let goalGameEndScreen = new GameEnd(canvas, ctx, goalGameScoreCard);
+        let goalGameInstructions = new GameInstructions("This is goal game");
+  
+        goalGame = new Goal(
+          "goal",
+          canvas,
+          ctx,
+          goalGameAssets,
+          goalGameScoreCard,
+          goalGameEndScreen,
+          goalGameInstructions
+        );
+        goalGame.init();
+  
+        // End Screen Buttons
+        // Home Button
+        goalGameEndScreen.onHomeButton(() => {
+          onHomeButtonPress();
+        });
+  
+        // Next Button
+        goalGameEndScreen.onNextButton(() => {
+          onNextButtonpress(GOAL_GAME, gameOrder);
+        });
+  
+        currentGameInstance = goalGame;
+  
+        break;
+  
+      default:
+    }
   }
+
 };
 
 // Game End Buttons
