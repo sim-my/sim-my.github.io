@@ -76,7 +76,7 @@ let rocketGameAssets = getCombinedAssets(rocketGameAssetsArray);
 let timbermanGameAssets = getCombinedAssets(timbermanGameAssetsArray);
 let goalGameAssets = getCombinedAssets(goalGameAssetsArray);
 
-
+console.log(goalGameAssets);
 /**
  * This function, intantiates the right game and sets it to currentGameInstance, which the animateGame function later executes
  *
