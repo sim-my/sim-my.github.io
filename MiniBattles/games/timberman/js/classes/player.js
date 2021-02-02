@@ -4,7 +4,7 @@ export default class Player {
     this.context = context;
     this.canvas = canvas;
     this.x = x;
-    this.y = (this.canvas.height * 2) / 3;
+    this.y = this.canvas.height / 3;
     this.width = 120;
     this.height = 200;
     this.image = imageIdle;
@@ -13,18 +13,31 @@ export default class Player {
     this.keyCode = keyCode;
     this.onTop = false;
     this.jump = false;
+    this.blinking = false;
+    this.frequency = 200;
     this.topBoundary = (this.canvas.height * 2) / 3 - this.height;
     this.bottomBoundary = (this.canvas.height * 2) / 3;
 
-    window.addEventListener("keypress", (event) => {this.keyPressHandler(event)});
+    window.addEventListener("keypress", (event) => {
+      this.keyPressHandler(event);
+    });
+
+    // setInterval(() => {
+    //   console.log("Executed");
+    //   this.blinking = false;
+    // }, 2000);
   }
 
   draw() {
     this.context.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
-  
+
   move() {
-    this.draw();
+
+    if (!this.blinking || Math.floor(Date.now() / this.frequency) % 2) {
+      this.draw();
+    }
+
     if (!this.jump) {
       this.image = this.imageIdle;
     } else {
@@ -32,6 +45,19 @@ export default class Player {
       this.y -= 10;
     }
     this.handleJump();
+  }
+
+  blink() {
+    this.blinking = true;
+  }
+
+  stopBlink() {
+    this.blinking = false;
+  }
+
+  setIntervalAndExecute(timeoutFunction, time) {
+    timeoutFunction();
+    return setInterval(timeoutFunction, time);
   }
 
   handleJump() {
@@ -47,7 +73,7 @@ export default class Player {
     }
   }
 
-  keyPressHandler(event){
+  keyPressHandler(event) {
     if (event.code === this.keyCode) {
       this.jump = true;
     }

@@ -1,38 +1,46 @@
-import { playAudio } from "../helpers/audio.js";
-import { preloadImages } from "../helpers/utils.js";
-import {GAME_STATE} from "../../../data.js";
+
+import { GAME_STATE } from "../../../data.js";
 
 export default class Game {
-  constructor(canvas, context, gameData, gameScoreBoard, gameEndScreen) {
+  constructor(
+    canvas,
+    context,
+    assets,
+    gameScoreBoard,
+    gameEndScreen,
+    gameInstructions
+  ) {
     this.canvas = canvas;
     this.context = context;
-    this.gameData = gameData;
+    this.assets = assets;
     this.startAudioUrl = "../core/assets/sounds/game-start.mp3";
     this.gameScoreBoard = gameScoreBoard;
     this.gameEndScreen = gameEndScreen;
+    this.gameInstructions = gameInstructions;
+
+    this.assets = assets;
 
     this.homePage = document.querySelector(".home-page");
 
     this.finalScore = 5;
 
-    this.gameState = GAME_STATE.RUNNING;
+    this.gameState = GAME_STATE.STOPPED;
   }
 
   start() {
-    this.setBackground();
-    
     this.checkBlueScore();
+    this.setBackground();
     this.checkRedScore();
   }
 
   init() {
-    let preloadedImages = preloadImages(this.gameData.assets);
-    this.assets = preloadedImages;
+    this.setBackground();
+    this.homePage.style.display = "none";
 
-    /** Show Game Score Board */
+    // Show Game Score Board
     this.gameScoreBoard.draw();
 
-    /** Game End Butons */
+    // Game End Butons
     this.gameEndScreen.onHomeButton(this.handleHome.bind(this));
 
     this.gameEndScreen.onReplayButton(this.handleReplay.bind(this));
@@ -40,11 +48,19 @@ export default class Game {
     this.gameEndScreen.onNextButton(this.handleNext.bind(this));
 
     this.gameEndScreen.onAnyButtonClick(this.handleAnyButtonClick.bind(this));
+
+    // Show instructions
+    this.gameInstructions.show();
+
+    setTimeout(() => {
+      this.gameState = GAME_STATE.RUNNING;
+      this.gameInstructions.hide();
+    }, this.gameInstructions.instructionShowTime);
   }
 
   setBackground() {
     this.context.drawImage(
-      this.assets.background,
+      this.assets.images.background,
       0,
       0,
       this.canvas.width,
@@ -64,54 +80,45 @@ export default class Game {
     let redScore = this.gameScoreBoard.getRedScore();
 
     if (redScore === this.finalScore) {
-      
       this.gameState = GAME_STATE.STOPPED;
 
-      this.gameEndScreen.showGameEnd(
-        "./core/assets/images/red-winner.png",
-        "./core/assets/images/red.png"
-      );
+      this.gameEndScreen.redWinsGameEnd();
     }
   }
 
   checkBlueScore() {
     let blueScore = this.gameScoreBoard.getBlueScore();
 
-    if (blueScore === this.finalPoint) {
-      
+    if (blueScore === this.finalScore) {
       this.gameState = GAME_STATE.STOPPED;
 
-      this.gameEndScreen.showGameEnd(
-        "./core/assets/images/blue-winner.png",
-        "./core/assets/images/blue.png"
-      );
+      this.gameEndScreen.blueWinsGameEnd();
     }
   }
 
   handleReplay() {
-    console.log("Handle Replay home");
-    this.clearGame();
+    this.resetGame();
     this.gameEndScreen.hide();
   }
 
   handleHome() {
-    this.clearGame();
+    this.resetGame();
     this.gameEndScreen.hide();
     this.gameScoreBoard.hide();
     this.homePage.style.display = "block";
   }
 
   handleNext() {
-    this.clearGame();
+    this.resetGame();
     this.gameEndScreen.hide();
     this.gameScoreBoard.hide();
   }
 
-  handleAnyButtonClick(){
+  handleAnyButtonClick() {
     this.gameState = GAME_STATE.RUNNING;
   }
 
-  clearGame() {
+  resetGame() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.gameScoreBoard.setBlueScore(0);
     this.gameScoreBoard.setRedScore(0);

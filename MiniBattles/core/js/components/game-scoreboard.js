@@ -1,3 +1,5 @@
+import { increaseScore } from "../helpers/utils.js";
+
 export default class GameScoreBoard {
   constructor() {
     this.scoreboard = document.querySelector(".scoreboard");
@@ -10,39 +12,35 @@ export default class GameScoreBoard {
   }
 
   increaseRedScore() {
-    let updatedScore = parseInt(this.red.innerHTML);
-    updatedScore++;
-    this.red.innerHTML = updatedScore;
+    increaseScore(this.red);
   }
 
   increaseBlueScore() {
-    let updatedScore = parseInt(this.blue.innerHTML);
-    updatedScore++;
-    this.blue.innerHTML = updatedScore;
+    increaseScore(this.blue);
   }
 
-  getRedScore(){
-    return parseInt(this.red.innerHTML);
-  }
-
-  show(){
+  show() {
     this.scoreboard.style.display = "flex";
   }
 
-  hide(){
+  hide() {
     this.scoreboard.style.display = "none";
   }
+  
+  getRedScore() {
+    return parseInt(this.red.innerHTML);
+  }
 
-  getBlueScore(){
+  getBlueScore() {
     return parseInt(this.blue.innerHTML);
   }
 
-  setRedScore(score){
-    return this.red.innerHTML = score;
+  setRedScore(score) {
+    return (this.red.innerHTML = score);
   }
 
-  setBlueScore(score){
-    return this.blue.innerHTML = score;
+  setBlueScore(score) {
+    return (this.blue.innerHTML = score);
   }
 
   styles() {

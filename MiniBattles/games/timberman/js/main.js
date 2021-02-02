@@ -3,32 +3,31 @@ import Player from "./classes/player.js";
 import Obstacle from "./classes/obstacle.js";
 
 import { playAudio } from "../../../core/js/helpers/audio.js";
-import { imageList } from "../js/utility/imageLoader.js";
 
 import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
-
-let frequency = 200;
 
 export default class Timberman extends Game {
   constructor(
     game,
     canvas,
     context,
-    gameData,
+    assets,
     gameScoreBoard,
     gameEndScreen,
-    homePage
+    gameInstructions
   ) {
-    super(canvas, context, gameData, gameScoreBoard, gameEndScreen);
+    super(
+      canvas,
+      context,
+      assets,
+      gameScoreBoard,
+      gameEndScreen,
+      gameInstructions
+    );
     this.game = game;
-    this.gameRun = true;
-    this.blueBlinking = false;
-    this.redBlinking = false;
-    this.finalPoint = 5;
 
-    this.homePage = homePage;
+    this.stopBlinkTime = 2000;
 
-    this.images = imageList();
     this.bluePlayer = this.setBluePlayer();
     this.redPlayer = this.setRedPlayer();
     this.redObstacle = this.generateRedObstacle();
@@ -37,7 +36,6 @@ export default class Timberman extends Game {
 
   start() {
     super.start();
-    this.setBackground();
     this.setLogPile();
     this.moveBluePlayer();
     this.moveRedPlayer();
@@ -53,95 +51,89 @@ export default class Timberman extends Game {
 
   setBluePlayer() {
     let imgIdle, imgJump;
-    imgIdle = this.images.bluePlayer[0];
-    imgJump = this.images.bluePlayer[1];
+    imgIdle = this.assets.images.blue_idle;
+    imgJump = this.assets.images.blue_jump;
     const bluePlayer = new Player(
       this.context,
       this.canvas,
       imgIdle,
       imgJump,
-      this.canvas.width / 5,
-      "KeyA"
+      this.canvas.width * 4/ 5,
+      "KeyL"
     );
 
     return bluePlayer;
   }
 
-  moveBluePlayer() {
-    if (!this.blueBlinking || Math.floor(Date.now() / frequency) % 2) {
-      this.bluePlayer.move();
-    }
-  }
-
   setRedPlayer() {
     let imgIdle, imgJump;
-    imgIdle = this.images.redPlayer[0];
-    imgJump = this.images.redPlayer[1];
+    imgIdle = this.assets.images.red_idle;
+    imgJump = this.assetsred_jump;
     const redPlayer = new Player(
       this.context,
       this.canvas,
       imgIdle,
       imgJump,
-      (this.canvas.width * 4) / 5 - 120,
-      "KeyL"
+      (this.canvas.width ) / 5 - 120,
+      "KeyA"
     );
 
     return redPlayer;
   }
 
   moveRedPlayer() {
-    if (!this.redBlinking || Math.floor(Date.now() / frequency) % 2) {
-      this.redPlayer.move();
-    }
+    this.redPlayer.move();
+  }
+
+  moveBluePlayer() {
+    this.bluePlayer.move();
   }
 
   generateRedObstacle() {
-    const X = this.canvas.width / 2 + this.canvas.width / 32;
+    const X = this.canvas.width / 2 - this.canvas.width / 14;
     const Y = 200;
 
     const redObstacle = new Obstacle(
-      this.context,
       this.canvas,
+      this.context,
+      this.assets.images.obstacle,
       X,
       Y,
       70,
       70,
-      this.images.redObstacles
+      -1
     );
 
     return redObstacle;
   }
 
   moveRedObstacle() {
-    const DIRECTION = 1;
+    this.redObstacle.handleFall();
+  }
 
-    this.redObstacle.handleFall(DIRECTION);
+  moveBlueObstacle() {
+    this.blueObstacle.handleFall();
   }
 
   generateBlueObstacle() {
-    const X = this.canvas.width / 2 - this.canvas.width / 14;
+    const X = this.canvas.width / 2 + this.canvas.width / 32;
     const Y = 200;
-    const BLUEOBSTACLE = new Obstacle(
-      this.context,
+    const BLUEOBSTACLE = new Obstacle(      
       this.canvas,
+      this.context,
+      this.assets.images.obstacle,
       X,
       Y,
       70,
       70,
-      this.images.blueObstacles
+      1
     );
 
     return BLUEOBSTACLE;
   }
 
-  moveBlueObstacle() {
-    const DIRECTION = -1;
-
-    this.blueObstacle.handleFall(DIRECTION);
-  }
-
   setLogPile() {
-    const IMG = this.images.logPile;
+    const IMG = this.assets.images.log_pile;
     const X = this.canvas.width / 2 - this.canvas.width / 16;
     const Y = (this.canvas.height * 5) / 7;
     const WIDTH = this.canvas.width / 8;
@@ -150,15 +142,15 @@ export default class Timberman extends Game {
     this.context.drawImage(IMG, X, Y, WIDTH, HEIGHT);
   }
 
-  setBackground() {
-    const IMG = this.images.background;
-    const X = 0;
-    const Y = 0;
-    const WIDTH = this.canvas.width;
-    const HEIGHT = this.canvas.height;
+  // setBackground() {
+  //   const IMG = this.images.background;
+  //   const X = 0;
+  //   const Y = 0;
+  //   const WIDTH = this.canvas.width;
+  //   const HEIGHT = this.canvas.height;
 
-    this.context.drawImage(IMG, X, Y, WIDTH, HEIGHT);
-  }
+  //   this.context.drawImage(IMG, X, Y, WIDTH, HEIGHT);
+  // }
 
   detectRedObstacleCollision() {
     if (this.redObstacle) {
@@ -166,16 +158,22 @@ export default class Timberman extends Game {
         detectRectangularCollision(
           this.redObstacle,
           this.redPlayer,
+          0,
+          0,
           -50,
-          0,
-          0,
           0
         )
       ) {
         this.gameScoreBoard.increaseBlueScore();
-        this.redBlinking = true;
+        this.redPlayer.blink();
+
+        // Stop blinking after stopBlinkTime
+        setTimeout(() => {
+          this.redPlayer.stopBlink();
+        }, this.stopBlinkTime);
+        
         this.redObstacle.resetObstacle();
-        // playAudio("./games/timberman/assets/audio/redHit.mp3");
+        playAudio(this.assets.sounds.red_hit);
       }
     }
   }
@@ -193,16 +191,23 @@ export default class Timberman extends Game {
         )
       ) {
         this.gameScoreBoard.increaseRedScore();
-        this.blueBlinking = true;
+        this.bluePlayer.blink();
+
+        // Stop blinking after stopBlinkTime
+        setTimeout(() => {
+          this.bluePlayer.stopBlink();
+        }, this.stopBlinkTime);
+
         this.blueObstacle.resetObstacle();
-        // playAudio("./games/timberman/assets/audio/blueHit.mp3");
+        playAudio(this.assets.sounds.blue_hit);
       }
     }
   }
 
-  handleReplay() {
-    super.handleReplay(this);
-    console.log(this);
-    this.gameRun = true;
+  resetGame() {
+    super.resetGame();
+
+    this.blueObstacle.resetObstacle();
+    this.redObstacle.resetObstacle();
   }
 }

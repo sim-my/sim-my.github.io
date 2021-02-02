@@ -1,4 +1,5 @@
 import { playAudio } from "../helpers/audio.js";
+import { increaseScore } from "../helpers/utils.js";
 
 export default class GameEnd {
   constructor(gameScoreBoard) {
@@ -9,6 +10,12 @@ export default class GameEnd {
     this.winnerTagImg = document.querySelector(".winner-tag-img");
     this.gameOverDiv = document.querySelector(".game-over");
     this.homePage = document.querySelector(".home-page");
+
+    this.redGameScore = document.querySelector(".red-score-game-over");
+    this.blueGameScore = document.querySelector(".blue-score-game-over");
+
+    this.redTotalScore = document.querySelector(".red-total-score");
+    this.blueTotalScore = document.querySelector(".blue-total-score");
 
     this.gameEndButtons = document.querySelectorAll(".game-end-button");
 
@@ -31,6 +38,9 @@ export default class GameEnd {
   }
 
   redWinsGameEnd() {
+    console.log("Red wins gamer");
+    this.increaseRedGameScore();
+    this.increaseRedTotalGameScore();
     this.showGameEnd(
       "./core/assets/images/red-winner.png",
       "./core/assets/images/red.png"
@@ -38,10 +48,29 @@ export default class GameEnd {
   }
 
   blueWinsGameEnd() {
+    console.log("Blue wins gamer");
+    this.increaseBlueGameScore();
+    this.increaseBlueTotalGameScore();
     this.showGameEnd(
       "./core/assets/images/blue-winner.png",
       "./core/assets/images/blue.png"
     );
+  }
+
+  increaseRedGameScore() {
+    increaseScore(this.redGameScore);
+  }
+
+  increaseBlueGameScore() {
+    increaseScore(this.blueGameScore);
+  }
+
+  increaseRedTotalGameScore() {
+    increaseScore(this.redTotalScore);
+  }
+
+  increaseBlueTotalGameScore() {
+    increaseScore(this.blueTotalScore);
   }
 
   onNextButton(nextClickFunction) {

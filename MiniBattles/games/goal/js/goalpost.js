@@ -1,4 +1,4 @@
-import Element from "../../../core/js/classes/element.js";
+import Element from "../../../core/js/classes/Element.js";
 
 export default class GoalPost extends Element {
   constructor(canvas, context, image, x, y, width, height) {
@@ -12,6 +12,4 @@ export default class GoalPost extends Element {
   update() {
     this.draw();
   }
-
-
 }

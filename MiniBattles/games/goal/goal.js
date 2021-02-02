@@ -1,19 +1,21 @@
-import Game from "../../core/js/classes/game.js";
+import Game from "../../core/js/classes/Game.js";
+import { FACE_DIRECTION } from "../../data.js";
 import Football from "./js/football.js";
 import GoalPost from "./js/goalpost.js";
 import Player from "./js/player.js";
-// import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
+import {playAudio} from "../../core/js/helpers/audio.js";
 
 export default class Goal extends Game {
   constructor(
     game,
     canvas,
     context,
-    gamedata,
+    assets,
     gameScoreBoard,
-    gameEndScreen
+    gameEndScreen,
+    gameInstructions
   ) {
-    super(canvas, context, gamedata, gameScoreBoard, gameEndScreen);
+    super(canvas, context, assets, gameScoreBoard, gameEndScreen, gameInstructions);
     this.game = game;
     this.football;
     this.player1;
@@ -44,9 +46,9 @@ export default class Goal extends Game {
   init() {
     super.init();
 
-    this.football = this.createFootBall(this.assets.football);
-    this.player1 = this.createPlayer1(this.assets.player1);
-    this.player2 = this.createPlayer2(this.assets.player2);
+    this.football = this.createFootBall(this.assets.images.football);
+    this.player1 = this.createPlayer1(this.assets.images.player1);
+    this.player2 = this.createPlayer2(this.assets.images.player2);
     this.rightGoalPost = this.createRightGoalPost();
     this.leftGoalPost = this.createLeftGoalPost();
   }
@@ -54,6 +56,7 @@ export default class Goal extends Game {
   checkRightPostCollison() {
     this.rightGoalPost.checkCollission(this.football, () => {
       this.gameScoreBoard.increaseRedScore();
+      playAudio(this.assets.sounds.cheer);
       this.resetAllEntities();
     });
   }
@@ -61,37 +64,29 @@ export default class Goal extends Game {
   checkLeftPostCollison() {
     this.leftGoalPost.checkCollission(this.football, () => {
       this.gameScoreBoard.increaseBlueScore();
+      playAudio(this.assets.sounds.cheer);
       this.resetAllEntities();
     });
-  }
-
-  resetAllEntities(){
-    this.player1.reset();
-    this.player2.reset();
-    this.football.reset();
   }
 
   createFootBall(footballImage) {
     let footballWidth = 60;
     let footballHeight = 60;
+
+    let x = this.canvas.width / 2;
     /**
      * The ball doesnt look exactly on the center, because of the image
      * The number changes how far (+) or close (-) the ball is from the center of canvas
      */
-    let ballDistanceXFromCenter = -30;
-    let x = this.canvas.width / 2 + ballDistanceXFromCenter;
-    /**
-     * The ball doesnt look exactly on the center, because of the image
-     * The number changes how far (+) or close (-) the ball is from the center of canvas
-     */
-    let ballDistanceYFromCenter = -40;
-    let y = this.canvas.height / 2 + ballDistanceYFromCenter;
+    let ballDistanceYFromCenter = -10;
+    let y = this.canvas.height / 2;
 
     const football = new Football(
       x,
       y,
       footballWidth,
       footballHeight,
+      0,
       footballImage,
       this.canvas,
       this.context
@@ -110,6 +105,7 @@ export default class Goal extends Game {
       player1X,
       radians,
       player1Image,
+      FACE_DIRECTION.RIGHT,
       "KeyA"
     );
   }
@@ -124,13 +120,14 @@ export default class Goal extends Game {
       player2X,
       radians,
       player2Image,
+      FACE_DIRECTION.LEFT,
       "KeyL"
     );
   }
 
-  createPlayer(name, x, radians, image, moveKey) {
+  createPlayer(name, x, radians, image, faceDirection, moveKey ) {
     let playerWidth = 54;
-    let playerHeight = 96;
+    let playerHeight = 95;
 
     /**
      * The player isn't centerally located on the Y axis, because of the uniniformity of the image
@@ -149,6 +146,7 @@ export default class Goal extends Game {
       image,
       this.canvas,
       this.context,
+      faceDirection,
       moveKey
     );
     return player;
@@ -175,7 +173,7 @@ export default class Goal extends Game {
     const goalPost = new GoalPost(
       this.canvas,
       this.context,
-      this.assets.post,
+      this.assets.images.post,
       x,
       y,
       width,
@@ -184,5 +182,16 @@ export default class Goal extends Game {
 
 
     return goalPost;
+  }
+
+  resetAllEntities(){
+    this.player1.reset();
+    this.player2.reset();
+    this.football.reset();
+  }
+
+  resetGame(){
+    super.resetGame();
+    this.resetAllEntities();
   }
 }

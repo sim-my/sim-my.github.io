@@ -1,4 +1,5 @@
 import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
+import { FACE_DIRECTION } from "../../../data.js";
 
 export default class Player {
   constructor(
@@ -11,6 +12,7 @@ export default class Player {
     image,
     canvas,
     context,
+    faceDirection,
     moveKey
   ) {
     this.x = x;
@@ -24,6 +26,7 @@ export default class Player {
     this.context = context;
     this.radians = radians;
     this.movePlayerKey = moveKey;
+    this.faceDirection = faceDirection;
     this.velocity = {
       x: 10,
       y: 10,
@@ -31,12 +34,13 @@ export default class Player {
 
     this.initialVelocity = {
       x: 10,
-      y: 10
-    }
+      y: 10,
+    };
 
     this.yOffset = -50;
     this.angleChange = 0.1;
     this.rotates = true;
+    this.playerMoves = false;
 
     /**
      * To keep things into the frame
@@ -46,7 +50,7 @@ export default class Player {
     this.xRightFrameOffset = 122;
     this.xLeftFrameOffset = 145;
     this.yBottomFrameOffset = 145;
-    this.yTopFrameOffset = -60;
+    this.yTopFrameOffset = -55;
 
     this.initialX = x;
     this.initialY = y;
@@ -54,17 +58,19 @@ export default class Player {
     window.addEventListener("keypress", (event) => {
       if (event.code === this.movePlayerKey) {
         this.rotates = false;
-        
-        /** Velocity keeps on increasing */
-        this.velocity.x += 2;
-        this.velocity.y += 2;
+        this.playerMoves = true;
 
-        this.movePlayer();
+        /** Velocity keeps on increasing */
+        if (this.playerMoves) {
+          this.velocity.x += 2;
+          this.velocity.y += 2;
+        }
       }
     });
 
     window.addEventListener("keyup", (e) => {
       this.rotates = true;
+      this.playerMoves = false;
 
       /** Restore original velocity */
       this.velocity.x = this.initialVelocity.x;
@@ -77,18 +83,20 @@ export default class Player {
   update(otherPlayer) {
     this.drawAndContinouslyRotatePlayer();
     this.onPlayerCollision(otherPlayer);
+    if (this.playerMoves) {
+      this.movePlayer();
+    }
   }
 
   movePlayer() {
-    /** Player 1 and Player 2 are exact opposites thus their motions should be reversed  */
-    if (this.name === "Player1") {
+    /** Face Direction reverses their motions should be reversed  */
+    if (this.faceDirection === FACE_DIRECTION.RIGHT) {
       this.x += this.velocity.x * Math.cos(this.radians);
       this.y += this.velocity.y * Math.sin(this.radians);
-    } else if (this.name === "Player2") {
+    } else if (this.faceDirection === FACE_DIRECTION.LEFT) {
       this.x += -(this.velocity.x * Math.cos(this.radians));
       this.y += -(this.velocity.y * Math.sin(this.radians));
     }
-    
 
     this.drawAndContinouslyRotatePlayer();
   }
@@ -119,22 +127,18 @@ export default class Player {
      */
     if (this.x - this.width <= this.xLeftFrameOffset) {
       this.x = this.xLeftFrameOffset + this.width;
-      // console.log("X ko left");
     }
 
     if (this.x + this.width >= innerWidth - this.xRightFrameOffset) {
       this.x = innerWidth - this.xRightFrameOffset - this.width;
-      // console.log("X ko left");
     }
 
     if (this.y - this.height <= this.yTopFrameOffset) {
       this.y = this.yTopFrameOffset + this.height;
-      // console.log("Y ko top");
     }
 
     if (this.y + this.height >= innerHeight - this.yBottomFrameOffset) {
       this.y = innerHeight - this.yBottomFrameOffset - this.height;
-      // console.log("Y ko bottom");
     }
     /**  */
   }
@@ -143,11 +147,10 @@ export default class Player {
     if (detectRectangularCollision(this, player)) {
       this.x = player.x + this.width;
       this.y = player.y + this.height;
-      // console.log("Player collission");
     }
   }
 
-  reset(){
+  reset() {
     this.x = this.initialX;
     this.y = this.initialY;
   }

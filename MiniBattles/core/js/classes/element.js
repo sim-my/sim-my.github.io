@@ -19,7 +19,6 @@ export default class Element {
 
   checkCollission(object, successCallback) {
     if (detectRectangularCollision(this, object)) {
-      this.detected = true;
       successCallback();
     }
   }

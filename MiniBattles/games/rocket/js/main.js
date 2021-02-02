@@ -3,7 +3,6 @@ import Obstacle from "../js/classes/obstacle.js";
 import Obstacles from "../js/classes/obstacles.js";
 import Bullet from "../js/classes/bullet.js";
 import Player from "../js/classes/player.js";
-import { loadingAllImages } from "../../../core/js/helpers/utils.js";
 import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
 import { playAudio } from "../../../core/js/helpers/audio.js";
 
@@ -12,12 +11,20 @@ export default class Rocket extends Game {
     game,
     canvas,
     context,
-    gameData,
+    assets,
     gameScoreCard,
     gameEndScreen,
+    gameInstructions
   ) {
-    super(canvas, context, gameData, gameScoreCard, gameEndScreen);
-    
+    super(
+      canvas,
+      context,
+      assets,
+      gameScoreCard,
+      gameEndScreen,
+      gameInstructions
+    );
+
     this.game = game;
     this.gameRun = true;
 
@@ -27,7 +34,6 @@ export default class Rocket extends Game {
   start() {
     super.start();
 
-    this.setBackground();
     this.updateRockets();
     this.setObstacles();
     this.updateRedBullet();
@@ -39,21 +45,10 @@ export default class Rocket extends Game {
   init() {
     super.init();
 
-    this.images = loadingAllImages(this.gameData.assets);
     this.redRocket = this.createRedRocket();
     this.blueRocket = this.createBlueRocket();
     this.redBullet = this.createRedBullet();
     this.blueBullet = this.createBlueBullet();
-  }
-
-  setBackground() {
-    this.context.drawImage(
-      this.images.background,
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    );
   }
 
   createRedRocket() {
@@ -62,7 +57,7 @@ export default class Rocket extends Game {
       y,
       this.canvas,
       this.context,
-      this.images["red-rocket"]
+      this.assets.images.red_rocket
     );
     return redRocket;
   }
@@ -73,7 +68,7 @@ export default class Rocket extends Game {
       y,
       this.canvas,
       this.context,
-      this.images["blue-rocket"]
+      this.assets.images.blue_rocket
     );
     return blueRocket;
   }
@@ -85,8 +80,8 @@ export default class Rocket extends Game {
 
   setObstacles() {
     const obstaclesSrc = [
-      this.images["red-obstacle"],
-      this.images["blue-obstacle"],
+      this.assets.images.red_obstacle,
+      this.assets.images.blue_obstacle,
     ];
     const count = 2;
     this.obstacles = new Obstacles(
@@ -98,16 +93,18 @@ export default class Rocket extends Game {
     this.obstacles.manage();
   }
 
-  detectCollision(bullet){
-    this.obstacles.detectCollision(bullet, 
-      (x,y) => {
+  detectCollision(bullet) {
+    this.obstacles.detectCollision(
+      bullet,
+      (x, y) => {
         this.gameScoreBoard.increaseRedScore();
         this.blastDisplay(x, y);
-      }, 
-      (x,y) =>{
+      },
+      (x, y) => {
         this.gameScoreBoard.increaseBlueScore();
         this.blastDisplay(x, y);
-      });
+      }
+    );
   }
 
   createRedBullet() {
@@ -120,7 +117,7 @@ export default class Rocket extends Game {
       Y,
       "#ff0000",
       "bottom",
-      'KeyA'
+      "KeyA"
     );
 
     return redBullet;
@@ -138,7 +135,7 @@ export default class Rocket extends Game {
       "top",
       "KeyL"
     );
-   
+
     return blueBullet;
   }
 
@@ -150,27 +147,22 @@ export default class Rocket extends Game {
 
   updateBlueBullet() {
     const X = this.blueRocket.x + this.blueRocket.width / 2;
-    const Y = this.blueRocket.y + this.blueRocket.height
+    const Y = this.blueRocket.y + this.blueRocket.height;
     this.blueBullet.update(X, Y);
   }
 
   blastDisplay(x, y) {
-      this.context.drawImage(this.images.blast, x - 50, y, 200, 50);
-    }  
+    this.context.drawImage(this.assets.images.blast, x - 50, y, 200, 50);
+  }
 
-   handleReplay() {
+  handleReplay() {
     super.handleReplay();
     this.gameRun = true;
   }
 
-  clearGame() {
-    super.clearGame();
-
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.rocketX = 0;
-    redBulletArray = [];
-    blueBulletArray = [];
-    obstacleArray = [];
+  resetGame() {
+    super.resetGame();
+    this.obstacles = [];
     this.fireRedBullet = false;
     this.fireBlueBullet = false;
   }

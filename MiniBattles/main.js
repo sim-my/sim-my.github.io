@@ -1,9 +1,13 @@
+import Flames from "./games/flames/main.js";
 import { gamesData, GAME_STATE } from "./data.js";
 import Rocket from "./games/rocket/js/main.js";
 import Timberman from "./games/timberman/js/main.js";
 import Goal from "./games/goal/goal.js";
 import GameScoreBoard from "./core/js/components/game-scoreboard.js";
 import GameEnd from "./core/js/components/game-end.js";
+import GameInstructions from "./core/js/components/game-instructions.js";
+import { preloadImages, getRandomNumber, getCombinedAssets  } from "./core/js/helpers/utils.js";
+
 
 let currentGame = null;
 let currentGameInstance = null;
@@ -23,28 +27,39 @@ const timbermanGameBtn = document.querySelector(".timberman-game");
 const goalGameBtn = document.querySelector(".goal-game");
 
 const homeEndButton = document.querySelector(".home-button");
+const randomizeGameButton = document.querySelector(".random-button");
 
 const ctx = canvas.getContext("2d");
 
+// Canvas Responsive
 canvas.height = innerHeight - 100;
 canvas.width = innerWidth;
 
-//get home-page
+
+// Before
+addEventListener("resize", () => {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight - 100;
+});
+
+// Get home-page
 const homePage = document.querySelector(".home-page");
 
 rocketGameBtn.addEventListener("click", () => {
   createGame(ROCKET_GAME);
-  currentGame = ROCKET_GAME;
 });
 
 timbermanGameBtn.addEventListener("click", () => {
   createGame(TIMBER_MAN_GAME);
-  currentGame = TIMBER_MAN_GAME;
 });
 
 goalGameBtn.addEventListener("click", () => {
   createGame(GOAL_GAME);
-  currentGame = GOAL_GAME;
+});
+
+randomizeGameButton.addEventListener("click", () => {
+  let randomGame = getRandomGame(gameOrder);
+  createGame(randomGame);
 });
 
 const getNextGameName = (currentGame, gameNextArray) => {
@@ -55,24 +70,46 @@ const getNextGameName = (currentGame, gameNextArray) => {
   return nextGame;
 };
 
+const getRandomGame = (gameArray) => {
+  let randomIndex = getRandomNumber(0, gameArray.length - 1);
+  return gameArray[randomIndex];
+};
+
+let rocketGameAssetsArray = gamesData[0].assets;
+let timbermanGameAssetsArray = gamesData[1].assets;
+let goalGameAssetsArray = gamesData[2].assets;
+
+let rocketGameAssets = getCombinedAssets(rocketGameAssetsArray);
+let timbermanGameAssets = getCombinedAssets(timbermanGameAssetsArray);
+let goalGameAssets = getCombinedAssets(goalGameAssetsArray);
+
+
+/**
+ * This function, intantiates the right game and sets it to currentGameInstance, which the animateGame function later executes
+ *
+ * @param {String} gameName Name of the game
+ */
 const createGame = (gameName) => {
+  currentGame = gameName;
   switch (gameName) {
     case ROCKET_GAME:
       let rocketGameScoreBoard = new GameScoreBoard();
       let rocketGameEndScreen = new GameEnd(canvas, ctx, rocketGameScoreBoard);
+      let rocketGameInstructions = new GameInstructions("This is rocket game");
 
       rocketGame = new Rocket(
         "rocket",
         canvas,
         ctx,
-        gamesData[2],
+        rocketGameAssets,
         rocketGameScoreBoard,
         rocketGameEndScreen,
+        rocketGameInstructions,
         homePage
       );
       rocketGame.init();
 
-      /** End Screen Buttons */
+      // End Screen Buttons
       // Home Button
       rocketGameEndScreen.onHomeButton(() => {
         onHomeButtonPress();
@@ -94,19 +131,23 @@ const createGame = (gameName) => {
         ctx,
         timbermanGameScoreBoard
       );
+      let timbermanGameInstuctions = new GameInstructions(
+        "This is timberman game"
+      );
 
       timbermanGame = new Timberman(
         "timberman",
         canvas,
         ctx,
-        gamesData[2],
+        timbermanGameAssets,
         timbermanGameScoreBoard,
         timbermanGameEndScreen,
+        timbermanGameInstuctions,
         homePage
       );
       timbermanGame.init();
 
-      /** End Screen Buttons */
+      // End Screen Buttons
       // Home Button
       timbermanGameEndScreen.onHomeButton(() => {
         onHomeButtonPress();
@@ -123,18 +164,20 @@ const createGame = (gameName) => {
     case GOAL_GAME:
       let goalGameScoreCard = new GameScoreBoard();
       let goalGameEndScreen = new GameEnd(canvas, ctx, goalGameScoreCard);
+      let goalGameInstructions = new GameInstructions("This is goal game");
 
       goalGame = new Goal(
         "goal",
         canvas,
         ctx,
-        gamesData[4],
+        goalGameAssets,
         goalGameScoreCard,
-        goalGameEndScreen
+        goalGameEndScreen,
+        goalGameInstructions
       );
       goalGame.init();
 
-      /** End Screen Buttons */
+      // End Screen Buttons
       // Home Button
       goalGameEndScreen.onHomeButton(() => {
         onHomeButtonPress();
@@ -153,6 +196,7 @@ const createGame = (gameName) => {
   }
 };
 
+// Game End Buttons
 const onHomeButtonPress = () => {
   currentGameInstance = null;
   currentGame = null;
@@ -165,13 +209,13 @@ const onNextButtonpress = (currentGame, gameOrder) => {
 };
 
 const animateGame = () => {
-  if (currentGameInstance != null && currentGameInstance.gameState === GAME_STATE.RUNNING ) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    homePage.style.display = "none";
-
+  if (
+    currentGameInstance != null &&
+    currentGameInstance.gameState === GAME_STATE.RUNNING
+  ) {
     currentGameInstance.start();
   }
+
   requestAnimationFrame(animateGame);
 };
 
