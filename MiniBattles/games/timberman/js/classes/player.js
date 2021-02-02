@@ -4,9 +4,9 @@ export default class Player {
     this.context = context;
     this.canvas = canvas;
     this.x = x;
-    this.y = (this.canvas.height * 2)/ 3 - 50;
-    this.width = 120;
-    this.height = 200;
+    this.y = this.canvas.height * 2/ 3;
+    this.width = 100;
+    this.height = 180;
     this.image = imageIdle;
     this.imageIdle = imageIdle;
     this.imageJump = imageJump;
@@ -15,8 +15,8 @@ export default class Player {
     this.jump = false;
     this.blinking = false;
     this.frequency = 200;
-    this.topBoundary = (this.canvas.height * 2) / 3 -50- this.height;
-    this.bottomBoundary = (this.canvas.height * 2) / 3 - 50;
+    this.topBoundary = this.canvas.height * 2 / 3 - this.height;
+    this.bottomBoundary = this.canvas.height * 2 / 3;
 
     window.addEventListener("keypress", (event) => {
       this.keyPressHandler(event);
