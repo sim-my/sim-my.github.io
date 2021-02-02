@@ -88,12 +88,12 @@ export default class Football {
 
   collision(player1, player2) {
     if (oneTimeRectangularCollision(this, player1)) {
-      playAudio("./games/goal/assets/sounds/football-kick.wav");
+      // playAudio("./games/goal/assets/sounds/football-kick.wav");
       setBallPlayerVelocity(this, player1);
     }
 
     if (oneTimeRectangularCollision(this, player2)) {
-      playAudio("./games/goal/assets/sounds/football-kick.wav");
+      // playAudio("./games/goal/assets/sounds/football-kick.wav");
       setBallPlayerVelocity(this, player2);
     }
   }
