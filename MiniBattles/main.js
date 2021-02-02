@@ -36,10 +36,10 @@ canvas.width = innerWidth;
 
 
 // Before
-addEventListener("resize", () => {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight - 100;
-});
+// addEventListener("resize", () => {
+//   canvas.width = innerWidth;
+//   canvas.height = innerHeight - 100;
+// });
 
 // Get home-page
 const homePage = document.querySelector(".home-page");
