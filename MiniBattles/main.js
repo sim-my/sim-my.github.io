@@ -1,4 +1,3 @@
-import Flames from "./games/flames/main.js";
 import { gamesData, GAME_STATE } from "./data.js";
 import Rocket from "./games/rocket/js/main.js";
 import Timberman from "./games/timberman/js/main.js";
@@ -6,7 +5,7 @@ import Goal from "./games/goal/goal.js";
 import GameScoreBoard from "./core/js/components/game-scoreboard.js";
 import GameEnd from "./core/js/components/game-end.js";
 import GameInstructions from "./core/js/components/game-instructions.js";
-import { preloadImages, getRandomNumber, getCombinedAssets  } from "./core/js/helpers/utils.js";
+import {getRandomNumber, getCombinedAssets} from "./core/js/helpers/utils.js";
 
 
 let currentGame = null;
