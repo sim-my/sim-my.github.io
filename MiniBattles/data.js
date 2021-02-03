@@ -9,7 +9,6 @@ export const FACE_DIRECTION = { RIGHT: "RIGHT", LEFT: "LEFT" };
 export const gamesData = [
   {
     name: "rocket",
-    cardImageSrc: "./core/assets/rockets.png",
     assets: {
       images: [
         {
@@ -43,7 +42,6 @@ export const gamesData = [
   },
   {
     name: "timberman",
-    cardImageSrc: "./core/assets/rockets.png",
     assets: {
       images: [
         {
@@ -97,30 +95,29 @@ export const gamesData = [
   },
   {
     name: "goal",
-    cardImageSrc: "./core/assets/rockets.png",
     assets: {
       images: [
-        { name: "background", src: "./games/goal/assets/bg.jpg" },
+        { name: "background", src: "./games/goal/assets/images/bg.jpg" },
         {
           name: "football",
-          src: "./games/goal/assets/football.png",
+          src: "./games/goal/assets/images/football.png",
         },
         {
           name: "player1",
-          src: "./games/goal/assets/player1.png",
+          src: "./games/goal/assets/images/player1.png",
         },
         {
           name: "player2",
-          src: "./games/goal/assets/player2.png",
+          src: "./games/goal/assets/images/player2.png",
         },
         {
           name: "post",
-          src: "./games/goal/assets/post.png",
+          src: "./games/goal/assets/images/post.png",
         },
       ],
       sounds: [
-        { name: "kick", src: "./games/goal/assets/sounds/football-kick.wav" },
-        { name: "cheer", src: "./games/goal/assets/sounds/cheer.wav" },
+        { name: "kick", src: "./games/goal/assets/audio/football-kick.wav" },
+        { name: "cheer", src: "./games/goal/assets/audio/cheer.wav" },
       ],
     },
   },
