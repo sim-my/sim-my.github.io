@@ -100,7 +100,7 @@ export const gamesData = [
     cardImageSrc: "./core/assets/rockets.png",
     assets: {
       images: [
-        { name: "background", src: "./games/goal/assets/bg.png" },
+        { name: "background", src: "./games/goal/assets/bg.jpg" },
         {
           name: "football",
           src: "./games/goal/assets/football.png",
