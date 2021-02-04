@@ -2,14 +2,14 @@ import Goal from "../../games/goal/js/goal.js";
 import Rocket from "../../games/rocket/js/rocket.js";
 import Timberman from "../../games/timberman/js/timberman.js";
 
-import GameEnd from "../components/game-end.js";
-import GameScoreBoard from "../components/game-scoreboard.js";
-import GameInstructions from "../components/game-instructions.js";
+import GameEnd from "../../core/js/components/game-end.js";
+import GameScoreBoard from "../../core/js/components/game-scoreboard.js";
+import GameInstructions from "../../core/js/components/game-instructions.js";
 
-import { playAudio } from "../helpers/audio.js";
-import { getRandomNumber, getCombinedAssets } from "../helpers/utils.js";
+import { playAudio } from "../js/helpers/audio.js";
+import { getRandomNumber, getCombinedAssets } from "../js/helpers/utils.js";
 
-import { gamesData, commonSounds, GAME_STATE, instructions } from "../data.js";
+import { gamesData, commonSounds, GAME_STATE, instructions } from "../js/data.js";
 
 let currentGame = null;
 let currentGameInstance = null;
