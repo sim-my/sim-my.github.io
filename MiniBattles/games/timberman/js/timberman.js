@@ -5,7 +5,7 @@ import Game from "../../../core/js/classes/game.js";
 
 import { FACE_DIRECTION } from "../../../core/js/data.js";
 
-import { playAudio } from "../../../core/js/data.js";
+import { playAudio } from "../../../core/js/audio.js";
 
 export default class Timberman extends Game {
   constructor(
