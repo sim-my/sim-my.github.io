@@ -1,4 +1,4 @@
-import Goal from "../../games/goal/goal.js";
+import Goal from "../../games/goal/js/goal.js";
 import Rocket from "../../games/rocket/js/rocket.js";
 import Timberman from "../../games/timberman/js/timberman.js";
 
