@@ -3,16 +3,16 @@ export default class GameInstructions {
         this.messsage = messsage;
         
         this.instructionShowTime = 2000;
-        this.gameInstructions = document.querySelector(".instructions");
+        this.gameInstructions = document.querySelector('.instructions');
     }
 
     show(){
         this.changeText(this.messsage);
-        this.gameInstructions.style.display = "block";
+        this.gameInstructions.style.display = 'block';
     }
 
     hide(){
-        this.gameInstructions.style.display = "none";
+        this.gameInstructions.style.display = 'none';
     }
 
     changeText(text){

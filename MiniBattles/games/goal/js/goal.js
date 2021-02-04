@@ -1,9 +1,12 @@
-import Game from "../../core/js/classes/game.js";
-import { FACE_DIRECTION } from "../../data.js";
-import Football from "./js/football.js";
-import GoalPost from "./js/goalpost.js";
-import Player from "./js/player.js";
-import {playAudio} from "../../core/js/helpers/audio.js";
+import GoalPlayer from './classes/goal-player.js';
+import Football from './classes/football.js';
+import GoalPost from './classes/goalpost.js';
+
+import Game from '../../../../core/js/classes/game.js';
+
+import { FACE_DIRECTION } from '../../../../core/js/data.js';
+
+import { playAudio } from '../../../../core/js/helpers/audio.js';
 
 export default class Goal extends Game {
   constructor(
@@ -15,11 +18,18 @@ export default class Goal extends Game {
     gameEndScreen,
     gameInstructions
   ) {
-    super(canvas, context, assets, gameScoreBoard, gameEndScreen, gameInstructions);
+    super(
+      canvas,
+      context,
+      assets,
+      gameScoreBoard,
+      gameEndScreen,
+      gameInstructions
+    );
     this.game = game;
     this.football;
-    this.player1;
-    this.player2;
+    this.redPlayer;
+    this.bluePlayer;
     this.rightGoalPost;
     this.leftGoalPost;
     this.goalPostWidth = 100;
@@ -31,10 +41,10 @@ export default class Goal extends Game {
   start() {
     super.start();
 
-    this.football.update(this.player1, this.player2);
+    this.football.update(this.redPlayer, this.bluePlayer);
 
-    this.player1.update(this.player2, this.football);
-    this.player2.update(this.player1, this.football);
+    this.redPlayer.update(this.bluePlayer, this.football);
+    this.bluePlayer.update(this.redPlayer, this.football);
 
     this.rightGoalPost.draw();
     this.leftGoalPost.draw();
@@ -46,9 +56,9 @@ export default class Goal extends Game {
   init() {
     super.init();
 
-    this.football = this.createFootBall(this.assets.images.football);
-    this.player1 = this.createPlayer1(this.assets.images.player1);
-    this.player2 = this.createPlayer2(this.assets.images.player2);
+    this.football = this.createFootBall();
+    this.redPlayer = this.createRedPlayer();
+    this.bluePlayer = this.createBluePlayer();
     this.rightGoalPost = this.createRightGoalPost();
     this.leftGoalPost = this.createLeftGoalPost();
   }
@@ -69,7 +79,7 @@ export default class Goal extends Game {
     });
   }
 
-  createFootBall(footballImage) {
+  createFootBall() {
     let footballWidth = 60;
     let footballHeight = 60;
 
@@ -87,47 +97,41 @@ export default class Goal extends Game {
       footballWidth,
       footballHeight,
       0,
-      footballImage,
+      this.assets.images.football,
       this.canvas,
-      this.context
+      this.context,
+      this.assets.sounds
     );
 
     return football;
   }
 
-  createPlayer1(player1Image) {
-    let player1X = 270;
-    let player1Y = this.canvas.height / 2 - 50;
-    let radians = 0;
+  createRedPlayer() {
+    let redPlayerX = this.canvas.width - 270;
 
     return this.createPlayer(
-      "Player1",
-      player1X,
-      radians,
-      player1Image,
-      FACE_DIRECTION.RIGHT,
-      "KeyA"
-    );
-  }
-
-  createPlayer2(player2Image) {
-    let player2X = this.canvas.width - 270;
-    let player2Y = this.canvas.height / 2 - 50;
-    let radians = -3.14;
-
-    return this.createPlayer(
-      "Player2",
-      player2X,
-      radians,
-      player2Image,
+      redPlayerX,
+      this.assets.images.bluePlayer,
       FACE_DIRECTION.LEFT,
-      "KeyL"
+      'KeyL'
     );
   }
 
-  createPlayer(name, x, radians, image, faceDirection, moveKey ) {
+  createBluePlayer() {
+    let bluePlayerX = 270;
+
+    return this.createPlayer(
+      bluePlayerX,
+      this.assets.images.redPlayer,
+      FACE_DIRECTION.RIGHT,
+      'KeyA'
+    );
+  }
+
+  createPlayer(x, image, faceDirection, moveKey) {
     let playerWidth = 54;
     let playerHeight = 95;
+    const radians = 0;
 
     /**
      * The player isn't centerally located on the Y axis, because of the uniniformity of the image
@@ -136,8 +140,7 @@ export default class Goal extends Game {
     let playerOffsetY = -50;
     let playerY = this.canvas.height / 2 + playerOffsetY;
 
-    const player = new Player(
-      name,
+    const player = new GoalPlayer(
       x,
       playerY,
       playerWidth,
@@ -180,17 +183,16 @@ export default class Goal extends Game {
       height
     );
 
-
     return goalPost;
   }
 
-  resetAllEntities(){
-    this.player1.reset();
-    this.player2.reset();
+  resetAllEntities() {
+    this.redPlayer.reset();
+    this.bluePlayer.reset();
     this.football.reset();
   }
 
-  resetGame(){
+  resetGame() {
     super.resetGame();
     this.resetAllEntities();
   }

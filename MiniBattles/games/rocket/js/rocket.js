@@ -1,7 +1,8 @@
-import Game from "../../core/js/classes/game.js";
-import Obstacles from "./js/classes/obstacles.js";
-import Bullet from "./js/classes/bullet.js";
-import Player from "./js/classes/player.js";
+import Bullet from './classes/bullet.js';
+import RocketPlayer from './classes/rocket-player.js';
+import Obstacles from './classes/obstacles.js';
+
+import Game from '../../../core/js/classes/game.js';
 
 export default class Rocket extends Game {
   constructor(
@@ -31,10 +32,14 @@ export default class Rocket extends Game {
   start() {
     super.start();
 
-    this.updateRockets();
+    this.redRocket.move();
+    this.blueRocket.move();
+
     this.setObstacles();
-    this.updateRedBullet();
-    this.updateBlueBullet();
+
+    this.updateBullet(this.redBullet, this.redRocket);
+    this.updateBullet(this.blueBullet, this.blueRocket);
+
     this.detectCollision(this.redBullet);
     this.detectCollision(this.blueBullet);
   }
@@ -44,48 +49,54 @@ export default class Rocket extends Game {
 
     this.redRocket = this.createRedRocket();
     this.blueRocket = this.createBlueRocket();
+
     this.redBullet = this.createRedBullet();
     this.blueBullet = this.createBlueBullet();
   }
 
   createRedRocket() {
-    const y = this.canvas.height - 100;
-    const redRocket = new Player(
-      y,
-      this.canvas,
-      this.context,
-      this.assets.images.red_rocket
-    );
-    return redRocket;
+    let y = this.canvas.height - 100;
+    let image = this.assets.images.red_rocket;
+
+    return this.createRocket(y, image);
   }
 
   createBlueRocket() {
-    const y = 0;
-    const blueRocket = new Player(
-      y,
-      this.canvas,
-      this.context,
-      this.assets.images.blue_rocket
-    );
-    return blueRocket;
+    let y = 0;
+    let image = this.assets.images.blue_rocket;
+
+    return this.createRocket(y, image);
   }
 
-  updateRockets() {
-    this.redRocket.move();
-    this.blueRocket.move();
+  createRocket(y, image) {
+    let width = 50;
+    let height = 100;
+
+    let rocket = new RocketPlayer(
+      0,
+      y,
+      width,
+      height,
+      image,
+      this.canvas,
+      this.context
+    );
+
+    return rocket;
   }
 
   setObstacles() {
-    const obstaclesSrc = [
+    let obstaclesSrc = [
       this.assets.images.red_obstacle,
       this.assets.images.blue_obstacle,
     ];
-    const count = 2;
+    let count = 2;
     this.obstacles = new Obstacles(
       this.context,
       this.canvas,
       count,
-      obstaclesSrc
+      obstaclesSrc,
+      this.assets.sounds
     );
     this.obstacles.manage();
   }
@@ -105,47 +116,49 @@ export default class Rocket extends Game {
   }
 
   createRedBullet() {
-    const X = this.redRocket.x + this.redRocket.width / 2;
-    const Y = this.canvas.height - this.redRocket.height;
-    const redBullet = new Bullet(
-      this.context,
-      this.canvas,
-      X,
-      Y,
-      "#ff0000",
-      "bottom",
-      "KeyA"
-    );
+    let y = this.canvas.height - this.redRocket.height;
+    let color = 'red';
+    let rocketPos = 'bottom';
+    let key = 'KeyA';
 
-    return redBullet;
+    return this.createBullet(this.redRocket, y, color, rocketPos, key);
   }
 
   createBlueBullet() {
-    const X = this.blueRocket.x + this.blueRocket.width / 2;
-    const Y = this.blueRocket.height;
-    const blueBullet = new Bullet(
+    let y = this.blueRocket.height;
+    let color = 'blue';
+    let rocketPos = 'top';
+    let key = 'KeyL';
+
+    return this.createBullet(this.blueRocket, y, color, rocketPos, key);
+  }
+
+  createBullet(rocket, y, color, rocketPos, key) {
+    let x = rocket.x + rocket.width / 2;
+
+    let bullet = new Bullet(
       this.context,
       this.canvas,
-      X,
-      Y,
-      "#0000FF",
-      "top",
-      "KeyL"
+      x,
+      y,
+      color,
+      rocketPos,
+      key
     );
 
-    return blueBullet;
+    return bullet;
   }
 
-  updateRedBullet() {
-    const X = this.redRocket.x + this.redRocket.width / 2;
-    const Y = this.redRocket.y;
-    this.redBullet.update(X, Y);
-  }
+  updateBullet(bullet, rocket) {
+    let x = rocket.x + rocket.width / 2;
+    let y;
+    if (bullet.rocketPosition == 'top') {
+      y = rocket.height;
+    } else {
+      y = this.canvas.height - rocket.height;
+    }
 
-  updateBlueBullet() {
-    const X = this.blueRocket.x + this.blueRocket.width / 2;
-    const Y = this.blueRocket.y + this.blueRocket.height;
-    this.blueBullet.update(X, Y);
+    bullet.update(x, y);
   }
 
   blastDisplay(x, y) {

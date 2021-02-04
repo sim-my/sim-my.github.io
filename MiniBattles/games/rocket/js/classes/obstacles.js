@@ -1,14 +1,17 @@
-import { getRandomNumber } from '../../../../core/js/helpers/utils.js';
 import Obstacle from './obstacle.js';
 
-const obstacleArray = [];
+import { playAudio } from '../../../../core/js/helpers/audio.js';
 
+import { getRandomNumber } from '../../../../core/js/helpers/utils.js';
+
+const obstacleArray = [];
 export default class Obstacles {    
-    constructor(context, canvas, count, obstacleImgArray){      
+    constructor(context, canvas, count, obstacleImgArray, sound){      
         this.context = context;
         this.canvas = canvas;
         this.count = count;        
         this.obstacleImgArray = obstacleImgArray;
+        this.sound = sound;
 
         this.minGap = 350;
         this.maxGap = 650;
@@ -48,19 +51,21 @@ export default class Obstacles {
     }
 
     detectCollision(bullet, redScoreCallback, blueScoreCallback){
-      if(bullet){
         obstacleArray.forEach(obstacle => {
           obstacle.checkCollission(bullet, () => {
             obstacleArray.splice(obstacle, 1);
-            if(obstacle.key === 0){
-              redScoreCallback(obstacle.x, obstacle.y);
-            }
-            else{
-              blueScoreCallback(obstacle.x, obstacle.y);
-            }
-          });         
+            playAudio(this.sound.poof);
+            if(obstacleArray.indexOf(obstacle) === -1){
+              if(obstacle.key === 0){
+                redScoreCallback(obstacle.x, obstacle.y);
+              }
+              else if (obstacle.key === 1){
+                blueScoreCallback(obstacle.x, obstacle.y);
+              }
+            }            
+          }); 
+      
         })
       }
     }
-}
 

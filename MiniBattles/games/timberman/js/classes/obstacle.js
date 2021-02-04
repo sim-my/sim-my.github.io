@@ -1,4 +1,5 @@
 import Element from '../../../../core/js/classes/element.js';
+
 export default class Obstacle extends Element {
   constructor(canvas, context,image, x, y, width, height, direction) {
     super(canvas, context, image, x, y, width, height)
@@ -8,8 +9,6 @@ export default class Obstacle extends Element {
     this.angleChange = 0.2;
     this.obstacleCollide = false;
     this.obstacleSlide = false;
-    this.obstacleFrame = 0;
-    this.obstacleIndex = 0;
     this.initialX = this.x;
     this.topBoundary = (this.canvas.height * 3) / 4;
     this.bottomBoundary = this.canvas.height - this.height * 4/ 3;
@@ -37,7 +36,6 @@ export default class Obstacle extends Element {
   }
 
   handleFall() {
-
     if (!this.obstacleCollide) {
       this.move(0, 10);
     }
@@ -48,11 +46,7 @@ export default class Obstacle extends Element {
     }
     if (this.y >= this.bottomBoundary) {
       this.obstacleSlide = false;
-      // if (this.obstacleFrame % 5 === 0) {
-      //   this.obstacleIndex = (this.obstacleFrame / 5) % this.images.length;
-      // }
       this.move(this.direction * 8, 0);
-      this.obstacleFrame++;
     }
 
     this.removeObstacleIfOutsideFrame();

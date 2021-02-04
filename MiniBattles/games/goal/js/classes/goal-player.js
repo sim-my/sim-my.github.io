@@ -1,9 +1,8 @@
-import { detectRectangularCollision } from "../../../core/js/helpers/utils.js";
-import { FACE_DIRECTION } from "../../../data.js";
+import Player from "../../../../core/js/classes/player.js";
+import { detectRectangularCollision } from '../../../../core/js/helpers/utils.js';
 
-export default class Player {
+export default class GoalPlayer extends Player {
   constructor(
-    name,
     x,
     y,
     width,
@@ -15,15 +14,8 @@ export default class Player {
     faceDirection,
     moveKey
   ) {
-    this.x = x;
-    this.y = y;
-    this.name = name;
-    this.width = width;
-    this.height = height;
+    super(x, y, width, height, image, canvas, context);
     this.mass = 1;
-    this.image = image;
-    this.canvas = canvas;
-    this.context = context;
     this.radians = radians;
     this.movePlayerKey = moveKey;
     this.faceDirection = faceDirection;
@@ -55,12 +47,12 @@ export default class Player {
     this.initialX = x;
     this.initialY = y;
 
-    window.addEventListener("keypress", (event) => {
+    window.addEventListener('keypress', (event) => {
       if (event.code === this.movePlayerKey) {
         this.rotates = false;
         this.playerMoves = true;
 
-        /** Velocity keeps on increasing */
+        // Velocity keeps on increasing
         if (this.playerMoves) {
           this.velocity.x += 2;
           this.velocity.y += 2;
@@ -68,20 +60,18 @@ export default class Player {
       }
     });
 
-    window.addEventListener("keyup", (e) => {
+    window.addEventListener('keyup', (e) => {
       this.rotates = true;
       this.playerMoves = false;
 
-      /** Restore original velocity */
+      // Restore original velocity
       this.velocity.x = this.initialVelocity.x;
       this.velocity.y = this.initialVelocity.y;
     });
   }
 
-  draw() {}
-
   update(otherPlayer) {
-    this.drawAndContinouslyRotatePlayer();
+    this.draw();
     this.onPlayerCollision(otherPlayer);
     if (this.playerMoves) {
       this.movePlayer();
@@ -89,25 +79,24 @@ export default class Player {
   }
 
   movePlayer() {
-    /** Face Direction reverses their motions should be reversed  */
-    if (this.faceDirection === FACE_DIRECTION.RIGHT) {
-      this.x += this.velocity.x * Math.cos(this.radians);
-      this.y += this.velocity.y * Math.sin(this.radians);
-    } else if (this.faceDirection === FACE_DIRECTION.LEFT) {
-      this.x += -(this.velocity.x * Math.cos(this.radians));
-      this.y += -(this.velocity.y * Math.sin(this.radians));
-    }
+    // Face Direction reverses their motion should be reversed
+    let direction = this.faceDirection;
+    this.x += direction * (this.velocity.x * Math.cos(this.radians));
+    this.y += direction * (this.velocity.y * Math.sin(this.radians));
 
-    this.drawAndContinouslyRotatePlayer();
+    this.draw();
   }
 
-  drawAndContinouslyRotatePlayer() {
+  draw() {
     if (this.rotates) {
       this.radians += this.angleChange;
     }
 
     this.limitPlayerToFrame();
+    this.rotatePlayer();
+  }
 
+  rotatePlayer() {
     this.context.translate(this.x, this.y - this.yOffset);
     this.context.rotate(this.radians);
     this.context.drawImage(
@@ -140,7 +129,6 @@ export default class Player {
     if (this.y + this.height >= innerHeight - this.yBottomFrameOffset) {
       this.y = innerHeight - this.yBottomFrameOffset - this.height;
     }
-    /**  */
   }
 
   onPlayerCollision(player) {

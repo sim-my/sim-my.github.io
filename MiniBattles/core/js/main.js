@@ -1,12 +1,15 @@
-import { gamesData, GAME_STATE } from "./data.js";
-import Rocket from "./games/rocket/rocket.js";
-import Timberman from "./games/timberman/timberman.js";
-import Goal from "./games/goal/goal.js";
-import GameScoreBoard from "./core/js/components/game-scoreboard.js";
-import GameEnd from "./core/js/components/game-end.js";
-import GameInstructions from "./core/js/components/game-instructions.js";
-import {getRandomNumber, getCombinedAssets} from "./core/js/helpers/utils.js";
+import Goal from "../../games/goal/js/goal.js";
+import Rocket from "../../games/rocket/js/rocket.js";
+import Timberman from "../../games/timberman/js/timberman.js";
 
+import GameEnd from "./components/game-end.js";
+import GameScoreBoard from "./components/game-scoreboard.js";
+import GameInstructions from "./components/game-instructions.js";
+
+import { playAudio } from "./helpers/audio.js";
+import { getRandomNumber, getCombinedAssets } from "./helpers/utils.js";
+
+import { gamesData, commonSounds, GAME_STATE, instructions } from "./data.js";
 
 let currentGame = null;
 let currentGameInstance = null;
@@ -25,15 +28,12 @@ const rocketGameBtn = document.querySelector(".rocket-game");
 const timbermanGameBtn = document.querySelector(".timberman-game");
 const goalGameBtn = document.querySelector(".goal-game");
 
-const homeEndButton = document.querySelector(".home-button");
 const randomizeGameButton = document.querySelector(".random-button");
 
 const ctx = canvas.getContext("2d");
 
-// Canvas Responsive
 canvas.height = innerHeight - 100;
 canvas.width = innerWidth;
-
 
 // Get home-page
 const homePage = document.querySelector(".home-page");
@@ -76,20 +76,20 @@ let rocketGameAssets = getCombinedAssets(rocketGameAssetsArray);
 let timbermanGameAssets = getCombinedAssets(timbermanGameAssetsArray);
 let goalGameAssets = getCombinedAssets(goalGameAssetsArray);
 
-
 /**
  * This function, intantiates the right game and sets it to currentGameInstance, which the animateGame function later executes
  *
  * @param {String} gameName Name of the game
  */
-const createGame = (gameName) => {  
+const createGame = (gameName) => {
+  playAudio(commonSounds.game_start);
   currentGame = gameName;
   switch (gameName) {
     case ROCKET_GAME:
       let rocketGameScoreBoard = new GameScoreBoard();
+      let rocketGameInstructions = new GameInstructions(instructions.rocket);
       let rocketGameEndScreen = new GameEnd(canvas, ctx, rocketGameScoreBoard);
-      let rocketGameInstructions = new GameInstructions("This is rocket game");
-
+      
       rocketGame = new Rocket(
         "rocket",
         canvas,
@@ -124,9 +124,7 @@ const createGame = (gameName) => {
         ctx,
         timbermanGameScoreBoard
       );
-      let timbermanGameInstuctions = new GameInstructions(
-        "This is timberman game"
-      );
+      let timbermanGameInstuctions = new GameInstructions(instructions.timberman);
 
       timbermanGame = new Timberman(
         "timberman",
@@ -141,6 +139,7 @@ const createGame = (gameName) => {
       timbermanGame.init();
 
       // End Screen Buttons
+      
       // Home Button
       timbermanGameEndScreen.onHomeButton(() => {
         onHomeButtonPress();
@@ -157,7 +156,7 @@ const createGame = (gameName) => {
     case GOAL_GAME:
       let goalGameScoreCard = new GameScoreBoard();
       let goalGameEndScreen = new GameEnd(canvas, ctx, goalGameScoreCard);
-      let goalGameInstructions = new GameInstructions("This is goal game");
+      let goalGameInstructions = new GameInstructions(instructions.goal);
 
       goalGame = new Goal(
         "goal",

@@ -1,4 +1,4 @@
-import { detectRectangularCollision } from "../helpers/utils.js";
+import { detectRectangularCollision } from '../helpers/utils.js';
 
 export default class Element {
   constructor(canvas, context, image, x, y, width, height) {
@@ -11,14 +11,12 @@ export default class Element {
     this.height = height;
   }
 
-  update() {}
-
   draw() {
     this.context.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
-  checkCollission(object, successCallback) {
-    if (detectRectangularCollision(this, object)) {
+  checkCollission(object, successCallback, thisDx = 0, thisDy = 0, objectDx = 0, objectDy = 0) {
+    if (detectRectangularCollision(this, object, thisDx, thisDy, objectDx, objectDy)) {
       successCallback();
     }
   }

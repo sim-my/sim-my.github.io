@@ -4,19 +4,6 @@
   padding: 0;
   font-family: "Press Start 2P", cursive;
 }
-/* canvas {
-  display: block;
-  width: 100%;
-} */
-
-canvas {
-  image-rendering: optimizeSpeed;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: -o-crisp-edges;
-  image-rendering: pixelated;
-  -ms-interpolation-mode: nearest-neighbor;
-}
 
 body {
   position: relative;
@@ -110,13 +97,14 @@ body .home-page {
   display: none;
   position: absolute;
   z-index: 6;
-  background: url("../assets/images/instructions-bg.jpg") no-repeat;
+  background: url("../assets/images/game-instruction-bg.jpg") no-repeat;
   background-size: contain;
   width: 500px;
   height: 313px;
   padding: 4%;
   left: 50%;
   top: 50%;
+  font-size: 24px;
   transform: translate(-50%, -50%);
 }
 

@@ -1,5 +1,5 @@
 
-import { GAME_STATE } from "../../../data.js";
+import { GAME_STATE } from '../data.js';
 
 export default class Game {
   constructor(
@@ -13,14 +13,14 @@ export default class Game {
     this.canvas = canvas;
     this.context = context;
     this.assets = assets;
-    this.startAudioUrl = "../core/assets/sounds/game-start.mp3";
+    this.startAudioUrl = '../core/assets/sounds/game-start.mp3';
     this.gameScoreBoard = gameScoreBoard;
     this.gameEndScreen = gameEndScreen;
     this.gameInstructions = gameInstructions;
 
     this.assets = assets;
 
-    this.homePage = document.querySelector(".home-page");
+    this.homePage = document.querySelector('.home-page');
 
     this.finalScore = 5;
 
@@ -35,7 +35,7 @@ export default class Game {
 
   init() {
     this.setBackground();
-    this.homePage.style.display = "none";
+    this.homePage.style.display = 'none';
 
     // Show Game Score Board
     this.gameScoreBoard.draw();
@@ -105,7 +105,7 @@ export default class Game {
     this.resetGame();
     this.gameEndScreen.hide();
     this.gameScoreBoard.hide();
-    this.homePage.style.display = "block";
+    this.homePage.style.display = 'block';
   }
 
   handleNext() {

@@ -1,30 +1,3 @@
-// /**
-//  * Preloads all images, useful for starting the game after all images are preloaded
-//  *
-//  * @param Array | Array with image Urls
-//  * @return Object | Image object with key values
-//  */
-// export const preloadImages = (imageUrlsArray) => {
-//   let loadedCounter = 0;
-//   let toBeLoadedNumber = imageUrlsArray.length;
-
-//   let loadedImageObject = {};
-
-//   imageUrlsArray.forEach((imageObject) => {
-//     let name = imageObject.name;
-//     let url = imageObject.src;
-
-//     let image = new Image();
-//     image.src = url;
-
-//     loadedCounter++;
-
-//     loadedImageObject[name] = image;
-//   });
-
-//   return loadedCounter == toBeLoadedNumber ? loadedImageObject : false;
-// };
-
 export const detectRectangularCollision = (
   rect1,
   rect2,

@@ -1,12 +1,7 @@
-import {
-  detectRectangularCollision,
-  setBallPlayerVelocity,
-  oneTimeRectangularCollision
-} from "../../../core/js/helpers/utils.js";
-import {playAudio} from "../../../core/js/helpers/audio.js";
-
+import {playAudio} from '../../../../core/js/helpers/audio.js';
+import {setBallPlayerVelocity,oneTimeRectangularCollision} from '../../../../core/js/helpers/utils.js';
 export default class Football {
-  constructor(x, y, width, height, radians, image, canvas, context) {
+  constructor(x, y, width, height, radians, image, canvas, context, sounds) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -15,6 +10,7 @@ export default class Football {
     this.radius = width;
     this.canvas = canvas;
     this.radians = radians;
+    this.sounds = sounds;
 
     this.dy = 1;
     this.gravity = 1;
@@ -88,12 +84,12 @@ export default class Football {
 
   collision(player1, player2) {
     if (oneTimeRectangularCollision(this, player1)) {
-      // playAudio("./games/goal/assets/sounds/football-kick.wav");
+      playAudio(this.sounds.kick);
       setBallPlayerVelocity(this, player1);
     }
 
     if (oneTimeRectangularCollision(this, player2)) {
-      // playAudio("./games/goal/assets/sounds/football-kick.wav");
+      playAudio(this.sounds.kick);
       setBallPlayerVelocity(this, player2);
     }
   }
