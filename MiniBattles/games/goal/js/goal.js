@@ -2,11 +2,11 @@ import GoalPlayer from './classes/goal-player.js';
 import Football from './classes/football.js';
 import GoalPost from './classes/goalpost.js';
 
-import Game from '../../../../core/js/classes/game.js';
+import Game from '../../../core/js/classes/game.js';
 
-import { FACE_DIRECTION } from '../../../../core/js/data.js';
+import { FACE_DIRECTION } from '../../../core/js/data.js';
 
-import { playAudio } from '../../../../core/js/helpers/audio.js';
+import { playAudio } from '../../../core/js/helpers/audio.js';
 
 export default class Goal extends Game {
   constructor(
