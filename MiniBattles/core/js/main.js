@@ -1,6 +1,6 @@
-import Goal from "../../../games/goal/goal.js";
-import Rocket from "../../../games/rocket/js/rocket.js";
-import Timberman from "../../../games/timberman/js/timberman.js";
+import Goal from "../../games/goal/goal.js";
+import Rocket from "../../games/rocket/js/rocket.js";
+import Timberman from "../../games/timberman/js/timberman.js";
 
 import GameEnd from "./components/game-end.js";
 import GameScoreBoard from "./components/game-scoreboard.js";
