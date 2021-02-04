@@ -3,7 +3,7 @@ import Rocket from "../../games/rocket/js/rocket.js";
 import Timberman from "../../games/timberman/js/timberman.js";
 
 import GameEnd from "../js/components/game-end.js";
-import GameScoreBoard from "../js/components/game-scoreboard";
+import GameScoreBoard from "../js/components/game-scoreboard.js";
 import GameInstructions from "../js/components/game-instructions.js";
 
 import { playAudio } from "../js/helpers/audio.js";
