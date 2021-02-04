@@ -2,9 +2,9 @@ import Goal from "../../games/goal/js/goal.js";
 import Rocket from "../../games/rocket/js/rocket.js";
 import Timberman from "../../games/timberman/js/timberman.js";
 
-import GameEnd from "../../core/js/components/game-end.js";
-import GameScoreBoard from "../../core/js/components/game-scoreboard.js";
-import GameInstructions from "../../core/js/components/game-instructions.js";
+import GameEnd from "../js/components/game-end.js";
+import GameScoreBoard from "../js/components/game-scoreboard";
+import GameInstructions from "../js/components/game-instructions.js";
 
 import { playAudio } from "../js/helpers/audio.js";
 import { getRandomNumber, getCombinedAssets } from "../js/helpers/utils.js";
