@@ -1,4 +1,4 @@
-import Player from "../../../../core/js/classes/player.js";
+import Player from '../../../../core/js/classes/player.js';
 
 export default class TimbermanPlayer extends Player {
   constructor(
@@ -26,7 +26,7 @@ export default class TimbermanPlayer extends Player {
     this.topBoundary = this.canvas.height - (this.height * 5) / 4 - this.height;
     this.bottomBoundary = this.canvas.height - (this.height * 5) / 4;
 
-    window.addEventListener("keypress", (event) => {   
+    window.addEventListener('keypress', (event) => {   
       this.keyPressHandler(event);
     });
   }

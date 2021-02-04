@@ -1,15 +1,14 @@
-import Obstacle from "./classes/obstacle.js";
-import TimbermanPlayer from "./classes/timberman-player.js";
+import Obstacle from './classes/obstacle.js';
+import TimbermanPlayer from './classes/timberman-player.js';
 
-import Game from "../../../core/js/classes/game.js";
+import Game from '../../../core/js/classes/game.js';
 
-import { FACE_DIRECTION } from "../../../core/js/data.js";
+import { FACE_DIRECTION } from '../../../core/js/data.js';
 
-import { playAudio } from "../../../core/js/helpers/audio.js";
+import { playAudio } from '../../../core/js/helpers/audio.js';
 
 export default class Timberman extends Game {
   constructor(
-    game,
     canvas,
     context,
     assets,
@@ -25,7 +24,6 @@ export default class Timberman extends Game {
       gameEndScreen,
       gameInstructions
     );
-    this.game = game;
 
     this.stopBlinkTime = 2000;
 

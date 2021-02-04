@@ -6,7 +6,6 @@ import Game from '../../../core/js/classes/game.js';
 
 export default class Rocket extends Game {
   constructor(
-    game,
     canvas,
     context,
     assets,
@@ -23,7 +22,6 @@ export default class Rocket extends Game {
       gameInstructions
     );
 
-    this.game = game;
     this.gameRun = true;
 
     this.obstacles;

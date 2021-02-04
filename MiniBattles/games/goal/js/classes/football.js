@@ -12,13 +12,7 @@ export default class Football {
     this.radians = radians;
     this.sounds = sounds;
 
-    this.dy = 1;
-    this.gravity = 1;
-    this.mass = 1;
     this.context = context;
-    this.friction = 0.8;
-    this.xr = 0;
-    this.xy = 0;
     this.velocity = {
       x: 0,
       y: 0,
@@ -63,7 +57,15 @@ export default class Football {
   update(player1, player2) {
     this.draw();
     this.collision(player1, player2);
-    /** Border Collission */
+    
+    this.borderCollision(); 
+    
+    
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
+  }
+
+  borderCollision(){
     if (
       this.x - this.width <= this.xLeftFrameOffset ||
       this.x + this.width >= innerWidth - this.xRightFrameOffset
@@ -77,10 +79,9 @@ export default class Football {
     ) {
       this.velocity.y = -this.velocity.y;
     }
-
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
   }
+
+  
 
   collision(player1, player2) {
     if (oneTimeRectangularCollision(this, player1)) {

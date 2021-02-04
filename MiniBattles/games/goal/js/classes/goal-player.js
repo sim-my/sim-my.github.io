@@ -1,4 +1,4 @@
-import Player from "../../../../core/js/classes/player.js";
+import Player from '../../../../core/js/classes/player.js';
 import { detectRectangularCollision } from '../../../../core/js/helpers/utils.js';
 
 export default class GoalPlayer extends Player {
@@ -15,7 +15,7 @@ export default class GoalPlayer extends Player {
     moveKey
   ) {
     super(x, y, width, height, image, canvas, context);
-    this.mass = 1;
+
     this.radians = radians;
     this.movePlayerKey = moveKey;
     this.faceDirection = faceDirection;
@@ -70,9 +70,9 @@ export default class GoalPlayer extends Player {
     });
   }
 
-  update(otherPlayer) {
+  update() {
     this.draw();
-    this.onPlayerCollision(otherPlayer);
+
     if (this.playerMoves) {
       this.movePlayer();
     }
@@ -83,8 +83,6 @@ export default class GoalPlayer extends Player {
     let direction = this.faceDirection;
     this.x += direction * (this.velocity.x * Math.cos(this.radians));
     this.y += direction * (this.velocity.y * Math.sin(this.radians));
-
-    this.draw();
   }
 
   draw() {
@@ -128,13 +126,6 @@ export default class GoalPlayer extends Player {
 
     if (this.y + this.height >= innerHeight - this.yBottomFrameOffset) {
       this.y = innerHeight - this.yBottomFrameOffset - this.height;
-    }
-  }
-
-  onPlayerCollision(player) {
-    if (detectRectangularCollision(this, player)) {
-      this.x = player.x + this.width;
-      this.y = player.y + this.height;
     }
   }
 

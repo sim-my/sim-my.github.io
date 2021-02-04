@@ -1,4 +1,4 @@
-import Player from "../../../../core/js/classes/player.js";
+import Player from '../../../../core/js/classes/player.js';
 
 export default class RocketPlayer extends Player {
   constructor(x, y, width, height, image, canvas, context) {

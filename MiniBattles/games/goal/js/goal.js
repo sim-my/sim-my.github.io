@@ -10,7 +10,6 @@ import { playAudio } from '../../../core/js/helpers/audio.js';
 
 export default class Goal extends Game {
   constructor(
-    game,
     canvas,
     context,
     assets,
@@ -26,14 +25,12 @@ export default class Goal extends Game {
       gameEndScreen,
       gameInstructions
     );
-    this.game = game;
+
     this.football;
     this.redPlayer;
     this.bluePlayer;
     this.rightGoalPost;
     this.leftGoalPost;
-    this.goalPostWidth = 100;
-    this.goalPostHeight = 200;
 
     this.gameRunning;
   }
@@ -43,8 +40,8 @@ export default class Goal extends Game {
 
     this.football.update(this.redPlayer, this.bluePlayer);
 
-    this.redPlayer.update(this.bluePlayer, this.football);
-    this.bluePlayer.update(this.redPlayer, this.football);
+    this.redPlayer.update();
+    this.bluePlayer.update();
 
     this.rightGoalPost.draw();
     this.leftGoalPost.draw();
@@ -84,11 +81,7 @@ export default class Goal extends Game {
     let footballHeight = 60;
 
     let x = this.canvas.width / 2;
-    /**
-     * The ball doesnt look exactly on the center, because of the image
-     * The number changes how far (+) or close (-) the ball is from the center of canvas
-     */
-    let ballDistanceYFromCenter = -10;
+
     let y = this.canvas.height / 2;
 
     const football = new Football(
@@ -131,7 +124,7 @@ export default class Goal extends Game {
   createPlayer(x, image, faceDirection, moveKey) {
     let playerWidth = 54;
     let playerHeight = 95;
-    const radians = 0;
+    let radians = 0;
 
     /**
      * The player isn't centerally located on the Y axis, because of the uniniformity of the image
@@ -156,7 +149,8 @@ export default class Goal extends Game {
   }
 
   createRightGoalPost() {
-    let x = this.canvas.width - 75 - this.goalPostWidth;
+    let width = 100;
+    let x = this.canvas.width - 75 - width;
     let y = this.canvas.height / 2 - 120;
 
     return this.createGoalPost(x, y);
@@ -170,8 +164,8 @@ export default class Goal extends Game {
   }
 
   createGoalPost(x, y) {
-    let width = this.goalPostWidth;
-    let height = this.goalPostHeight;
+    let width = 100;
+    let height = 200;
 
     const goalPost = new GoalPost(
       this.canvas,

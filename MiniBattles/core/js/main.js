@@ -1,56 +1,61 @@
-import Goal from "../../games/goal/js/goal.js";
-import Rocket from "../../games/rocket/js/rocket.js";
-import Timberman from "../../games/timberman/js/timberman.js";
+import Goal from '../../games/goal/js/goal.js';
+import Rocket from '../../games/rocket/js/rocket.js';
+import Timberman from '../../games/timberman/js/timberman.js';
 
-import GameEnd from "./components/game-end.js";
-import GameScoreBoard from "./components/game-scoreboard.js";
-import GameInstructions from "./components/game-instructions.js";
+import GameEnd from './components/game-end.js';
+import GameScoreBoard from './components/game-scoreboard.js';
+import GameInstructions from './components/game-instructions.js';
 
-import { playAudio } from "./helpers/audio.js";
-import { getRandomNumber, getCombinedAssets } from "./helpers/utils.js";
+import { playAudio } from './helpers/audio.js';
+import { getRandomNumber, getCombinedAssets } from './helpers/utils.js';
 
-import { gamesData, commonSounds, GAME_STATE, instructions } from "./data.js";
+import { gamesData, commonSounds, GAME_STATE, instructions } from './data.js';
 
 let currentGame = null;
 let currentGameInstance = null;
 
 let rocketGame, goalGame, timbermanGame;
 
-const ROCKET_GAME = "ROCKET_GAME";
-const TIMBER_MAN_GAME = "TIMBER_MAN_GAME";
-const GOAL_GAME = "GOAL_GAME";
+const ROCKET_GAME = 'ROCKET_GAME';
+const TIMBER_MAN_GAME = 'TIMBER_MAN_GAME';
+const GOAL_GAME = 'GOAL_GAME';
 
 const gameOrder = [GOAL_GAME, TIMBER_MAN_GAME, ROCKET_GAME];
 
-const canvas = document.querySelector("canvas");
+const canvas = document.querySelector('canvas');
 
-const rocketGameBtn = document.querySelector(".rocket-game");
-const timbermanGameBtn = document.querySelector(".timberman-game");
-const goalGameBtn = document.querySelector(".goal-game");
+const rocketGameBtn = document.querySelector('.rocket-game');
+const timbermanGameBtn = document.querySelector('.timberman-game');
+const goalGameBtn = document.querySelector('.goal-game');
 
-const randomizeGameButton = document.querySelector(".random-button");
+const randomizeGameButton = document.querySelector('.random-button');
 
-const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext('2d');
 
 canvas.height = innerHeight - 100;
 canvas.width = innerWidth;
 
-// Get home-page
-const homePage = document.querySelector(".home-page");
+addEventListener('resize',()=>{
+  canvas.height = innerHeight - 100;
+  canvas.width = innerWidth;
+});
 
-rocketGameBtn.addEventListener("click", () => {
+// Get home-page
+const homePage = document.querySelector('.home-page');
+
+rocketGameBtn.addEventListener('click', () => {
   createGame(ROCKET_GAME);
 });
 
-timbermanGameBtn.addEventListener("click", () => {
+timbermanGameBtn.addEventListener('click', () => {
   createGame(TIMBER_MAN_GAME);
 });
 
-goalGameBtn.addEventListener("click", () => {
+goalGameBtn.addEventListener('click', () => {
   createGame(GOAL_GAME);
 });
 
-randomizeGameButton.addEventListener("click", () => {
+randomizeGameButton.addEventListener('click', () => {
   let randomGame = getRandomGame(gameOrder);
   createGame(randomGame);
 });
@@ -91,7 +96,6 @@ const createGame = (gameName) => {
       let rocketGameEndScreen = new GameEnd(canvas, ctx, rocketGameScoreBoard);
       
       rocketGame = new Rocket(
-        "rocket",
         canvas,
         ctx,
         rocketGameAssets,
@@ -127,7 +131,6 @@ const createGame = (gameName) => {
       let timbermanGameInstuctions = new GameInstructions(instructions.timberman);
 
       timbermanGame = new Timberman(
-        "timberman",
         canvas,
         ctx,
         timbermanGameAssets,
@@ -159,7 +162,6 @@ const createGame = (gameName) => {
       let goalGameInstructions = new GameInstructions(instructions.goal);
 
       goalGame = new Goal(
-        "goal",
         canvas,
         ctx,
         goalGameAssets,

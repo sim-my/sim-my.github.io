@@ -5,10 +5,6 @@ export default class GoalPost extends Element {
     super(canvas, context, image, x, y, width, height);
   }
 
-  draw() {
-    super.draw();
-  }
-
   update() {
     this.draw();
   }
