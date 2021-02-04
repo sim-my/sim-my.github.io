@@ -9,7 +9,7 @@ import GameInstructions from "../../core/js/components/game-instructions.js";
 import { playAudio } from "../js/helpers/audio.js";
 import { getRandomNumber, getCombinedAssets } from "../js/helpers/utils.js";
 
-import { gamesData, commonSounds, GAME_STATE, instructions } from "../js/data.js";
+import { gamesData, commonSounds, GAME_STATE, instructions } from "../data.js";
 
 let currentGame = null;
 let currentGameInstance = null;
