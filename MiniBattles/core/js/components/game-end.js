@@ -85,4 +85,10 @@ export default class GameEnd {
     this.homeEndButton.addEventListener('click', () => homeButtonFunction());
   }
 
+  onAnyButtonClick(anyButtonClickFunction) {
+    this.gameEndButtons.forEach((elem) =>
+      elem.addEventListener('click', anyButtonClickFunction)
+    );
+  }
+
 }

@@ -42,6 +42,8 @@ export default class Game {
 
     this.gameEndScreen.onNextButton(this.handleNext.bind(this));
 
+    this.gameEndScreen.onAnyButtonClick(this.handleAnyButtonClick.bind(this));
+
     // Show instructions
     this.gameInstructions.show();
 
@@ -107,6 +109,9 @@ export default class Game {
     this.gameScoreBoard.hide();
   }
 
+  handleAnyButtonClick() {
+    this.gameState = GAME_STATE.RUNNING;
+  }
 
   resetGame() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
