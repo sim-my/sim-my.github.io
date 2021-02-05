@@ -11,7 +11,6 @@ import { getRandomNumber, getCombinedAssets } from './helpers/utils.js';
 
 import { gamesData, commonSounds, GAME_STATE, instructions } from './data.js';
 
-let currentGame = null;
 let currentGameInstance = null;
 
 let rocketGame, goalGame, timbermanGame;
@@ -88,7 +87,6 @@ let goalGameAssets = getCombinedAssets(goalGameAssetsArray);
  */
 const createGame = (gameName) => {
   playAudio(commonSounds.game_start);
-  currentGame = gameName;
   switch (gameName) {
     case ROCKET_GAME:
       let rocketGameScoreBoard = new GameScoreBoard();
