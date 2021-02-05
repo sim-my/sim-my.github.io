@@ -13,17 +13,12 @@ export default class Game {
     this.canvas = canvas;
     this.context = context;
     this.assets = assets;
-    this.startAudioUrl = '../core/assets/sounds/game-start.mp3';
     this.gameScoreBoard = gameScoreBoard;
     this.gameEndScreen = gameEndScreen;
     this.gameInstructions = gameInstructions;
 
-    this.assets = assets;
-
     this.homePage = document.querySelector('.home-page');
-
     this.finalScore = 5;
-
     this.gameState = GAME_STATE.STOPPED;
   }
 
@@ -46,8 +41,6 @@ export default class Game {
     this.gameEndScreen.onReplayButton(this.handleReplay.bind(this));
 
     this.gameEndScreen.onNextButton(this.handleNext.bind(this));
-
-    this.gameEndScreen.onAnyButtonClick(this.handleAnyButtonClick.bind(this));
 
     // Show instructions
     this.gameInstructions.show();
@@ -114,9 +107,6 @@ export default class Game {
     this.gameScoreBoard.hide();
   }
 
-  handleAnyButtonClick() {
-    this.gameState = GAME_STATE.RUNNING;
-  }
 
   resetGame() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);

@@ -121,6 +121,3 @@ export const getCombinedAssets = (assetsArray) => {
   return { images: imageObj, sounds: soundObj };
 };
 
-export const getWidth = (value, ratio) => {
-  return value * ratio;
-};

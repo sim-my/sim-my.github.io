@@ -49,7 +49,6 @@ export default class GameEnd {
   }
 
   blueWinsGameEnd() {
-    console.log('Blue wins gamer');
     this.increaseBlueGameScore();
     this.increaseBlueTotalGameScore();
     this.showGameEnd(
@@ -86,9 +85,4 @@ export default class GameEnd {
     this.homeEndButton.addEventListener('click', () => homeButtonFunction());
   }
 
-  onAnyButtonClick(anyButtonClickFunction) {
-    this.gameEndButtons.forEach((elem) =>
-      elem.addEventListener('click', anyButtonClickFunction)
-    );
-  }
 }
